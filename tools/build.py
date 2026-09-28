@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+"""レスられ総研 サイト生成スクリプト
+
+Notion から書き出した生データ（_notion/articles.json, _notion/stats.json）を読み、
+ステータス「公開」の行だけを使って index.html / data/*.json / sitemap.xml を作る。
+
+_notion/ には未確認の記事や博士メモが含まれるため、Git には入れない（.gitignore 済み）。
+公開リポジトリに出るのは、このスクリプトが公開行だけを抜き出した data/ と index.html のみ。
+
+使い方: python3 tools/build.py
+"""
+import html
+import json
+import re
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+RAW = ROOT / "_notion"
+SITE_URL = "https://lesscue.com/"
+CONTACT = "準備中（公開時に問い合わせフォームを設置します）"
+JST = timezone(timedelta(hours=9))
+
+KIND_COLOR = {
+    "悩み": "--t-worry", "解決策": "--t-answer", "体験記": "--t-story",
+    "データ・統計": "--t-data", "論文": "--t-paper", "ニュース": "--t-news",
+}
+
+
+def as_list(v):
+    """Notion のマルチセレクト／リレーションは JSON 文字列で来るので配列に直す。"""
+    if v is None or v == "":
+        return []
+    if isinstance(v, list):
+        return v
+    try:
+        out = json.loads(v)
+        return out if isinstance(out, list) else [out]
+    except (ValueError, TypeError):
+        return [v]
+
+
+def clean_title(t):
+    # 共有時に付くマークダウンの太字記号などを落とす
+    return re.sub(r"^\*+|\*+$", "", (t or "").strip())
+
+
+def load(name):
+    p = RAW / name
+    if not p.exists():
+        return []
+    rows = json.loads(p.read_text(encoding="utf-8"))
+    return rows.get("results", rows) if isinstance(rows, dict) else rows
+
+
+def build_articles(rows):
+    out = []
+    for r in rows:
+        if r.get("ステータス") != "公開":
+            continue
+        url = r.get("userDefined:URL") or ""
+        if not url or "yahoo.co.jp" in url:
+            continue
+        out.append({
+            "id": r.get("url", ""),
+            "t": clean_title(r.get("タイトル")),
+            "u": url,
+            "k": r.get("種別") or "未分類",
+            "ty": as_list(r.get("型")),
+            "tg": as_list(r.get("タグ")),
+            "w": r.get("筆者") or "研究者・媒体・不明",
+            "a": as_list(r.get("年代")) or ["不明"],
+            "l": r.get("言語") or "日本語",
+            "m": r.get("媒体") or "",
+            "d": r.get("date:公開日:start") or "",
+            "s": r.get("要約") or "",
+            "c": r.get("論評") or "",
+        })
+    out.sort(key=lambda x: x["d"], reverse=True)
+    return out
+
+
+def build_stats(rows, article_rows):
+    """公開ステータスの数値だけを、男女別の対があれば1枚のカードにまとめる。"""
+    by_page = {r.get("url", "").split("?")[0]: r for r in article_rows}
+    pub = [r for r in rows if r.get("ステータス") == "公開" and r.get("数値") is not None]
+    groups = {}
+    for r in pub:
+        src = (as_list(r.get("出典記事")) or [""])[0].split("?")[0]
+        base = re.sub(r"（(男性|女性|夫|妻)）$", "", r.get("見出し") or "")
+        key = (src, r.get("時点"), base)
+        groups.setdefault(key, []).append(r)
+    cards = []
+    for (src, t, base), rs in groups.items():
+        art = by_page.get(src, {})
+        su = art.get("userDefined:URL", "")
+        sm = art.get("媒体", "")
+        first = rs[0]
+        card = {"h": base, "c": first.get("国・地域") or "その他", "t": t or "",
+                "o": first.get("対象") or "", "su": su, "sm": sm}
+        sexed = [r for r in rs if set(as_list(r.get("区分"))) & {"男性", "女性"}]
+        if len(rs) > 1 and len(sexed) == len(rs):
+            rs = sorted(rs, key=lambda r: 0 if "男性" in as_list(r.get("区分")) else 1)
+            card["br"] = [[as_list(r.get("区分"))[0], r["数値"]] for r in rs]
+            parts = [re.match(r"^(.*)の(男性|女性)(.*)$", r.get("対象") or "") for r in rs]
+            if all(parts):
+                card["o"] = parts[0].group(1) + "（" + "・".join(m.group(2) + m.group(3) for m in parts) + "）"
+        else:
+            card["v"] = first["数値"]
+            if first.get("比較前の数値") is not None:
+                card["prev"] = [first["比較前の数値"], first.get("比較前の時点") or ""]
+        cards.append(card)
+    cards.sort(key=lambda c: int(re.sub(r"\D", "", c["t"]) or 0), reverse=True)
+    return cards
+
+
+def static_list(arts):
+    """JS が動かない環境や検索エンジン向けに、記事一覧を最初から HTML で書いておく。"""
+    if not arts:
+        return '<p class="empty">公開中の記事はまだありません。</p>'
+    e = html.escape
+    items = []
+    for d in arts:
+        color = KIND_COLOR.get(d["k"], "--t-news")
+        lang = "日本語" if d["l"] == "日本語" else d["l"] + "（日本語要約あり）"
+        date = d["d"].replace("-", ".") if d["d"] else "公開日不明"
+        items.append(
+            f'<article class="entry" style="--c:var({color})">'
+            f'<div class="meta"><span class="kind">{e(d["k"])}</span><span>{e(d["m"])}</span><span>{date}</span><span>{e(lang)}</span></div>'
+            f'<h5><a href="{e(d["u"])}" target="_blank" rel="noopener">{e(d["t"])}</a></h5>'
+            + (f'<p class="comment">{e(d["c"])}</p>' if d["c"] else "")
+            + (f'<details><summary>要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
+            + f'<a class="read" href="{e(d["u"])}" target="_blank" rel="noopener">元の記事を読む ↗</a></article>'
+        )
+    return '<section class="group"><h4>新しい順</h4><div class="list">' + "".join(items) + "</div></section>"
+
+
+def js_json(obj):
+    return json.dumps(obj, ensure_ascii=False).replace("</", "<\\/")
+
+
+def main():
+    article_rows = load("articles.json")
+    stat_rows = load("stats.json")
+    arts = build_articles(article_rows)
+    stats = build_stats(stat_rows, article_rows)
+    now = datetime.now(JST)
+
+    (ROOT / "data").mkdir(exist_ok=True)
+    (ROOT / "data" / "articles.json").write_text(json.dumps(arts, ensure_ascii=False, indent=1), encoding="utf-8")
+    (ROOT / "data" / "stats.json").write_text(json.dumps(stats, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    tpl = (ROOT / "src" / "template.html").read_text(encoding="utf-8")
+    out = (tpl.replace("{{ARTICLES_JSON}}", js_json(arts))
+              .replace("{{STATS_JSON}}", js_json(stats))
+              .replace("{{STATIC_LIST}}", static_list(arts))
+              .replace("{{STATS_HIDDEN}}", "" if stats else " hidden")
+              .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
+              .replace("{{CONTACT}}", html.escape(CONTACT)))
+    leftover = re.findall(r"\{\{[A-Z_]+\}\}", out)
+    if leftover:
+        raise SystemExit(f"未置換のプレースホルダ: {leftover}")
+    (ROOT / "index.html").write_text(out, encoding="utf-8")
+
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"  <url><loc>{SITE_URL}</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
+        "</urlset>\n", encoding="utf-8")
+
+    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html を生成しました")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,4 @@
+# Notion の生データ（未確認の記事・博士メモを含む）は公開しない
+_notion/
+__pycache__/
+.DS_Store

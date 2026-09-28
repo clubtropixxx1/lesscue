@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>セックスレスの原因と解消法を型で探す｜レスられ総研</title>
+<meta name="description" content="セックスレスに悩む人のためのデータベース。二択の診断で妻拒否型・夫拒否型などの悩みの型を判定し、原因と解消法の記事・論文・調査データを型別にまとめています。">
+<link rel="canonical" href="https://lesscue.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="レスられ総研">
+<meta property="og:title" content="セックスレスの原因と解消法を型で探す｜レスられ総研">
+<meta property="og:description" content="―私はレス山さんを救いたい― セックスレスの原因と解消法を、悩みの型ごとに集めたデータベース。">
+<meta property="og:url" content="https://lesscue.com/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234F5D8C'/%3E%3Cpath d='M6 24 13 11l5 8 3-4 5 9z' fill='%23F2F3EF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+:root{
+  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --muted:#5E6866; --line:#D9DDD6;
+  --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD;
+  --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
+  --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --muted:#9AA4A2; --line:#2C3338;
+    --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
+    --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --muted:#9AA4A2; --line:#2C3338;
+  --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
+  --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75}
+.wrap{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+.note{margin-top:16px;padding:8px 12px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:12.5px}
+header.site{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-block:28px 20px;border-bottom:1px solid var(--line)}
+.logo{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:.02em;margin:0}
+.logo span{color:var(--accent)}
+.tagline{color:var(--muted);font-size:13px;margin:0}
+nav.site-nav{display:flex;gap:16px;font-size:13px}
+nav.site-nav a{color:var(--muted);text-decoration:none}
+nav.site-nav a:hover{color:var(--ink)}
+
+.intro{padding-block:28px 8px}
+.intro h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px;text-wrap:balance}
+.intro p{margin:0;color:var(--muted);max-width:60ch}
+
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.type{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:12px 14px;cursor:pointer;font:inherit;display:flex;flex-direction:column;gap:2px}
+.type:hover{border-color:var(--accent)}
+.type:focus-visible,.chip:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.type[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.type b{font-weight:700;font-size:15px}
+.type small{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+
+.filters{display:flex;flex-wrap:wrap;gap:14px 24px;margin-top:22px;padding-block:14px;border-block:1px solid var(--line)}
+.fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.fgroup > span{font-size:11.5px;letter-spacing:.08em;color:var(--muted);margin-right:4px}
+.chip{appearance:none;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:3px 11px;font:inherit;font-size:12.5px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.typehead{margin-top:26px}
+.typehead h3{font-family:var(--display);font-size:20px;margin:0}
+.typehead p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.placeholder{border:1px dashed var(--line);border-radius:6px;padding:6px 10px;display:inline-block}
+
+.group{margin-top:26px}
+.group h4{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:13px;letter-spacing:.08em}
+.group h4::after{content:"";flex:1;height:1px;background:var(--line)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.list{display:flex;flex-direction:column;gap:12px}
+
+article.entry{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.kind{color:var(--c);font-weight:700}
+.entry h5{margin:0;font-size:16px;line-height:1.55;font-weight:700;text-wrap:pretty}
+.entry h5 a{color:inherit;text-decoration:none}
+.entry h5 a:hover{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px}
+.comment{margin:0;font-family:var(--display);font-weight:600;font-size:15px;line-height:1.8}
+.comment::before{content:"運営より　";font-family:var(--body);font-size:11px;letter-spacing:.08em;color:var(--accent);font-weight:700}
+details summary{cursor:pointer;color:var(--muted);font-size:12.5px}
+details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11.5px;padding:1px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent)}
+.read{align-self:flex-start;font-size:13px;color:var(--accent);font-weight:700;text-decoration:none}
+.read:hover{text-decoration:underline}
+.empty{color:var(--muted);padding:24px 0}
+.quiz{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;display:flex;flex-direction:column;gap:14px}
+.quiz-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.quiz-top span{font-size:11.5px;letter-spacing:.1em;color:var(--accent);font-weight:700}
+.quiz-top small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.q{font-family:var(--display);font-weight:600;font-size:19px;margin:0;text-wrap:balance}
+.answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.ans{appearance:none;font:inherit;font-size:15px;font-weight:500;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:12px 14px;cursor:pointer;text-align:center}
+.ans:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ans:focus-visible,.link-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.trail{display:flex;flex-wrap:wrap;gap:6px;font-size:12px;color:var(--muted)}
+.trail i{font-style:normal;padding:1px 8px;border-radius:4px;background:var(--bg);border:1px solid var(--line)}
+.result-type{font-family:var(--display);font-weight:800;font-size:26px;margin:0;color:var(--accent)}
+.result p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
+.picks{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.pick{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-left:3px solid var(--c);background:var(--bg);border-radius:0 6px 6px 0}
+.pick a{color:var(--ink);font-weight:700;text-decoration:none;font-size:14px;line-height:1.55}
+.pick a:hover{text-decoration:underline}
+.pick small{color:var(--muted);font-size:12px}
+.quiz-actions{display:flex;flex-wrap:wrap;gap:16px}
+.link-btn{appearance:none;border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;color:var(--accent);cursor:pointer}
+.link-btn:hover{text-decoration:underline}
+.stats{margin-top:36px}
+.stats-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
+.stats-head h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
+.stats-head p{margin:0;color:var(--muted);font-size:13px}
+.stat-filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.stat-label{font-size:13.5px;font-weight:700;line-height:1.5;margin:0}
+.stat-nums{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:baseline}
+.big{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.big small{font-size:18px;margin-left:2px;font-weight:600}
+.big-sub{display:flex;flex-direction:column;gap:2px}
+.big-sub span{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.big-sub .big{font-size:30px}
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar{display:grid;grid-template-columns:4.5em 1fr 3.4em;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar-track{height:8px;border-radius:4px;background:var(--bg);overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:var(--accent)}
+.bar-fill.prev{background:var(--muted);opacity:.45}
+.bar b{color:var(--ink);font-weight:500;text-align:right}
+.trend{font-size:12.5px;color:var(--muted)}
+.stat-meta{margin-top:auto;display:flex;flex-direction:column;gap:2px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.stat-meta a{color:var(--accent);text-decoration:none}
+.stat-meta a:hover{text-decoration:underline}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;max-width:68ch}
+footer p{margin:0 0 8px}
+.about-h{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink);margin:0 0 10px}
+.updated{font-size:11.5px;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:no-preference){.type,.chip{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site">
+    <div>
+      <h1 class="logo">レスられ<span>総研</span></h1>
+      <p class="tagline">―私はレス山さんを救いたい―　セックスレスの原因と解消法を、悩みの型ごとに集めたデータベース</p>
+    </div>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="#data"{{STATS_HIDDEN}}>数字で見る</a><a href="#list">記事一覧</a><a href="#about">このサイトについて</a>
+    </nav>
+  </header>
+
+  <section class="quiz" id="quiz" aria-live="polite"></section>
+
+  <section class="stats" id="data"{{STATS_HIDDEN}}>
+    <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
+    <div class="stat-filters" id="stat-filters"></div>
+    <div class="stat-grid" id="stat-grid"></div>
+  </section>
+
+  <section class="intro">
+    <h2>あなたの状況に近い型から探す</h2>
+    <p>型を選ぶと、その型の悩み、解決策、データ、論文の順に、それぞれ新しい記事から並びます。「すべて」では全記事を公開日の新しい順に表示します。</p>
+    <div class="types" id="types"></div>
+  </section>
+
+  <div class="filters" id="filters"></div>
+
+  <div class="typehead" id="typehead"></div>
+  <main id="list">{{STATIC_LIST}}</main>
+
+  <footer id="about">
+    <h2 class="about-h">このサイトについて</h2>
+    <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
+    <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
+    <p>掲載記事の削除依頼・お問い合わせ：{{CONTACT}}</p>
+    <p class="updated">最終更新：{{BUILD_DATE}}</p>
+  </footer>
+</div>
+
+<script>
+const DATA={{ARTICLES_JSON}};
+const TYPES=["妻拒否型","夫拒否型","流動的不仲型","完全不仲型"];
+const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
+const FACETS={w:["男性","女性"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
+const FLABEL={w:"筆者",a:"年代",l:"言語",tg:"タグ"};
+const st={type:"すべて",w:null,a:null,l:null,tg:null};
+DATA.forEach(d=>{d.tg=d.tg||[];});
+FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
+DATA.sort((x,y)=>(y.d||"").localeCompare(x.d||""));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderTypes(){
+  const all=["すべて",...TYPES];
+  $("#types").innerHTML=all.map(t=>{
+    const n=t==="すべて"?DATA.length:DATA.filter(d=>d.ty.includes(t)).length;
+    return `<button class="type" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
+  }).join("");
+  $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();});
+}
+function renderFilters(){
+  $("#filters").innerHTML=Object.keys(FACETS).map(f=>`<div class="fgroup"><span>${FLABEL[f]}</span>${
+    FACETS[f].map(v=>`<button class="chip" id="f-${f}-${v}" aria-pressed="${st[f]===v}" data-f="${f}" data-v="${v}">${v}</button>`).join("")
+  }</div>`).join("");
+  $("#filters").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{const f=b.dataset.f,v=b.dataset.v;st[f]=st[f]===v?null:v;render();});
+}
+function renderList(){
+  const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
+    &&(!st.w||d.w===st.w)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg)));
+  $("#typehead").innerHTML=st.type==="すべて"
+    ?`<h3>すべての記事</h3><p>${rows.length}件</p>`
+    :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`;
+  if(!rows.length){$("#list").innerHTML=`<p class="empty">この条件の記事はまだありません。条件を外すと他の記事が表示されます。</p>`;return;}
+  const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
+  const card=d=>`
+      <article class="entry" style="--c:var(${kc(d.k)})">
+        <div class="meta"><span class="kind">${d.k}</span><span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
+        <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
+        ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
+        ${d.s?`<details><summary>要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
+        <div class="tags">${[...d.ty,...d.tg,...d.a.filter(x=>x!=="不明"),d.w==="研究者・媒体・不明"?"":"筆者："+d.w].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+        <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
+      </article>`;
+  if(st.type==="すべて"){
+    $("#list").innerHTML=`<section class="group"><h4>新しい順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
+    return;
+  }
+  $("#list").innerHTML=KINDS.map(([k,c])=>{
+    const g=rows.filter(d=>d.k===k); if(!g.length)return "";
+    return `<section class="group" style="--c:var(${c})"><h4><i class="dot"></i>${k}（${g.length}）</h4><div class="list">${g.map(card).join("")}</div></section>`;
+  }).join("");
+}
+/* ---- 二択診断 ---- */
+const Q={
+  role:{q:"あなたは夫ですか、妻ですか？",a:[["夫","husband"],["妻","wife"]],next:()=>"who"},
+  who:{q:"主にセックスを避けているのは誰ですか？",a:[["自分","self"],["相手","partner"],["どちらとも言えない","both"]],next:v=>v==="both"?"mood":null},
+  mood:{q:"ふだんの夫婦仲は？",a:[["波がある（良い時もある）","wave"],["ずっと冷えている","cold"]],next:()=>null}
+};
+const DESC={
+  "妻拒否型":"夫は求めているが、妻が応じない状態。",
+  "夫拒否型":"妻は求めているが、夫が応じない状態。",
+  "流動的不仲型":"どちらが拒否しているとも言い切れず、仲の良し悪しに波がある状態。",
+  "完全不仲型":"どちらが拒否しているとも言い切れず、関係全体が冷え切っている状態。"
+};
+const qs={step:"role",ans:{},trail:[]};
+function judge(a){
+  if(a.who==="self")return a.role==="husband"?"夫拒否型":"妻拒否型";
+  if(a.who==="partner")return a.role==="husband"?"妻拒否型":"夫拒否型";
+  return a.mood==="wave"?"流動的不仲型":"完全不仲型";
+}
+function kindColor(k){return (KINDS.find(x=>x[0]===k)||KINDS[5])[1];}
+function renderQuiz(){
+  const el=$("#quiz");
+  const total=qs.ans.who==="both"||qs.step==="mood"?4:3;
+  const trail=qs.trail.length?`<div class="trail">${qs.trail.map(t=>`<i>${t}</i>`).join("")}</div>`:"";
+  if(qs.step){
+    const s=Q[qs.step];
+    el.innerHTML=`<div class="quiz-top"><span>かんたん診断</span><small>質問 ${qs.trail.length+1}</small></div>
+      <p class="q">${s.q}</p>
+      <div class="answers">${s.a.map(([l,v])=>`<button class="ans" id="ans-${qs.step}-${v}" data-v="${v}" data-l="${l}">${l}</button>`).join("")}</div>${trail}`;
+    el.querySelectorAll(".ans").forEach(b=>b.onclick=()=>{
+      qs.ans[qs.step]=b.dataset.v; qs.trail.push(b.dataset.l);
+      qs.step=Q[qs.step].next(b.dataset.v); renderQuiz();
+    });
+    return;
+  }
+  const t=judge(qs.ans);
+  const hits=DATA.filter(d=>d.ty.includes(t));
+  const fall=hits.length?[]:DATA.slice(0,2);
+  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.k}・${esc(d.m)}</small></div>`).join("");
+  el.innerHTML=`<div class="quiz-top"><span>診断結果</span></div>${trail}
+    <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
+    <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
+    <div class="quiz-actions"><button class="link-btn" id="quiz-open">${t}の記事一覧を見る ↓</button><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
+  $("#quiz-open").onclick=()=>{st.type=t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});};
+  $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
+}
+/* ---- 数字で見る ---- */
+const NUMS={{STATS_JSON}};
+NUMS.sort((x,y)=>parseInt(y.t)-parseInt(x.t));
+const sst={c:null};
+const fmt=v=>Number.isInteger(v)?String(v):v.toFixed(1);
+const barRow=(label,v,cls="")=>`<div class="bar" title="${label} ${fmt(v)}%"><span>${label}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${v}%"></div></div><b>${fmt(v)}%</b></div>`;
+function renderStats(){
+  if(!NUMS.length)return;
+  const countries=[...new Set(NUMS.map(n=>n.c))];
+  $("#stat-filters").innerHTML=["すべて",...countries].map(c=>`<button class="chip" id="sc-${c}" aria-pressed="${(sst.c||"すべて")===c}" data-c="${c}">${c}</button>`).join("");
+  $("#stat-filters").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{sst.c=b.dataset.c==="すべて"?null:b.dataset.c;renderStats();});
+  $("#stat-grid").innerHTML=NUMS.filter(n=>!sst.c||n.c===sst.c).map(n=>{
+    let nums,bars="";
+    if(n.v!=null){
+      nums=`<div class="big">${fmt(n.v)}<small>%</small></div>`;
+      if(n.br)bars=n.br.map(([l,v])=>barRow(l,v)).join("");
+      else if(n.prev)bars=barRow(n.prev[1],n.prev[0],"prev")+barRow(n.t,n.v);
+      else bars=barRow("全体",n.v);
+    }else{
+      nums=n.br.map(([l,v])=>`<div class="big-sub"><span>${l}</span><div class="big">${fmt(v)}<small>%</small></div></div>`).join("");
+      bars=n.br.map(([l,v])=>barRow(l,v)).join("");
+    }
+    const trend=n.prev?`<div class="trend">${n.prev[1]}の${n.prev[0]}%から${n.v>n.prev[0]?"増加":"減少"}</div>`:"";
+    return `<article class="stat">
+      <p class="stat-label">${n.h}</p>
+      <div class="stat-nums">${nums}</div>${trend}
+      <div class="bars">${bars}</div>
+      <div class="stat-meta"><span>${n.c}・${n.t}・${n.o}</span><a href="${esc(n.su)}" target="_blank" rel="noopener">出典：${esc(n.sm)} ↗</a></div>
+    </article>`;
+  }).join("");
+}
+function render(){renderTypes();renderFilters();renderList();}
+renderQuiz();
+renderStats();
+render();
+</script>
+</body>
+</html>
