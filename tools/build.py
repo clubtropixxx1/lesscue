@@ -18,8 +18,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "_notion"
 SITE_URL = "https://lesscue.com/"
-# FormSubmit の送信先ID（実メールアドレスをHTMLに出さないための別名）
-FORM_ID = "d1bf9fbf156dc2e384940456629c279d"  # 迷惑メールが増えたらこちらに切り替える
+# お問い合わせフォームは Web3Forms（https://web3forms.com）。受信用アドレスで発行した Access Key を入れる。
+# 公開前提のキーなので HTML に出てよい。空欄のあいだはフォームを隠し、メールアドレスだけ案内する。
+FORM_KEY = ""
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 JST = timezone(timedelta(hours=9))
 
@@ -198,7 +199,10 @@ def main():
                   .replace("{{STATS_JSON}}", js_json(stats))
                   .replace("{{PAGE_MODE}}", mode)
                   .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
-                  .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL)))
+                  .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL))
+                  .replace("{{FORM_KEY}}", html.escape(FORM_KEY))
+                  .replace("{{FORM_HIDDEN}}", "" if FORM_KEY else " hidden")
+                  .replace("{{CONTACT_LEAD}}", "下のフォームか" if FORM_KEY else ""))
         for k in ("TITLE", "DESCRIPTION", "CANONICAL", "STATIC_LIST", "STATS_HIDDEN"):
             out = out.replace("{{" + k + "}}", pg[k] if k in ("STATIC_LIST", "STATS_HIDDEN") else html.escape(pg[k]))
         leftover = re.findall(r"\{\{[A-Z_]+\}\}", out)
