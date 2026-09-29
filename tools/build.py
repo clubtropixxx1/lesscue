@@ -19,7 +19,8 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "_notion"
 SITE_URL = "https://lesscue.com/"
 # FormSubmit の送信先ID（実メールアドレスをHTMLに出さないための別名）
-FORM_ID = "d1bf9fbf156dc2e384940456629c279d"
+FORM_ID = "d1bf9fbf156dc2e384940456629c279d"  # 迷惑メールが増えたらこちらに切り替える
+CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 JST = timezone(timedelta(hours=9))
 
 KIND_COLOR = {
@@ -39,6 +40,18 @@ def as_list(v):
         return out if isinstance(out, list) else [out]
     except (ValueError, TypeError):
         return [v]
+
+
+def stars(v):
+    """おすすめ度（☆☆☆／☆☆／☆）を 0〜3 の数に直す。未設定は 0。"""
+    return min(3, len(re.findall(r"[☆★]", v or "")))
+
+
+def rate_html(n):
+    if not n:
+        return ""
+    return (f'<span class="rate" title="おすすめ度 {n}/3" aria-label="おすすめ度 3段階中{n}">'
+            + "★" * n + f'<i>{"★" * (3 - n)}</i></span>')
 
 
 def clean_title(t):
@@ -76,6 +89,7 @@ def build_articles(rows):
             "d": r.get("date:公開日:start") or "",
             "s": r.get("要約") or "",
             "c": r.get("論評") or "",
+            "r": stars(r.get("おすすめ度")),
         })
     out.sort(key=lambda x: x["d"], reverse=True)
     return out
@@ -127,7 +141,7 @@ def static_list(arts):
         date = d["d"].replace("-", ".") if d["d"] else "公開日不明"
         items.append(
             f'<article class="entry" style="--c:var({color})">'
-            f'<div class="meta"><span class="kind">{e(d["k"])}</span><span>{e(d["m"])}</span><span>{date}</span><span>{e(lang)}</span></div>'
+            f'<div class="meta"><span class="kind">{e(d["k"])}</span>{rate_html(d["r"])}<span>{e(d["m"])}</span><span>{date}</span><span>{e(lang)}</span></div>'
             f'<h5><a href="{e(d["u"])}" target="_blank" rel="noopener">{e(d["t"])}</a></h5>'
             + (f'<p class="comment">{e(d["c"])}</p>' if d["c"] else "")
             + (f'<details><summary>要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
@@ -157,7 +171,7 @@ def main():
               .replace("{{STATIC_LIST}}", static_list(arts))
               .replace("{{STATS_HIDDEN}}", "" if stats else " hidden")
               .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
-              .replace("{{FORM_ID}}", FORM_ID))
+              .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL)))
     leftover = re.findall(r"\{\{[A-Z_]+\}\}", out)
     if leftover:
         raise SystemExit(f"未置換のプレースホルダ: {leftover}")

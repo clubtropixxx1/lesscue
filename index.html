@@ -22,7 +22,7 @@ body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 :root{
-  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --muted:#5E6866; --line:#D9DDD6;
+  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --star:#B7791F; --muted:#5E6866; --line:#D9DDD6;
   --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD;
   --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
@@ -31,14 +31,14 @@ img{max-width:100%}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --muted:#9AA4A2; --line:#2C3338;
+    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
     --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
     --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --muted:#9AA4A2; --line:#2C3338;
+  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
   --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
   --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
 }
@@ -98,6 +98,8 @@ nav.site-nav a:hover{color:var(--ink)}
 article.entry{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
 .meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .kind{color:var(--c);font-weight:700}
+.rate{color:var(--star);letter-spacing:.08em;font-size:12.5px}
+.rate i{font-style:normal;color:var(--line)}
 .entry h5{margin:0;font-size:16px;line-height:1.55;font-weight:700;text-wrap:pretty}
 .entry h5 a{color:inherit;text-decoration:none}
 .entry h5 a:hover{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px}
@@ -160,6 +162,7 @@ footer p{margin:0 0 8px}
 .about-h{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink);margin:0 0 10px}
 .updated{font-size:11.5px;font-variant-numeric:tabular-nums;margin-top:20px}
 .contact-h{font-size:14px;color:var(--ink);margin:22px 0 8px}
+.mail{color:var(--ink);font-weight:500;user-select:all;overflow-wrap:anywhere}
 .sent{padding:8px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
 form.contact{display:flex;flex-direction:column;gap:6px;max-width:520px;margin-top:10px}
 form.contact label{font-size:12px;color:var(--ink-2);margin-top:6px}
@@ -208,9 +211,9 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
     <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
     <h3 class="contact-h" id="contact">削除依頼・お問い合わせ</h3>
-    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームからお送りください。</p>
+    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームかメール（<span class="mail">clubtropixxx1@gmail.com</span>）でお送りください。</p>
     <p class="sent" id="sent" hidden>送信しました。内容を確認のうえ、必要に応じてご返信します。</p>
-    <form class="contact" id="contact-form" action="https://formsubmit.co/d1bf9fbf156dc2e384940456629c279d" method="POST">
+    <form class="contact" id="contact-form" action="https://formsubmit.co/clubtropixxx1@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="【レスられ総研】お問い合わせ">
       <input type="hidden" name="_next" value="https://lesscue.com/?sent=1#contact">
       <input type="hidden" name="_template" value="table">
@@ -234,7 +237,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 </div>
 
 <script>
-const DATA=[{"id": "https://app.notion.com/p/3e90ac076fbd806a8778cb89988b17a8", "t": "「性的対象として見られない」　無理な性行為は禁物、夫婦関係の危機", "u": "https://www.asahi.com/articles/ASV9K7VDPV9KPTIL018M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["産後"], "w": "研究者・媒体・不明", "a": ["不明"], "l": "日本語", "m": "朝日新聞（谷口陽子・看護師／夫婦カウンセラー）", "d": "2026-09-22", "s": "夫婦カウンセラーでもある看護師・谷口陽子さんへのインタビュー。無理に応じ続けると女性は性交痛や相手への嫌悪感、男性は妻に対してだけEDになるといった形で悪化しやすく、応じられない背景には生理周期・産後・更年期・加齢などのホルモンの変化や、相手への日常的な不満があると指摘する。対処としては「応じない側が悪い」という前提を外し、スキンシップ中心の行動療法と本音の話し合いで、セックスにこだわらない選択肢も含めた夫婦なりの形を探すことを勧めている。", "c": "日常生活の不満を解消するのはベースとして、やはりセックスがゴールであると思う。ペッティングはセックスの手前なのではなく、別物である。"}, {"id": "https://app.notion.com/p/3e90ac076fbd8067b32aee21fa83ca58", "t": "夫婦間で「したくない」なぜ言えない?　日本人に足りないものとは", "u": "https://www.asahi.com/articles/ASV971V8JV97ULLI008M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["カウンセリング"], "w": "研究者・媒体・不明", "a": ["不明"], "l": "日本語", "m": "朝日新聞（岡田玖美子・奈良女子大専任講師）", "d": "2026-09-13", "s": "家族社会学者の岡田玖美子さん（奈良女子大専任講師）へのインタビューで、夫婦間の性的同意は毎回の形式的な確認ではなく、対話を重ねて互いに安心できる状態をつくる過程だと説く。日本では性教育の不足から性を語る言葉を持たない人が多く、「したくない」と言えないまま応じ続けると嫌悪感や不信感につながる一方、断られる側も拒絶されたと深く傷つくと指摘する。性行為がないこと自体ではなく気持ちのずれを話せないことが問題であり、映画やドラマをきっかけにした小さな対話から始めることを勧めている。", "c": "気持ちにズレがあって話し合えないことを問題視しているが、それは当然のことであって、やはりセックスが「最高のコミュニケーション」である以上、性的なコミュニケーションではなく挿入が大事だと思う"}];
+const DATA=[{"id": "https://app.notion.com/p/3e90ac076fbd806a8778cb89988b17a8", "t": "「性的対象として見られない」　無理な性行為は禁物、夫婦関係の危機", "u": "https://www.asahi.com/articles/ASV9K7VDPV9KPTIL018M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["産後"], "w": "女性", "a": ["不明"], "l": "日本語", "m": "朝日新聞（谷口陽子・看護師／夫婦カウンセラー）", "d": "2026-09-22", "s": "夫婦カウンセラーでもある看護師・谷口陽子さんへのインタビュー。無理に応じ続けると女性は性交痛や相手への嫌悪感、男性は妻に対してだけEDになるといった形で悪化しやすく、応じられない背景には生理周期・産後・更年期・加齢などのホルモンの変化や、相手への日常的な不満があると指摘する。対処としては「応じない側が悪い」という前提を外し、スキンシップ中心の行動療法と本音の話し合いで、セックスにこだわらない選択肢も含めた夫婦なりの形を探すことを勧めている。", "c": "日常生活の不満を解消するのはベースとして、やはりセックスがゴールであると思う。ペッティングはセックスの手前なのではなく、別物である。", "r": 0}, {"id": "https://app.notion.com/p/3e90ac076fbd8067b32aee21fa83ca58", "t": "夫婦間で「したくない」なぜ言えない?　日本人に足りないものとは", "u": "https://www.asahi.com/articles/ASV971V8JV97ULLI008M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["カウンセリング"], "w": "女性", "a": ["不明"], "l": "日本語", "m": "朝日新聞（岡田玖美子・奈良女子大専任講師）", "d": "2026-09-13", "s": "家族社会学者の岡田玖美子さん（奈良女子大専任講師）へのインタビューで、夫婦間の性的同意は毎回の形式的な確認ではなく、対話を重ねて互いに安心できる状態をつくる過程だと説く。日本では性教育の不足から性を語る言葉を持たない人が多く、「したくない」と言えないまま応じ続けると嫌悪感や不信感につながる一方、断られる側も拒絶されたと深く傷つくと指摘する。性行為がないこと自体ではなく気持ちのずれを話せないことが問題であり、映画やドラマをきっかけにした小さな対話から始めることを勧めている。", "c": "気持ちにズレがあって話し合えないことを問題視しているが、それは当然のことであって、やはりセックスが「最高のコミュニケーション」である以上、性的なコミュニケーションではなく挿入が大事だと思う", "r": 0}];
 const TYPES=["妻拒否型","夫拒否型","流動的不仲型","完全不仲型"];
 const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
 const FACETS={w:["男性","女性"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
@@ -270,7 +273,7 @@ function renderList(){
   const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
   const card=d=>`
       <article class="entry" style="--c:var(${kc(d.k)})">
-        <div class="meta"><span class="kind">${d.k}</span><span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
+        <div class="meta"><span class="kind">${d.k}</span>${d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
         ${d.s?`<details><summary>要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
@@ -321,9 +324,9 @@ function renderQuiz(){
     return;
   }
   const t=judge(qs.ans);
-  const hits=DATA.filter(d=>d.ty.includes(t));
+  const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
-  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.k}・${esc(d.m)}</small></div>`).join("");
+  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.r?"★".repeat(d.r)+"　":""}${d.k}・${esc(d.m)}</small></div>`).join("");
   el.innerHTML=`<div class="quiz-top"><span>診断結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>

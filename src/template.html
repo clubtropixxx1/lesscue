@@ -22,7 +22,7 @@ body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 :root{
-  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --muted:#5E6866; --line:#D9DDD6;
+  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --star:#B7791F; --muted:#5E6866; --line:#D9DDD6;
   --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD;
   --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
@@ -31,14 +31,14 @@ img{max-width:100%}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --muted:#9AA4A2; --line:#2C3338;
+    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
     --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
     --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --muted:#9AA4A2; --line:#2C3338;
+  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
   --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
   --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
 }
@@ -98,6 +98,8 @@ nav.site-nav a:hover{color:var(--ink)}
 article.entry{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
 .meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .kind{color:var(--c);font-weight:700}
+.rate{color:var(--star);letter-spacing:.08em;font-size:12.5px}
+.rate i{font-style:normal;color:var(--line)}
 .entry h5{margin:0;font-size:16px;line-height:1.55;font-weight:700;text-wrap:pretty}
 .entry h5 a{color:inherit;text-decoration:none}
 .entry h5 a:hover{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px}
@@ -160,6 +162,7 @@ footer p{margin:0 0 8px}
 .about-h{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink);margin:0 0 10px}
 .updated{font-size:11.5px;font-variant-numeric:tabular-nums;margin-top:20px}
 .contact-h{font-size:14px;color:var(--ink);margin:22px 0 8px}
+.mail{color:var(--ink);font-weight:500;user-select:all;overflow-wrap:anywhere}
 .sent{padding:8px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
 form.contact{display:flex;flex-direction:column;gap:6px;max-width:520px;margin-top:10px}
 form.contact label{font-size:12px;color:var(--ink-2);margin-top:6px}
@@ -208,9 +211,9 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
     <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
     <h3 class="contact-h" id="contact">削除依頼・お問い合わせ</h3>
-    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームからお送りください。</p>
+    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームかメール（<span class="mail">{{CONTACT_EMAIL}}</span>）でお送りください。</p>
     <p class="sent" id="sent" hidden>送信しました。内容を確認のうえ、必要に応じてご返信します。</p>
-    <form class="contact" id="contact-form" action="https://formsubmit.co/{{FORM_ID}}" method="POST">
+    <form class="contact" id="contact-form" action="https://formsubmit.co/{{CONTACT_EMAIL}}" method="POST">
       <input type="hidden" name="_subject" value="【レスられ総研】お問い合わせ">
       <input type="hidden" name="_next" value="https://lesscue.com/?sent=1#contact">
       <input type="hidden" name="_template" value="table">
@@ -270,7 +273,7 @@ function renderList(){
   const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
   const card=d=>`
       <article class="entry" style="--c:var(${kc(d.k)})">
-        <div class="meta"><span class="kind">${d.k}</span><span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
+        <div class="meta"><span class="kind">${d.k}</span>${d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
         ${d.s?`<details><summary>要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
@@ -321,9 +324,9 @@ function renderQuiz(){
     return;
   }
   const t=judge(qs.ans);
-  const hits=DATA.filter(d=>d.ty.includes(t));
+  const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
-  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.k}・${esc(d.m)}</small></div>`).join("");
+  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.r?"★".repeat(d.r)+"　":""}${d.k}・${esc(d.m)}</small></div>`).join("");
   el.innerHTML=`<div class="quiz-top"><span>診断結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
