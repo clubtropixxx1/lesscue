@@ -326,7 +326,7 @@ function renderQuiz(){
   const t=judge(qs.ans);
   const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
-  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.r?"★".repeat(d.r)+"　":""}${d.k}・${esc(d.m)}</small></div>`).join("");
+  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
   el.innerHTML=`<div class="quiz-top"><span>診断結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
