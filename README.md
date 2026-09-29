@@ -4,7 +4,7 @@
 
 ## 仕組み
 
-- 記事と数値の元データは Notion の「セックスレスDB」「セックスレス数字DB」で管理する
+- 記事と数値の元データは Notion の「レス記事DB」「レス数値DB」で管理する
 - ステータスが「公開」の行だけがサイトに載る（未確認・見送り・博士メモは載らない）
 - `tools/build.py` が Notion の書き出しから `index.html` と `data/*.json`、`sitemap.xml` を生成する
 - Notion の生データは `_notion/` に置き、Git には入れない（`.gitignore`）
