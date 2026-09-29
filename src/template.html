@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>セックスレスの原因と解消法を型で探す｜レスられ総研</title>
-<meta name="description" content="セックスレスに悩む人のためのデータベース。二択の診断で妻拒否型・夫拒否型などの悩みの型を判定し、原因と解消法の記事・論文・調査データを型別にまとめています。">
-<link rel="canonical" href="https://lesscue.com/">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL}}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="レスられ総研">
-<meta property="og:title" content="セックスレスの原因と解消法を型で探す｜レスられ総研">
+<meta property="og:title" content="{{TITLE}}">
 <meta property="og:description" content="―私はレス山さんを救いたい― セックスレスの原因と解消法を、お悩み別に集めたデータベース。">
-<meta property="og:url" content="https://lesscue.com/">
+<meta property="og:url" content="{{CANONICAL}}">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234F5D8C'/%3E%3Cpath d='M6 24 13 11l5 8 3-4 5 9z' fill='%23F2F3EF'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,6 +137,12 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .stats-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
 .stats-head h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
 .stats-head p{margin:0;color:var(--muted);font-size:13px}
+.stats-note{margin:10px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink-2);font-size:13px;max-width:68ch}
+.more{margin:14px 0 0;text-align:right}
+.more a{color:var(--accent);font-weight:700;font-size:14px;text-decoration:none}
+.more a:hover{text-decoration:underline}
+body[data-page="data"] [data-only="top"],body[data-page="top"] [data-only="data"]{display:none!important}
+body[data-page="data"] .stats{margin-top:24px}
 .stat-filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
@@ -173,7 +179,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 @media (prefers-reduced-motion:no-preference){.type,.chip{transition:background .15s,border-color .15s}}
 </style>
 </head>
-<body>
+<body data-page="{{PAGE_MODE}}">
 
 <div class="wrap">
   <header class="site">
@@ -183,13 +189,13 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     </div>
     <button class="menu-btn" id="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     <nav class="site-nav" id="site-nav" aria-label="サイト内">
-      <a href="#data"{{STATS_HIDDEN}}>数字で見る</a><a href="#list">記事一覧</a><a href="#about">このサイトについて</a>
+      <a href="/data/">数字で見る</a><a href="/#list">記事一覧</a><a href="#about">このサイトについて</a>
     </nav>
   </header>
 
-  <section class="quiz" id="quiz" aria-live="polite"></section>
+  <section data-only="top" class="quiz" id="quiz" aria-live="polite"></section>
 
-  <section class="intro">
+  <section data-only="top" class="intro">
     <h2>あなたの状況に近い型から探す</h2>
     <p>型を選ぶと、その型の悩み、解決策、データ、論文の順に、それぞれ新しい記事から並びます。「すべて」では全記事を公開日の新しい順に表示します。</p>
     <div class="types" id="types"></div>
@@ -197,14 +203,16 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 
   <section class="stats" id="data"{{STATS_HIDDEN}}>
     <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
+    <p class="stats-note" data-only="data">調査ごとにセックスレスの定義や対象者が違うため、数字同士を単純に比べることはできません。各カードの対象と出典をあわせて確認してください。</p>
     <div class="stat-filters" id="stat-filters"></div>
     <div class="stat-grid" id="stat-grid"></div>
+    <p class="more" data-only="top"><a href="/data/" id="more-link">すべてのデータを見る →</a></p>
   </section>
 
-  <div class="filters" id="filters"></div>
+  <div data-only="top" class="filters" id="filters"></div>
 
-  <div class="typehead" id="typehead"></div>
-  <main id="list">{{STATIC_LIST}}</main>
+  <div data-only="top" class="typehead" id="typehead"></div>
+  <main id="list" data-only="top">{{STATIC_LIST}}</main>
 
   <footer id="about">
     <h2 class="about-h">このサイトについて</h2>
@@ -335,8 +343,10 @@ function renderQuiz(){
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }
 /* ---- 数字で見る ---- */
-const NUMS={{STATS_JSON}};
-NUMS.sort((x,y)=>parseInt(y.t)-parseInt(x.t));
+const PAGE="{{PAGE_MODE}}";
+const ALL_NUMS={{STATS_JSON}};
+const NUMS=PAGE==="top"?ALL_NUMS.filter(n=>n.top):ALL_NUMS;
+{const m=$("#more-link"); if(m) m.textContent=`すべてのデータを見る（${ALL_NUMS.length}件）→`;}
 const sst={c:null};
 const fmt=v=>Number.isInteger(v)?String(v):v.toFixed(1);
 const barRow=(label,v,cls="")=>`<div class="bar" title="${label} ${fmt(v)}%"><span>${label}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${v}%"></div></div><b>${fmt(v)}%</b></div>`;
@@ -376,9 +386,8 @@ function render(){renderTypes();renderFilters();renderList();}
   document.addEventListener("keydown",e=>{if(e.key==="Escape")set(false);});
 })();
 if(/[?&]sent=1/.test(location.search))$("#sent").hidden=false;
-renderQuiz();
 renderStats();
-render();
+if(PAGE==="top"){renderQuiz();render();}
 </script>
 </body>
 </html>

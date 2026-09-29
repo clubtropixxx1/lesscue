@@ -128,8 +128,13 @@ def build_stats(rows, article_rows):
             card["lb"] = (as_list(first.get("区分")) or ["全体"])[0]
             if first.get("比較前の数値") is not None:
                 card["prev"] = [first["比較前の数値"], first.get("比較前の時点") or ""]
+        orders = [r.get("表示順") for r in rs if isinstance(r.get("表示順"), (int, float))]
+        card["ord"] = min(orders) if orders else None
+        card["top"] = any(r.get("TOP掲載") in (True, "__YES__") for r in rs)
         cards.append(card)
-    cards.sort(key=lambda c: int(re.sub(r"\D", "", c["t"]) or 0), reverse=True)
+    # 表示順が入っているものを小さい順に先に、空欄は調査年の新しい順に後ろへ
+    year = lambda c: int(re.sub(r"\D", "", c["t"])[:4] or 0)
+    cards.sort(key=lambda c: (c["ord"] is None, c["ord"] if c["ord"] is not None else 0, -year(c)))
     return cards
 
 
@@ -170,24 +175,45 @@ def main():
     (ROOT / "data" / "stats.json").write_text(json.dumps(stats, ensure_ascii=False, indent=1), encoding="utf-8")
 
     tpl = (ROOT / "src" / "template.html").read_text(encoding="utf-8")
-    out = (tpl.replace("{{ARTICLES_JSON}}", js_json(arts))
-              .replace("{{STATS_JSON}}", js_json(stats))
-              .replace("{{STATIC_LIST}}", static_list(arts))
-              .replace("{{STATS_HIDDEN}}", "" if stats else " hidden")
-              .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
-              .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL)))
-    leftover = re.findall(r"\{\{[A-Z_]+\}\}", out)
-    if leftover:
-        raise SystemExit(f"未置換のプレースホルダ: {leftover}")
-    (ROOT / "index.html").write_text(out, encoding="utf-8")
+    pages = {
+        "top": {
+            "path": ROOT / "index.html",
+            "TITLE": "セックスレスの原因と解消法を型で探す｜レスられ総研",
+            "DESCRIPTION": "セックスレスに悩む人のためのデータベース。二択の診断で妻拒否型・夫拒否型などの悩みの型を判定し、原因と解消法の記事・論文・調査データを型別にまとめています。",
+            "CANONICAL": SITE_URL,
+            "STATIC_LIST": static_list(arts),
+            "STATS_HIDDEN": "" if any(c["top"] for c in stats) else " hidden",
+        },
+        "data": {
+            "path": ROOT / "data" / "index.html",
+            "TITLE": "数字で見るセックスレス｜割合・調査データまとめ｜レスられ総研",
+            "DESCRIPTION": "夫婦のセックスレスの割合や、話し合い・相談の実態など、国内外の調査データを出典つきでまとめています。",
+            "CANONICAL": SITE_URL + "data/",
+            "STATIC_LIST": "",
+            "STATS_HIDDEN": "",
+        },
+    }
+    for mode, pg in pages.items():
+        out = (tpl.replace("{{ARTICLES_JSON}}", js_json(arts))
+                  .replace("{{STATS_JSON}}", js_json(stats))
+                  .replace("{{PAGE_MODE}}", mode)
+                  .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
+                  .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL)))
+        for k in ("TITLE", "DESCRIPTION", "CANONICAL", "STATIC_LIST", "STATS_HIDDEN"):
+            out = out.replace("{{" + k + "}}", pg[k] if k in ("STATIC_LIST", "STATS_HIDDEN") else html.escape(pg[k]))
+        leftover = re.findall(r"\{\{[A-Z_]+\}\}", out)
+        if leftover:
+            raise SystemExit(f"未置換のプレースホルダ: {leftover}")
+        pg["path"].write_text(out, encoding="utf-8")
 
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f"  <url><loc>{SITE_URL}</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
+        f"  <url><loc>{SITE_URL}data/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
         "</urlset>\n", encoding="utf-8")
 
-    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html を生成しました")
+    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html と data/index.html を生成しました")
 
 
 if __name__ == "__main__":
