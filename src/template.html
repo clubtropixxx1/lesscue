@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="レスられ総研">
 <meta property="og:title" content="セックスレスの原因と解消法を型で探す｜レスられ総研">
-<meta property="og:description" content="―私はレス山さんを救いたい― セックスレスの原因と解消法を、悩みの型ごとに集めたデータベース。">
+<meta property="og:description" content="―私はレス山さんを救いたい― セックスレスの原因と解消法を、お悩み別に集めたデータベース。">
 <meta property="og:url" content="https://lesscue.com/">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234F5D8C'/%3E%3Cpath d='M6 24 13 11l5 8 3-4 5 9z' fill='%23F2F3EF'/%3E%3C/svg%3E">
@@ -22,7 +22,7 @@ body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 :root{
-  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --muted:#5E6866; --line:#D9DDD6;
+  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --muted:#5E6866; --line:#D9DDD6;
   --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD;
   --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
@@ -31,14 +31,14 @@ img{max-width:100%}
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --muted:#9AA4A2; --line:#2C3338;
+    --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --muted:#9AA4A2; --line:#2C3338;
     --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
     --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --muted:#9AA4A2; --line:#2C3338;
+  --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --muted:#9AA4A2; --line:#2C3338;
   --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E;
   --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
 }
@@ -46,13 +46,25 @@ img{max-width:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75}
 .wrap{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
 .note{margin-top:16px;padding:8px 12px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:12.5px}
-header.site{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-block:28px 20px;border-bottom:1px solid var(--line)}
+header.site{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-block:28px 20px;border-bottom:1px solid var(--line)}
 .logo{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:.02em;margin:0}
+.logo a{color:inherit;text-decoration:none}
 .logo span{color:var(--accent)}
-.tagline{color:var(--muted);font-size:13px;margin:0}
+.tagline{color:var(--ink-2);font-size:13px;font-weight:500;margin:4px 0 0}
 nav.site-nav{display:flex;gap:16px;font-size:13px}
 nav.site-nav a{color:var(--muted);text-decoration:none}
 nav.site-nav a:hover{color:var(--ink)}
+.menu-btn{display:none}
+@media (max-width:640px){
+  header.site > div:first-child{padding-right:52px}
+  .menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;position:absolute;top:26px;right:0;width:40px;height:40px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer}
+  .menu-btn span{display:block;height:2px;border-radius:1px;background:var(--ink)}
+  .menu-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  nav.site-nav{display:none;position:absolute;top:72px;right:0;z-index:10;flex-direction:column;gap:0;min-width:200px;padding-block:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);font-size:14px}
+  nav.site-nav.open{display:flex}
+  nav.site-nav a{padding:11px 16px;color:var(--ink)}
+  nav.site-nav a:hover{background:var(--accent-soft)}
+}
 
 .intro{padding-block:28px 8px}
 .intro h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px;text-wrap:balance}
@@ -146,7 +158,16 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;max-width:68ch}
 footer p{margin:0 0 8px}
 .about-h{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink);margin:0 0 10px}
-.updated{font-size:11.5px;font-variant-numeric:tabular-nums}
+.updated{font-size:11.5px;font-variant-numeric:tabular-nums;margin-top:20px}
+.contact-h{font-size:14px;color:var(--ink);margin:22px 0 8px}
+.mail{color:var(--ink);font-weight:500;user-select:all;word-break:break-all}
+.sent{padding:8px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
+form.contact{display:flex;flex-direction:column;gap:6px;max-width:520px;margin-top:10px}
+form.contact label{font-size:12px;color:var(--ink-2);margin-top:6px}
+form.contact input,form.contact select,form.contact textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:9px 10px;width:100%}
+form.contact input:focus-visible,form.contact select:focus-visible,form.contact textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size:14px;font-weight:700;color:var(--on-accent);background:var(--accent);border:0;border-radius:6px;padding:10px 22px;cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 @media (prefers-reduced-motion:no-preference){.type,.chip{transition:background .15s,border-color .15s}}
 </style>
 </head>
@@ -155,10 +176,11 @@ footer p{margin:0 0 8px}
 <div class="wrap">
   <header class="site">
     <div>
-      <h1 class="logo">レスられ<span>総研</span></h1>
-      <p class="tagline">―私はレス山さんを救いたい―　セックスレスの原因と解消法を、悩みの型ごとに集めたデータベース</p>
+      <h1 class="logo"><a href="/">レスられ<span>総研</span></a></h1>
+      <p class="tagline">―私はレス山さんを救いたい―　セックスレスの原因と解消法を、お悩み別に集めたデータベース</p>
     </div>
-    <nav class="site-nav" aria-label="サイト内">
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
+    <nav class="site-nav" id="site-nav" aria-label="サイト内">
       <a href="#data"{{STATS_HIDDEN}}>数字で見る</a><a href="#list">記事一覧</a><a href="#about">このサイトについて</a>
     </nav>
   </header>
@@ -186,7 +208,28 @@ footer p{margin:0 0 8px}
     <h2 class="about-h">このサイトについて</h2>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
     <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
-    <p>掲載記事の削除依頼・お問い合わせ：{{CONTACT}}</p>
+    <h3 class="contact-h" id="contact">削除依頼・お問い合わせ</h3>
+    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームかメール（<span class="mail">{{CONTACT_EMAIL}}</span>）でお送りください。</p>
+    <p class="sent" id="sent" hidden>送信しました。内容を確認のうえ、必要に応じてご返信します。</p>
+    <form class="contact" id="contact-form" action="https://formsubmit.co/{{CONTACT_EMAIL}}" method="POST">
+      <input type="hidden" name="_subject" value="【レスられ総研】お問い合わせ">
+      <input type="hidden" name="_next" value="https://lesscue.com/?sent=1#contact">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label for="cf-kind">種別</label>
+      <select id="cf-kind" name="種別" required>
+        <option value="掲載記事の削除依頼">掲載記事の削除依頼</option>
+        <option value="掲載してほしい記事の情報">掲載してほしい記事の情報</option>
+        <option value="その他">その他</option>
+      </select>
+      <label for="cf-email">返信用メールアドレス</label>
+      <input id="cf-email" type="email" name="email" required autocomplete="email">
+      <label for="cf-url">対象の記事URL（任意）</label>
+      <input id="cf-url" type="url" name="記事URL" placeholder="https://">
+      <label for="cf-body">内容</label>
+      <textarea id="cf-body" name="内容" rows="5" required></textarea>
+      <button type="submit">送信する</button>
+    </form>
     <p class="updated">最終更新：{{BUILD_DATE}}</p>
   </footer>
 </div>
@@ -321,6 +364,16 @@ function renderStats(){
   }).join("");
 }
 function render(){renderTypes();renderFilters();renderList();}
+/* ---- スマホ用メニュー ---- */
+(function(){
+  const btn=$("#menu-btn"),nav=$("#site-nav");
+  const set=o=>{nav.classList.toggle("open",o);btn.setAttribute("aria-expanded",o);btn.setAttribute("aria-label",o?"メニューを閉じる":"メニューを開く");};
+  btn.onclick=e=>{e.stopPropagation();set(!nav.classList.contains("open"));};
+  nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>set(false)));
+  document.addEventListener("click",e=>{if(!nav.contains(e.target))set(false);});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")set(false);});
+})();
+if(/[?&]sent=1/.test(location.search))$("#sent").hidden=false;
 renderQuiz();
 renderStats();
 render();

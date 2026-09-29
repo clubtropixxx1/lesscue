@@ -18,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "_notion"
 SITE_URL = "https://lesscue.com/"
-CONTACT = "準備中（公開時に問い合わせフォームを設置します）"
+CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 JST = timezone(timedelta(hours=9))
 
 KIND_COLOR = {
@@ -156,7 +156,7 @@ def main():
               .replace("{{STATIC_LIST}}", static_list(arts))
               .replace("{{STATS_HIDDEN}}", "" if stats else " hidden")
               .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
-              .replace("{{CONTACT}}", html.escape(CONTACT)))
+              .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL)))
     leftover = re.findall(r"\{\{[A-Z_]+\}\}", out)
     if leftover:
         raise SystemExit(f"未置換のプレースホルダ: {leftover}")
