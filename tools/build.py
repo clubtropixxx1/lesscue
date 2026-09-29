@@ -112,6 +112,8 @@ def build_stats(rows, article_rows):
         su = first_url or art.get("userDefined:URL", "")
         sm = art.get("媒体", "")
         first = rs[0]
+        if len(rs) == 1:
+            base = first.get("見出し") or base
         card = {"h": base, "c": first.get("国・地域") or "その他", "t": t or "",
                 "o": first.get("対象") or "", "su": su, "sm": sm}
         sexed = [r for r in rs if set(as_list(r.get("区分"))) & {"男性", "女性"}]
@@ -123,6 +125,7 @@ def build_stats(rows, article_rows):
                 card["o"] = parts[0].group(1) + "（" + "・".join(m.group(2) + m.group(3) for m in parts) + "）"
         else:
             card["v"] = first["数値"]
+            card["lb"] = (as_list(first.get("区分")) or ["全体"])[0]
             if first.get("比較前の数値") is not None:
                 card["prev"] = [first["比較前の数値"], first.get("比較前の時点") or ""]
         cards.append(card)

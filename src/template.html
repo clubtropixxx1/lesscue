@@ -189,16 +189,16 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 
   <section class="quiz" id="quiz" aria-live="polite"></section>
 
-  <section class="stats" id="data"{{STATS_HIDDEN}}>
-    <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
-    <div class="stat-filters" id="stat-filters"></div>
-    <div class="stat-grid" id="stat-grid"></div>
-  </section>
-
   <section class="intro">
     <h2>あなたの状況に近い型から探す</h2>
     <p>型を選ぶと、その型の悩み、解決策、データ、論文の順に、それぞれ新しい記事から並びます。「すべて」では全記事を公開日の新しい順に表示します。</p>
     <div class="types" id="types"></div>
+  </section>
+
+  <section class="stats" id="data"{{STATS_HIDDEN}}>
+    <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
+    <div class="stat-filters" id="stat-filters"></div>
+    <div class="stat-grid" id="stat-grid"></div>
   </section>
 
   <div class="filters" id="filters"></div>
@@ -255,7 +255,7 @@ function renderTypes(){
     const n=t==="すべて"?DATA.length:DATA.filter(d=>d.ty.includes(t)).length;
     return `<button class="type" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
   }).join("");
-  $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();});
+  $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
 }
 function renderFilters(){
   $("#filters").innerHTML=Object.keys(FACETS).map(f=>`<div class="fgroup"><span>${FLABEL[f]}</span>${
@@ -351,7 +351,7 @@ function renderStats(){
       nums=`<div class="big">${fmt(n.v)}<small>%</small></div>`;
       if(n.br)bars=n.br.map(([l,v])=>barRow(l,v)).join("");
       else if(n.prev)bars=barRow(n.prev[1],n.prev[0],"prev")+barRow(n.t,n.v);
-      else bars=barRow("全体",n.v);
+      else bars=barRow(n.lb||"全体",n.v);
     }else{
       nums=n.br.map(([l,v])=>`<div class="big-sub"><span>${l}</span><div class="big">${fmt(v)}<small>%</small></div></div>`).join("");
       bars=n.br.map(([l,v])=>barRow(l,v)).join("");

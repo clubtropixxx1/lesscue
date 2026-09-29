@@ -1,1 +1,42 @@
-[]
+[
+ {
+  "h": "既婚者で週1回以上セックスしている割合(アメリカ)",
+  "c": "米国",
+  "t": "2024年",
+  "o": "米国の18〜64歳の既婚男女（総合社会調査GSS）",
+  "su": "https://ifstudies.org/blog/the-sex-recession-the-share-of-americans-having-regular-sex-keeps-dropping",
+  "sm": "Institute for Family Studies",
+  "v": 46,
+  "lb": "全体"
+ },
+ {
+  "h": "レスについて夫婦で話し合ったことがない（女性）",
+  "c": "日本",
+  "t": "2024年",
+  "o": "20〜59歳のセックスレス当事者の女性303人",
+  "su": "https://www.value-press.com/pressrelease/338350",
+  "sm": "value press（レゾンデートル株式会社）",
+  "v": 75.9,
+  "lb": "女性"
+ },
+ {
+  "h": "夫婦のセックスレス傾向(セックスレスと回答＋ややセックスレスと回答)",
+  "c": "日本",
+  "t": "2023年",
+  "o": "20〜50代の既婚男女4,000人",
+  "su": "https://prtimes.jp/main/html/rd/p/000000012.000104522.html",
+  "sm": "PR TIMES（レゾンデートル株式会社）",
+  "v": 68.2,
+  "lb": "全体"
+ },
+ {
+  "h": "完全なセックスレス状態",
+  "c": "日本",
+  "t": "2023年",
+  "o": "20〜50代の既婚男女4,000人",
+  "su": "https://prtimes.jp/main/html/rd/p/000000012.000104522.html",
+  "sm": "PR TIMES（レゾンデートル株式会社）",
+  "v": 43.9,
+  "lb": "全体"
+ }
+]
