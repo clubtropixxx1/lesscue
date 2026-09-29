@@ -160,7 +160,6 @@ footer p{margin:0 0 8px}
 .about-h{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink);margin:0 0 10px}
 .updated{font-size:11.5px;font-variant-numeric:tabular-nums;margin-top:20px}
 .contact-h{font-size:14px;color:var(--ink);margin:22px 0 8px}
-.mail{color:var(--ink);font-weight:500;user-select:all;word-break:break-all}
 .sent{padding:8px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
 form.contact{display:flex;flex-direction:column;gap:6px;max-width:520px;margin-top:10px}
 form.contact label{font-size:12px;color:var(--ink-2);margin-top:6px}
@@ -209,9 +208,9 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
     <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
     <h3 class="contact-h" id="contact">削除依頼・お問い合わせ</h3>
-    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームかメール（<span class="mail">{{CONTACT_EMAIL}}</span>）でお送りください。</p>
+    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームからお送りください。</p>
     <p class="sent" id="sent" hidden>送信しました。内容を確認のうえ、必要に応じてご返信します。</p>
-    <form class="contact" id="contact-form" action="https://formsubmit.co/{{CONTACT_EMAIL}}" method="POST">
+    <form class="contact" id="contact-form" action="https://formsubmit.co/{{FORM_ID}}" method="POST">
       <input type="hidden" name="_subject" value="【レスられ総研】お問い合わせ">
       <input type="hidden" name="_next" value="https://lesscue.com/?sent=1#contact">
       <input type="hidden" name="_template" value="table">
