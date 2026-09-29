@@ -108,7 +108,8 @@ def build_stats(rows, article_rows):
     cards = []
     for (src, t, base), rs in groups.items():
         art = by_page.get(src, {})
-        su = art.get("userDefined:URL", "")
+        first_url = next((r.get("出典URL") for r in rs if r.get("出典URL")), "")
+        su = first_url or art.get("userDefined:URL", "")
         sm = art.get("媒体", "")
         first = rs[0]
         card = {"h": base, "c": first.get("国・地域") or "その他", "t": t or "",
