@@ -209,7 +209,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <footer id="about">
     <h2 class="about-h">このサイトについて</h2>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
-    <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
+    <p>掲載しているのは外部の記事・論文へのリンクと、運営による要約・一言コメントです。記事本文の転載は行っていません。各記事の要約はAIが作成したもので、「運営より」のコメントは運営者本人が書いています。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
     <h3 class="contact-h" id="contact">削除依頼・お問い合わせ</h3>
     <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、下のフォームかメール（<span class="mail">{{CONTACT_EMAIL}}</span>）でお送りください。</p>
     <p class="sent" id="sent" hidden>送信しました。内容を確認のうえ、必要に応じてご返信します。</p>
@@ -276,7 +276,7 @@ function renderList(){
         <div class="meta"><span class="kind">${d.k}</span>${d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
-        ${d.s?`<details><summary>要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
+        ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
         <div class="tags">${[...d.ty,...d.tg,...d.a.filter(x=>x!=="不明"),d.w==="研究者・媒体・不明"?"":"筆者："+d.w].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
         <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
       </article>`;

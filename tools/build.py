@@ -144,7 +144,7 @@ def static_list(arts):
             f'<div class="meta"><span class="kind">{e(d["k"])}</span>{rate_html(d["r"])}<span>{e(d["m"])}</span><span>{date}</span><span>{e(lang)}</span></div>'
             f'<h5><a href="{e(d["u"])}" target="_blank" rel="noopener">{e(d["t"])}</a></h5>'
             + (f'<p class="comment">{e(d["c"])}</p>' if d["c"] else "")
-            + (f'<details><summary>要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
+            + (f'<details><summary>AI要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
             + f'<a class="read" href="{e(d["u"])}" target="_blank" rel="noopener">元の記事を読む ↗</a></article>'
         )
     return '<section class="group"><h4>新しい順</h4><div class="list">' + "".join(items) + "</div></section>"
