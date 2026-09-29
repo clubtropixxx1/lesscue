@@ -240,9 +240,9 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 const DATA={{ARTICLES_JSON}};
 const TYPES=["妻拒否型","夫拒否型","流動的不仲型","完全不仲型"];
 const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
-const FACETS={w:["男性","女性"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
-const FLABEL={w:"筆者",a:"年代",l:"言語",tg:"タグ"};
-const st={type:"すべて",w:null,a:null,l:null,tg:null};
+const FACETS={v:["男性視点","女性視点","男女視点","専門家・データ"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
+const FLABEL={v:"視点",a:"年代",l:"言語",tg:"タグ"};
+const st={type:"すべて",v:null,a:null,l:null,tg:null};
 DATA.forEach(d=>{d.tg=d.tg||[];});
 FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
 DATA.sort((x,y)=>(y.d||"").localeCompare(x.d||""));
@@ -265,7 +265,7 @@ function renderFilters(){
 }
 function renderList(){
   const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
-    &&(!st.w||d.w===st.w)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg)));
+    &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg)));
   $("#typehead").innerHTML=st.type==="すべて"
     ?`<h3>すべての記事</h3><p>${rows.length}件</p>`
     :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`;
@@ -277,7 +277,7 @@ function renderList(){
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
         ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
-        <div class="tags">${[...d.ty,...d.tg,...d.a.filter(x=>x!=="不明"),d.w==="研究者・媒体・不明"?"":"筆者："+d.w].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+        <div class="tags">${[d.v,...d.ty,...d.tg,...d.a.filter(x=>x!=="不明")].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
         <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
       </article>`;
   if(st.type==="すべて"){
