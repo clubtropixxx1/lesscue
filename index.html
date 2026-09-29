@@ -114,7 +114,7 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .empty{color:var(--muted);padding:24px 0}
 .quiz{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;display:flex;flex-direction:column;gap:14px}
 .quiz-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.quiz-top span{font-size:11.5px;letter-spacing:.1em;color:var(--navy);font-weight:700}
+.quiz-top span{font-family:var(--display);font-size:22px;line-height:1.3;letter-spacing:.04em;color:var(--navy);font-weight:800}
 .quiz-top small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .q{font-family:var(--display);font-weight:600;font-size:19px;margin:0;text-wrap:balance}
 .answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -348,7 +348,7 @@ function renderQuiz(){
   const trail=qs.trail.length?`<div class="trail">${qs.trail.map(t=>`<i>${t}</i>`).join("")}</div>`:"";
   if(qs.step){
     const s=Q[qs.step];
-    el.innerHTML=`<div class="quiz-top"><span>かんたん診断</span><small>質問 ${qs.trail.length+1}</small></div>
+    el.innerHTML=`<div class="quiz-top"><span>セックスレス簡単診断</span><small>質問 ${qs.trail.length+1}</small></div>
       <p class="q">${s.q}</p>
       <div class="answers">${s.a.map(([l,v])=>`<button class="ans" id="ans-${qs.step}-${v}" data-v="${v}" data-l="${l}">${l}</button>`).join("")}</div>${trail}`;
     el.querySelectorAll(".ans").forEach(b=>b.onclick=()=>{
@@ -361,7 +361,7 @@ function renderQuiz(){
   const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
   const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
-  el.innerHTML=`<div class="quiz-top"><span>診断結果</span></div>${trail}
+  el.innerHTML=`<div class="quiz-top"><span>セックスレス簡単診断の結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     <div class="quiz-actions"><button class="link-btn" id="quiz-open">${t}の記事一覧を見る ↓</button><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
