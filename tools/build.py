@@ -20,7 +20,7 @@ RAW = ROOT / "_notion"
 SITE_URL = "https://lesscue.com/"
 # お問い合わせフォームは Web3Forms（https://web3forms.com）。受信用アドレスで発行した Access Key を入れる。
 # 公開前提のキーなので HTML に出てよい。空欄のあいだはフォームを隠し、メールアドレスだけ案内する。
-FORM_KEY = ""
+FORM_KEY = "91bd222b-3929-41ba-959a-b86b94a19c1a"
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 JST = timezone(timedelta(hours=9))
 
