@@ -98,11 +98,13 @@ def build_articles(rows):
 
 def build_stats(rows, article_rows):
     """公開ステータスの数値だけを、男女別の対があれば1枚のカードにまとめる。"""
-    by_page = {r.get("url", "").split("?")[0]: r for r in article_rows}
+    # Notion のページURLは /p/ の有無など表記が揺れるので、32桁のページIDで突き合わせる
+    pid = lambda u: (re.search(r"[0-9a-f]{32}", (u or "").replace("-", "")) or [""])[0]
+    by_page = {pid(r.get("url")): r for r in article_rows}
     pub = [r for r in rows if r.get("ステータス") == "公開" and r.get("数値") is not None]
     groups = {}
     for r in pub:
-        src = (as_list(r.get("出典記事")) or [""])[0].split("?")[0]
+        src = pid((as_list(r.get("出典記事")) or [""])[0])
         base = re.sub(r"（(男性|女性|夫|妻)）$", "", r.get("見出し") or "")
         key = (src, r.get("時点"), base)
         groups.setdefault(key, []).append(r)
