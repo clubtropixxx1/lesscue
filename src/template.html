@@ -87,6 +87,19 @@ nav.site-nav a:hover{color:var(--ink)}
 .typehead{margin-top:26px}
 .typehead h3{font-family:var(--display);font-size:20px;margin:0}
 .typehead p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.hints{margin-top:36px}
+.hints h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
+.hints p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.cloud{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:14px;align-items:center}
+.hint{appearance:none;font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--navy);border-radius:999px;padding:6px 14px;line-height:1.4;font-weight:500}
+.hint small{font-size:11px;color:var(--muted);margin-left:4px;font-weight:400}
+.hint.s2{font-size:15px;font-weight:700}
+.hint.s3{font-size:17px;font-weight:700;border-color:var(--navy)}
+.hint:hover{border-color:var(--navy);background:var(--accent-soft)}
+.hint[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
+.hint[aria-pressed="true"] small{color:var(--on-accent)}
+.hint-on{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:var(--ink-2)}
+.hint-on button{appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
 .list-guide{margin:12px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink-2);font-size:13px;line-height:1.7}
 .list-guide .rate{font-size:12px}
 .placeholder{border:1px dashed var(--line);border-radius:6px;padding:6px 10px;display:inline-block}
@@ -224,6 +237,12 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <div class="types" id="types"></div>
   </section>
 
+  <section data-only="top" class="hints" id="hints">
+    <h2>解決のヒントから探す</h2>
+    <p>記事の中で語られている具体的な行動です。押すと、そのヒントが書かれた記事が一覧に出ます。</p>
+    <div class="cloud" id="cloud"></div>
+  </section>
+
   <section class="stats" id="data"{{STATS_HIDDEN}}>
     <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
     <p class="stats-note" data-only="data">調査ごとにセックスレスの定義や対象者が違うため、数字同士を単純に比べることはできません。各カードの対象と出典をあわせて確認してください。</p>
@@ -280,8 +299,8 @@ const TYPES=["妻拒否型","夫拒否型","流動的不仲型","完全不仲型
 const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["理論","--t-paper"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
 const FACETS={v:["男性視点","女性視点","男女視点","専門家・データ"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
 const FLABEL={v:"視点",a:"年代",l:"言語",tg:"タグ"};
-const st={type:"すべて",v:null,a:null,l:null,tg:null};
-DATA.forEach(d=>{d.tg=d.tg||[];});
+const st={type:"すべて",v:null,a:null,l:null,tg:null,h:null};
+DATA.forEach(d=>{d.tg=d.tg||[];d.h=d.h||[];});
 FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
 FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
 DATA.sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
@@ -296,6 +315,18 @@ function renderTypes(){
   }).join("");
   $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
 }
+function renderCloud(){
+  const cnt={}; DATA.forEach(d=>d.h.forEach(h=>cnt[h]=(cnt[h]||0)+1));
+  const hs=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]||a.localeCompare(b,"ja"));
+  if(!hs.length){$("#hints").hidden=true;return;}
+  const max=Math.max(...Object.values(cnt));
+  const size=n=>max<2?"":n>=max?"s3":n>=2?"s2":"";
+  $("#cloud").innerHTML=hs.map(h=>`<button class="hint ${size(cnt[h])}" aria-pressed="${st.h===h}" data-h="${esc(h)}">${esc(h)}<small>${cnt[h]}</small></button>`).join("");
+  $("#cloud").querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
+    st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; render();
+    if(st.h)$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+}
 function renderFilters(){
   $("#filters").innerHTML=Object.keys(FACETS).map(f=>`<div class="fgroup"><span>${FLABEL[f]}</span>${
     FACETS[f].map(v=>`<button class="chip" id="f-${f}-${v}" aria-pressed="${st[f]===v}" data-f="${f}" data-v="${v}">${v}</button>`).join("")
@@ -304,10 +335,12 @@ function renderFilters(){
 }
 function renderList(){
   const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
-    &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg)));
-  $("#typehead").innerHTML=st.type==="すべて"
+    &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg))&&(!st.h||d.h.includes(st.h)));
+  $("#typehead").innerHTML=(st.type==="すべて"
     ?`<h3>すべての記事</h3><p>${rows.length}件</p>`
-    :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`;
+    :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`)
+    +(st.h?`<div class="hint-on">解決のヒント「${esc(st.h)}」の記事だけを表示中<button id="hint-clear">解除</button></div>`:"");
+  if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();};
   if(!rows.length){$("#list").innerHTML=`<p class="empty">この条件の記事はまだありません。条件を外すと他の記事が表示されます。</p>`;return;}
   const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
   const card=d=>`
@@ -427,7 +460,7 @@ function renderStats(){
   }).join("");
   watchStats();
 }
-function render(){renderTypes();renderFilters();renderList();}
+function render(){renderTypes();renderCloud();renderFilters();renderList();}
 /* ---- スマホ用メニュー ---- */
 (function(){
   const btn=$("#menu-btn"),nav=$("#site-nav");

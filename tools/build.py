@@ -83,6 +83,7 @@ def build_articles(rows):
             "k": r.get("種別") or "未分類",
             "ty": as_list(r.get("型")),
             "tg": as_list(r.get("タグ")),
+            "h": as_list(r.get("解決のヒント")),
             "v": r.get("視点") or "",
             "a": as_list(r.get("年代")) or ["不明"],
             "l": r.get("言語") or "日本語",
