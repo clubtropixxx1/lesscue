@@ -92,7 +92,8 @@ def build_articles(rows):
             "c": r.get("論評") or "",
             "r": stars(r.get("おすすめ度")),
         })
-    out.sort(key=lambda x: x["d"], reverse=True)
+    # おすすめ度の高い順、同じ☆なら新しい順
+    out.sort(key=lambda x: (x["r"], x["d"]), reverse=True)
     return out
 
 
@@ -149,17 +150,16 @@ def static_list(arts):
     items = []
     for d in arts:
         color = KIND_COLOR.get(d["k"], "--t-news")
-        lang = "日本語" if d["l"] == "日本語" else d["l"] + "（日本語要約あり）"
-        date = d["d"].replace("-", ".") if d["d"] else "公開日不明"
+        lang = "" if d["l"] == "日本語" else f'<span>{e(d["l"])}（日本語要約あり）</span>'
         items.append(
             f'<article class="entry" style="--c:var({color})">'
-            f'<div class="meta"><span class="kind">{e(d["k"])}</span>{rate_html(d["r"])}<span>{e(d["m"])}</span><span>{date}</span><span>{e(lang)}</span></div>'
+            f'<div class="meta"><span class="kind">{e(d["k"])}</span>{rate_html(d["r"])}<span>{e(d["m"])}</span>{lang}</div>'
             f'<h5><a href="{e(d["u"])}" target="_blank" rel="noopener">{e(d["t"])}</a></h5>'
             + (f'<p class="comment">{e(d["c"])}</p>' if d["c"] else "")
             + (f'<details><summary>AI要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
             + f'<a class="read" href="{e(d["u"])}" target="_blank" rel="noopener">元の記事を読む ↗</a></article>'
         )
-    return '<section class="group"><h4>新しい順</h4><div class="list">' + "".join(items) + "</div></section>"
+    return '<section class="group"><h4>おすすめ順</h4><div class="list">' + "".join(items) + "</div></section>"
 
 
 def js_json(obj):

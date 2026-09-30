@@ -218,7 +218,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 
   <section data-only="top" class="intro">
     <h2>あなたの状況に近い型から探す</h2>
-    <p>型を選ぶと、その型の悩み、解決策、データ、論文の順に、それぞれ新しい記事から並びます。</p>
+    <p>型を選ぶと、その型の悩み、解決策、データ、論文の順に、それぞれおすすめ度の高い記事から並びます。</p>
     <div class="types" id="types"></div>
   </section>
 
@@ -280,7 +280,8 @@ const FLABEL={v:"視点",a:"年代",l:"言語",tg:"タグ"};
 const st={type:"すべて",v:null,a:null,l:null,tg:null};
 DATA.forEach(d=>{d.tg=d.tg||[];});
 FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
-DATA.sort((x,y)=>(y.d||"").localeCompare(x.d||""));
+FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
+DATA.sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -308,7 +309,7 @@ function renderList(){
   const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
   const card=d=>`
       <article class="entry" style="--c:var(${kc(d.k)})">
-        <div class="meta"><span class="kind">${d.k}</span>${d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span><span>${d.d?d.d.replace(/-/g,"."):"公開日不明"}</span><span>${d.l==="日本語"?"日本語":d.l+"（日本語要約あり）"}</span></div>
+        <div class="meta"><span class="kind">${d.k}</span>${d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span>${d.l&&d.l!=="日本語"?`<span>${d.l}（日本語要約あり）</span>`:""}</div>
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
         ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
@@ -316,7 +317,7 @@ function renderList(){
         <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
       </article>`;
   if(st.type==="すべて"){
-    $("#list").innerHTML=`<section class="group"><h4>新しい順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
+    $("#list").innerHTML=`<section class="group"><h4>おすすめ順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
     return;
   }
   $("#list").innerHTML=KINDS.map(([k,c])=>{
