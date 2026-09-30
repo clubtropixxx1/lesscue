@@ -25,7 +25,7 @@ CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 JST = timezone(timedelta(hours=9))
 
 KIND_COLOR = {
-    "悩み": "--t-worry", "解決策": "--t-answer", "体験記": "--t-story",
+    "悩み": "--t-worry", "解決策": "--t-answer", "理論": "--t-paper", "体験記": "--t-story",
     "データ・統計": "--t-data", "論文": "--t-paper", "ニュース": "--t-news",
 }
 

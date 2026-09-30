@@ -274,7 +274,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 <script>
 const DATA={{ARTICLES_JSON}};
 const TYPES=["妻拒否型","夫拒否型","流動的不仲型","完全不仲型"];
-const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
+const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["理論","--t-paper"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
 const FACETS={v:["男性視点","女性視点","男女視点","専門家・データ"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
 const FLABEL={v:"視点",a:"年代",l:"言語",tg:"タグ"};
 const st={type:"すべて",v:null,a:null,l:null,tg:null};
@@ -320,7 +320,8 @@ function renderList(){
     return;
   }
   $("#list").innerHTML=KINDS.map(([k,c])=>{
-    const g=rows.filter(d=>d.k===k); if(!g.length)return "";
+    const known=KINDS.map(x=>x[0]);
+    const g=rows.filter(d=>d.k===k||(k==="未分類"&&!known.includes(d.k))); if(!g.length)return "";
     return `<section class="group" style="--c:var(${c})"><h4><i class="dot"></i>${k}（${g.length}）</h4><div class="list">${g.map(card).join("")}</div></section>`;
   }).join("");
 }
