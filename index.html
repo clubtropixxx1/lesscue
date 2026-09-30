@@ -90,6 +90,7 @@ nav.site-nav a:hover{color:var(--ink)}
 .hints{margin-top:36px}
 .hints h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
 .hints p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.cloud-h{margin:18px 0 0;font-size:14px;font-weight:700;color:var(--ink-2)}
 .cloud{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:14px;align-items:center}
 .hint{appearance:none;font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--navy);border-radius:999px;padding:6px 14px;line-height:1.4;font-weight:500}
 .hint small{font-size:11px;color:var(--muted);margin-left:4px;font-weight:400}
@@ -98,6 +99,7 @@ nav.site-nav a:hover{color:var(--ink)}
 .hint:hover{border-color:var(--navy);background:var(--accent-soft)}
 .hint[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
 .hint[aria-pressed="true"] small{color:var(--on-accent)}
+.picks-h{margin:14px 0 0;font-size:13px;font-weight:700}
 .hint-on{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:var(--ink-2)}
 .hint-on button{appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
 .list-guide{margin:12px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink-2);font-size:13px;line-height:1.7}
@@ -240,7 +242,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <section data-only="top" class="hints" id="hints">
     <h2>解決のヒントから探す</h2>
     <p>記事の中で語られている具体的な行動です。押すと、そのヒントが書かれた記事が一覧に出ます。</p>
-    <div class="cloud" id="cloud"></div>
+    <div id="cloud"></div>
   </section>
 
   <section class="stats" id="data">
@@ -294,13 +296,14 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 </div>
 
 <script>
-const DATA=[{"id": "https://app.notion.com/p/3eb0ac076fbd8002bd97faf7ff2d1945", "t": "【35歳からの2人目、3人目妊活】心理学者に聞く「妻がセックスレス夫に上手に切り出す方法」とは？", "u": "https://be-story.jp/femtech/256991/", "k": "解決策", "ty": ["流動的不仲型"], "tg": ["産後", "カウンセリング"], "h": [], "v": "女性視点", "a": ["20-30代", "40-50代"], "l": "日本語", "m": "美ST ONLINE（心理学者・杉山崇）", "d": "2026-05-29", "s": "子ども2人を育てながら約2年レスの35歳の妻が、3人目を望む一方で、疲労やお金の不安から乗り気でない夫との距離をどう縮めるかを、心理学者の杉山崇さん（神奈川大学教授）に聞いた記事。子育て中は脳が「恋愛モード」から「安全・使命モード」に切り替わるとし、髪型やメイクを変える、子どもを預けて泊まりのデートをするなど、新鮮さを演出することを勧めている。子どもが欲しいだけと感じさせない誘い方や、疲れた夫への感謝の言葉、必要に応じた夫婦カウンセリングにも触れている。", "c": "生物学的観点から、オスは「新奇性の高いメスに興奮しやすい」ため妻にイメチェンを勧めるのは説得力がある。レス解消には新鮮さが1つのキーワードかと。", "r": 3}, {"id": "https://app.notion.com/p/3ea0ac076fbd80f4924cc30d915c12a4", "t": "1日おきのセックスが、突然8カ月に1回に。交際8年のカップルが、セックスレスに陥った理由", "u": "https://www.huffingtonpost.jp/entry/story_jp_69e9bfb2e4b0cc34aae46c85", "k": "体験記", "ty": ["妻拒否型", "流動的不仲型"], "tg": ["海外", "カップル", "話し合い"], "h": [], "v": "男性視点", "a": ["20-30代"], "l": "日本語", "m": "HuffPost", "d": "2026-05-16", "s": "ハフポストUS版の翻訳記事で、交際8年の27歳男性マークさんが、1日おきだったセックスが8カ月に1回にまで減った経緯を語る。背景にはパートナーの性交痛や避妊ピルの影響、学業のストレスがあり、拒まれ続けた彼は自信を失って彼女を性的に見られなくなっていった。上の階の住人の声をきっかけに彼女が本音を打ち明け、別れも浮気もしないと伝えて話し合った結果、セックスは再開していないものの関係は改善に向かっている。", "c": "あくまで偶発的ではあるが、隣人のセックス音によって、女性がセックスを意識したという大変興味深い事例。また、話し合いが行われて関係が改善されつつあるも、レスは解消していない部分にはリアリティがある。", "r": 3}, {"id": "https://app.notion.com/p/3eb0ac076fbd8129a11bd3f7ab72b4aa", "t": "40代妻がレス解消できた「社長の一言」とは", "u": "https://be-story.jp/femtech/87248/", "k": "体験記", "ty": ["流動的不仲型"], "tg": ["産後"], "h": [], "v": "女性視点", "a": ["20-30代", "40-50代"], "l": "日本語", "m": "美ST ONLINE（星子）", "d": "2024-04-29", "s": "結婚15年の43歳女性が、レスと復活を繰り返してきた夫婦生活を振り返る体験記。第1子の出産後や夫の浮気疑惑があった時期にはほぼレスになったが、仕事を再開して外に出る機会が増えたことや旅行など、日常から離れた場面をきっかけに関係が戻ってきた。夫婦で参加する飲み会で互いに外向きの顔を見せ合うことが新鮮な刺激になったと語っている。", "c": "社会復帰・旅行・飲み会と、セックスレス解消には外部刺激が効くという事例。家事育児はマンネリになりやすい。各家庭によって事情は異なるが、妻が外部と触れ合える機会を作る努力を。", "r": 3}, {"id": "https://app.notion.com/p/3eb0ac076fbd81e09e86e8150dc6f08a", "t": "セックスレスについて夫と話し合いができません", "u": "https://www.mentor-cafe.metro.tokyo.lg.jp/topic/41384", "k": "体験記", "ty": ["妻拒否型"], "tg": ["産後", "話し合い"], "h": [], "v": "女性視点", "a": ["20-30代"], "l": "日本語", "m": "TOKYOメンターカフェ（東京都）", "d": "2025-10-24", "s": "東京都の相談サイトに寄せられた、結婚7年・3歳の子どもがいる30代女性の相談。夫は結婚以来ずっと我慢してきたと頻度の少なさに不満をぶつけるが、本人は性欲が落ちていて、まず気持ちの通い合いがほしいと感じている。回答した50代女性のメンターは、夫のいら立ちは回数だけの問題ではないとし、産後の体の変化を夫に伝えることや、どちらか一方が合わせるだけで収めないことを勧めている。", "c": "妻がかなり夫に配慮しているので、夫側の甲斐性ひとつで解決しそうな気がする。セックスレスのかなり大きい要因は夫の甲斐性。妻に拒否されてる方は「妻側の景色」を知るのに役立つかも。", "r": 2}, {"id": "https://app.notion.com/p/3ea0ac076fbd81d0a4c6f7195454fcb0", "t": "もう妻とはできません……セックスレス夫婦「夫が拒否する理由」【40代男性編】", "u": "https://allabout.co.jp/gm/gc/509829/", "k": "体験記", "ty": ["夫拒否型"], "tg": ["話し合い"], "h": [], "v": "男性視点", "a": ["40-50代"], "l": "日本語", "m": "All About（三松真由美）", "d": "2025-03-24", "s": "夫婦仲コメンテーターの三松真由美さんが、妻を拒むようになった40代の夫2人の話を紹介するコラム。1人は妻に薄毛をからかわれ続けて気持ちが冷め、もう1人は妊活のための義務的なセックスで疲れ切ってしまった。筆者は、横柄な言動や強要が夫の気持ちを遠ざけるとして、女性としての魅力より人としての接し方を見直すよう促している。", "c": "夫の序列が低下していると起こりそうな2つの事例。妻から誘いがある分、救いはあるが、やはり夫は引くべき一線は引くこと。全てに寛容であることと、優しさは別物。", "r": 2}, {"id": "https://app.notion.com/p/3e90ac076fbd806a8778cb89988b17a8", "t": "「性的対象として見られない」　無理な性行為は禁物、夫婦関係の危機", "u": "https://www.asahi.com/articles/ASV9K7VDPV9KPTIL018M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["産後"], "h": [], "v": "専門家・データ", "a": ["不明"], "l": "日本語", "m": "朝日新聞（谷口陽子・看護師／夫婦カウンセラー）", "d": "2026-09-22", "s": "夫婦カウンセラーでもある看護師・谷口陽子さんへのインタビュー。無理に応じ続けると女性は性交痛や相手への嫌悪感、男性は妻に対してだけEDになるといった形で悪化しやすく、応じられない背景には生理周期・産後・更年期・加齢などのホルモンの変化や、相手への日常的な不満があると指摘する。対処としては「応じない側が悪い」という前提を外し、スキンシップ中心の行動療法と本音の話し合いで、セックスにこだわらない選択肢も含めた夫婦なりの形を探すことを勧めている。", "c": "日常生活の不満を解消するのはベースとして、やはりセックスがゴールであると思う。ペッティングはセックスの手前なのではなく、別物である。", "r": 1}, {"id": "https://app.notion.com/p/3e90ac076fbd8067b32aee21fa83ca58", "t": "夫婦間で「したくない」なぜ言えない?　日本人に足りないものとは", "u": "https://www.asahi.com/articles/ASV971V8JV97ULLI008M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["カウンセリング"], "h": [], "v": "専門家・データ", "a": ["不明"], "l": "日本語", "m": "朝日新聞（岡田玖美子・奈良女子大専任講師）", "d": "2026-09-13", "s": "家族社会学者の岡田玖美子さん（奈良女子大専任講師）へのインタビューで、夫婦間の性的同意は毎回の形式的な確認ではなく、対話を重ねて互いに安心できる状態をつくる過程だと説く。日本では性教育の不足から性を語る言葉を持たない人が多く、「したくない」と言えないまま応じ続けると嫌悪感や不信感につながる一方、断られる側も拒絶されたと深く傷つくと指摘する。性行為がないこと自体ではなく気持ちのずれを話せないことが問題であり、映画やドラマをきっかけにした小さな対話から始めることを勧めている。", "c": "気持ちにズレがあって話し合えないことを問題視しているが、それは当然のことであって、やはりセックスが「最高のコミュニケーション」である以上、性的なコミュニケーションではなく挿入が大事だと思う。", "r": 1}];
+const DATA=[{"id": "https://app.notion.com/p/3eb0ac076fbd8002bd97faf7ff2d1945", "t": "【35歳からの2人目、3人目妊活】心理学者に聞く「妻がセックスレス夫に上手に切り出す方法」とは？", "u": "https://be-story.jp/femtech/256991/", "k": "解決策", "ty": ["流動的不仲型"], "tg": ["産後", "カウンセリング"], "h": {"c": [], "w": [], "m": []}, "v": "女性視点", "a": ["20-30代", "40-50代"], "l": "日本語", "m": "美ST ONLINE（心理学者・杉山崇）", "d": "2026-05-29", "s": "子ども2人を育てながら約2年レスの35歳の妻が、3人目を望む一方で、疲労やお金の不安から乗り気でない夫との距離をどう縮めるかを、心理学者の杉山崇さん（神奈川大学教授）に聞いた記事。子育て中は脳が「恋愛モード」から「安全・使命モード」に切り替わるとし、髪型やメイクを変える、子どもを預けて泊まりのデートをするなど、新鮮さを演出することを勧めている。子どもが欲しいだけと感じさせない誘い方や、疲れた夫への感謝の言葉、必要に応じた夫婦カウンセリングにも触れている。", "c": "生物学的観点から、オスは「新奇性の高いメスに興奮しやすい」ため妻にイメチェンを勧めるのは説得力がある。レス解消には新鮮さが1つのキーワードかと。", "r": 3}, {"id": "https://app.notion.com/p/3ea0ac076fbd80f4924cc30d915c12a4", "t": "1日おきのセックスが、突然8カ月に1回に。交際8年のカップルが、セックスレスに陥った理由", "u": "https://www.huffingtonpost.jp/entry/story_jp_69e9bfb2e4b0cc34aae46c85", "k": "体験記", "ty": ["妻拒否型", "流動的不仲型"], "tg": ["海外", "カップル", "話し合い"], "h": {"c": [], "w": [], "m": []}, "v": "男性視点", "a": ["20-30代"], "l": "日本語", "m": "HuffPost", "d": "2026-05-16", "s": "ハフポストUS版の翻訳記事で、交際8年の27歳男性マークさんが、1日おきだったセックスが8カ月に1回にまで減った経緯を語る。背景にはパートナーの性交痛や避妊ピルの影響、学業のストレスがあり、拒まれ続けた彼は自信を失って彼女を性的に見られなくなっていった。上の階の住人の声をきっかけに彼女が本音を打ち明け、別れも浮気もしないと伝えて話し合った結果、セックスは再開していないものの関係は改善に向かっている。", "c": "あくまで偶発的ではあるが、隣人のセックス音によって、女性がセックスを意識したという大変興味深い事例。また、話し合いが行われて関係が改善されつつあるも、レスは解消していない部分にはリアリティがある。", "r": 3}, {"id": "https://app.notion.com/p/3eb0ac076fbd8129a11bd3f7ab72b4aa", "t": "40代妻がレス解消できた「社長の一言」とは", "u": "https://be-story.jp/femtech/87248/", "k": "体験記", "ty": ["流動的不仲型"], "tg": ["産後"], "h": {"c": [], "w": [], "m": []}, "v": "女性視点", "a": ["20-30代", "40-50代"], "l": "日本語", "m": "美ST ONLINE（星子）", "d": "2024-04-29", "s": "結婚15年の43歳女性が、レスと復活を繰り返してきた夫婦生活を振り返る体験記。第1子の出産後や夫の浮気疑惑があった時期にはほぼレスになったが、仕事を再開して外に出る機会が増えたことや旅行など、日常から離れた場面をきっかけに関係が戻ってきた。夫婦で参加する飲み会で互いに外向きの顔を見せ合うことが新鮮な刺激になったと語っている。", "c": "社会復帰・旅行・飲み会と、セックスレス解消には外部刺激が効くという事例。家事育児はマンネリになりやすい。各家庭によって事情は異なるが、妻が外部と触れ合える機会を作る努力を。", "r": 3}, {"id": "https://app.notion.com/p/3eb0ac076fbd81e09e86e8150dc6f08a", "t": "セックスレスについて夫と話し合いができません", "u": "https://www.mentor-cafe.metro.tokyo.lg.jp/topic/41384", "k": "体験記", "ty": ["妻拒否型"], "tg": ["産後", "話し合い"], "h": {"c": [], "w": [], "m": []}, "v": "女性視点", "a": ["20-30代"], "l": "日本語", "m": "TOKYOメンターカフェ（東京都）", "d": "2025-10-24", "s": "東京都の相談サイトに寄せられた、結婚7年・3歳の子どもがいる30代女性の相談。夫は結婚以来ずっと我慢してきたと頻度の少なさに不満をぶつけるが、本人は性欲が落ちていて、まず気持ちの通い合いがほしいと感じている。回答した50代女性のメンターは、夫のいら立ちは回数だけの問題ではないとし、産後の体の変化を夫に伝えることや、どちらか一方が合わせるだけで収めないことを勧めている。", "c": "妻がかなり夫に配慮しているので、夫側の甲斐性ひとつで解決しそうな気がする。セックスレスのかなり大きい要因は夫の甲斐性。妻に拒否されてる方は「妻側の景色」を知るのに役立つかも。", "r": 2}, {"id": "https://app.notion.com/p/3ea0ac076fbd81d0a4c6f7195454fcb0", "t": "もう妻とはできません……セックスレス夫婦「夫が拒否する理由」【40代男性編】", "u": "https://allabout.co.jp/gm/gc/509829/", "k": "体験記", "ty": ["夫拒否型"], "tg": ["話し合い"], "h": {"c": [], "w": [], "m": []}, "v": "男性視点", "a": ["40-50代"], "l": "日本語", "m": "All About（三松真由美）", "d": "2025-03-24", "s": "夫婦仲コメンテーターの三松真由美さんが、妻を拒むようになった40代の夫2人の話を紹介するコラム。1人は妻に薄毛をからかわれ続けて気持ちが冷め、もう1人は妊活のための義務的なセックスで疲れ切ってしまった。筆者は、横柄な言動や強要が夫の気持ちを遠ざけるとして、女性としての魅力より人としての接し方を見直すよう促している。", "c": "夫の序列が低下していると起こりそうな2つの事例。妻から誘いがある分、救いはあるが、やはり夫は引くべき一線は引くこと。全てに寛容であることと、優しさは別物。", "r": 2}, {"id": "https://app.notion.com/p/3e90ac076fbd806a8778cb89988b17a8", "t": "「性的対象として見られない」　無理な性行為は禁物、夫婦関係の危機", "u": "https://www.asahi.com/articles/ASV9K7VDPV9KPTIL018M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["産後"], "h": {"c": [], "w": [], "m": []}, "v": "専門家・データ", "a": ["不明"], "l": "日本語", "m": "朝日新聞（谷口陽子・看護師／夫婦カウンセラー）", "d": "2026-09-22", "s": "夫婦カウンセラーでもある看護師・谷口陽子さんへのインタビュー。無理に応じ続けると女性は性交痛や相手への嫌悪感、男性は妻に対してだけEDになるといった形で悪化しやすく、応じられない背景には生理周期・産後・更年期・加齢などのホルモンの変化や、相手への日常的な不満があると指摘する。対処としては「応じない側が悪い」という前提を外し、スキンシップ中心の行動療法と本音の話し合いで、セックスにこだわらない選択肢も含めた夫婦なりの形を探すことを勧めている。", "c": "日常生活の不満を解消するのはベースとして、やはりセックスがゴールであると思う。ペッティングはセックスの手前なのではなく、別物である。", "r": 1}, {"id": "https://app.notion.com/p/3e90ac076fbd8067b32aee21fa83ca58", "t": "夫婦間で「したくない」なぜ言えない?　日本人に足りないものとは", "u": "https://www.asahi.com/articles/ASV971V8JV97ULLI008M.html", "k": "解決策", "ty": ["妻拒否型", "夫拒否型"], "tg": ["カウンセリング"], "h": {"c": [], "w": [], "m": []}, "v": "専門家・データ", "a": ["不明"], "l": "日本語", "m": "朝日新聞（岡田玖美子・奈良女子大専任講師）", "d": "2026-09-13", "s": "家族社会学者の岡田玖美子さん（奈良女子大専任講師）へのインタビューで、夫婦間の性的同意は毎回の形式的な確認ではなく、対話を重ねて互いに安心できる状態をつくる過程だと説く。日本では性教育の不足から性を語る言葉を持たない人が多く、「したくない」と言えないまま応じ続けると嫌悪感や不信感につながる一方、断られる側も拒絶されたと深く傷つくと指摘する。性行為がないこと自体ではなく気持ちのずれを話せないことが問題であり、映画やドラマをきっかけにした小さな対話から始めることを勧めている。", "c": "気持ちにズレがあって話し合えないことを問題視しているが、それは当然のことであって、やはりセックスが「最高のコミュニケーション」である以上、性的なコミュニケーションではなく挿入が大事だと思う。", "r": 1}];
 const TYPES=["妻拒否型","夫拒否型","流動的不仲型","完全不仲型"];
 const KINDS=[["悩み","--t-worry"],["解決策","--t-answer"],["理論","--t-paper"],["体験記","--t-story"],["データ・統計","--t-data"],["論文","--t-paper"],["ニュース","--t-news"],["未分類","--t-news"]];
 const FACETS={v:["男性視点","女性視点","男女視点","専門家・データ"],a:["20-30代","40-50代"],l:["日本語","英語","中国語"],tg:[]};
 const FLABEL={v:"視点",a:"年代",l:"言語",tg:"タグ"};
 const st={type:"すべて",v:null,a:null,l:null,tg:null,h:null};
-DATA.forEach(d=>{d.tg=d.tg||[];d.h=d.h||[];});
+DATA.forEach(d=>{d.tg=d.tg||[];d.h=d.h||{};["c","w","m"].forEach(k=>d.h[k]=d.h[k]||[]);d.ha=[...d.h.c,...d.h.w,...d.h.m];});
+const HWHO=[["c","夫婦でできること"],["w","妻ができること"],["m","夫ができること"]];
 FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
 FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
 DATA.sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
@@ -315,17 +318,25 @@ function renderTypes(){
   }).join("");
   $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
 }
-function renderCloud(){
-  const cnt={}; DATA.forEach(d=>d.h.forEach(h=>cnt[h]=(cnt[h]||0)+1));
-  const hs=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]||a.localeCompare(b,"ja"));
-  if(!hs.length){$("#hints").hidden=true;return;}
-  const max=Math.max(...Object.values(cnt));
+function hintButtons(list,cnt){
+  const max=Math.max(1,...Object.values(cnt));
   const size=n=>max<2?"":n>=max?"s3":n>=2?"s2":"";
-  $("#cloud").innerHTML=hs.map(h=>`<button class="hint ${size(cnt[h])}" aria-pressed="${st.h===h}" data-h="${esc(h)}">${esc(h)}<small>${cnt[h]}</small></button>`).join("");
-  $("#cloud").querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
+  return list.map(h=>`<button class="hint ${size(cnt[h])}" aria-pressed="${st.h===h}" data-h="${esc(h)}">${esc(h)}<small>${cnt[h]}</small></button>`).join("");
+}
+function bindHints(root){
+  root.querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
     st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; render();
     if(st.h)$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});
   });
+}
+function renderCloud(){
+  const cnt={}; DATA.forEach(d=>d.ha.forEach(h=>cnt[h]=(cnt[h]||0)+1));
+  const html=HWHO.map(([k,label])=>{
+    const hs=[...new Set(DATA.flatMap(d=>d.h[k]))].sort((a,b)=>cnt[b]-cnt[a]||a.localeCompare(b,"ja"));
+    return hs.length?`<h3 class="cloud-h">${label}</h3><div class="cloud">${hintButtons(hs,cnt)}</div>`:"";
+  }).join("");
+  if(!html){$("#hints").hidden=true;return;}
+  $("#cloud").innerHTML=html; bindHints($("#cloud"));
 }
 function renderFilters(){
   $("#filters").innerHTML=Object.keys(FACETS).map(f=>`<div class="fgroup"><span>${FLABEL[f]}</span>${
@@ -335,7 +346,7 @@ function renderFilters(){
 }
 function renderList(){
   const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
-    &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg))&&(!st.h||d.h.includes(st.h)));
+    &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg))&&(!st.h||d.ha.includes(st.h)));
   $("#typehead").innerHTML=(st.type==="すべて"
     ?`<h3>すべての記事</h3><p>${rows.length}件</p>`
     :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`)
@@ -380,6 +391,15 @@ function judge(a){
   if(a.who==="partner")return a.role==="husband"?"妻拒否型":"夫拒否型";
   return a.mood==="wave"?"流動的不仲型":"完全不仲型";
 }
+function quizHints(arts,role){
+  const me=role==="wife"?"w":"m";
+  const cnt={}; DATA.forEach(d=>d.ha.forEach(h=>cnt[h]=(cnt[h]||0)+1));
+  const mine=[...new Set(arts.flatMap(d=>d.h[me]))], both=[...new Set(arts.flatMap(d=>d.h.c))];
+  if(!mine.length&&!both.length)return "";
+  return `<div><p class="picks-h">あなたができること（記事で紹介されている解決のヒント）</p>`
+    +(mine.length?`<div class="cloud">${hintButtons(mine,cnt)}</div>`:"")
+    +(both.length?`<p class="picks-h" style="font-weight:500;color:var(--muted)">夫婦でできること</p><div class="cloud">${hintButtons(both,cnt)}</div>`:"")+`</div>`;
+}
 function kindColor(k){return (KINDS.find(x=>x[0]===k)||KINDS[5])[1];}
 function renderQuiz(){
   const el=$("#quiz");
@@ -403,7 +423,9 @@ function renderQuiz(){
   el.innerHTML=`<div class="quiz-top"><span>セックスレス簡単診断の結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
+    ${quizHints(hits,qs.ans.role)}
     <div class="quiz-actions"><button class="link-btn" id="quiz-open">${t}の記事一覧を見る ↓</button><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
+  bindHints(el);
   $("#quiz-open").onclick=()=>{st.type=t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});};
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }

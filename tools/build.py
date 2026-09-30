@@ -85,7 +85,9 @@ def build_articles(rows):
             "k": r.get("種別") or "未分類",
             "ty": as_list(r.get("型")),
             "tg": as_list(r.get("タグ")),
-            "h": as_list(r.get("解決のヒント")) if SHOW_HINTS else [],
+            # 解決のヒント：c=夫婦で、w=妻が、m=夫が
+            "h": {"c": as_list(r.get("ヒント（夫婦で）")), "w": as_list(r.get("ヒント（妻が）")),
+                  "m": as_list(r.get("ヒント（夫が）"))} if SHOW_HINTS else {"c": [], "w": [], "m": []},
             "v": r.get("視点") or "",
             "a": as_list(r.get("年代")) or ["不明"],
             "l": r.get("言語") or "日本語",
