@@ -22,6 +22,8 @@ SITE_URL = "https://lesscue.com/"
 # 公開前提のキーなので HTML に出てよい。空欄のあいだはフォームを隠し、メールアドレスだけ案内する。
 FORM_KEY = "91bd222b-3929-41ba-959a-b86b94a19c1a"
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
+# 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
+SHOW_HINTS = False
 JST = timezone(timedelta(hours=9))
 
 KIND_COLOR = {
@@ -83,7 +85,7 @@ def build_articles(rows):
             "k": r.get("種別") or "未分類",
             "ty": as_list(r.get("型")),
             "tg": as_list(r.get("タグ")),
-            "h": as_list(r.get("解決のヒント")),
+            "h": as_list(r.get("解決のヒント")) if SHOW_HINTS else [],
             "v": r.get("視点") or "",
             "a": as_list(r.get("年代")) or ["不明"],
             "l": r.get("言語") or "日本語",
