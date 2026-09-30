@@ -23,7 +23,7 @@ SITE_URL = "https://lesscue.com/"
 FORM_KEY = "91bd222b-3929-41ba-959a-b86b94a19c1a"
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
-SHOW_HINTS = False
+SHOW_HINTS = True
 JST = timezone(timedelta(hours=9))
 
 KIND_COLOR = {
