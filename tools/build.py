@@ -158,7 +158,7 @@ def build_stats(rows, article_rows):
     return cards
 
 
-def static_list(arts):
+def static_list(arts, heading="おすすめ順"):
     """JS が動かない環境や検索エンジン向けに、記事一覧を最初から HTML で書いておく。"""
     if not arts:
         return '<p class="empty">公開中の記事はまだありません。</p>'
@@ -175,7 +175,9 @@ def static_list(arts):
             + (f'<details><summary>AI要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
             + f'<a class="read" href="{e(d["u"])}" target="_blank" rel="noopener">元の記事を読む ↗</a></article>'
         )
-    return '<section class="group"><h4>おすすめ順</h4><div class="list">' + "".join(items) + "</div></section>"
+    if not heading:
+        return '<div class="list">' + "".join(items) + "</div>"
+    return f'<section class="group"><h4>{heading}</h4><div class="list">' + "".join(items) + "</div></section>"
 
 
 def js_json(obj):
@@ -190,6 +192,7 @@ def main():
     now = datetime.now(JST)
 
     (ROOT / "data").mkdir(exist_ok=True)
+    (ROOT / "article").mkdir(exist_ok=True)
     (ROOT / "data" / "articles.json").write_text(json.dumps(arts, ensure_ascii=False, indent=1), encoding="utf-8")
     (ROOT / "data" / "stats.json").write_text(json.dumps(stats, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -200,8 +203,17 @@ def main():
             "TITLE": "セックスレスの原因と解消法を型で探す｜レスられ総研",
             "DESCRIPTION": "セックスレスに悩む人のためのデータベース。二択の診断で妻拒否型・夫拒否型などの悩みの型を判定し、原因と解消法の記事・論文・調査データを型別にまとめています。",
             "CANONICAL": SITE_URL,
-            "STATIC_LIST": static_list(arts),
+            # TOPはおすすめ上位5件だけ。全件は /article/
+            "STATIC_LIST": static_list(arts[:5], heading=None),
             "STATS_HIDDEN": "" if any(c["top"] for c in stats) else " hidden",
+        },
+        "article": {
+            "path": ROOT / "article" / "index.html",
+            "TITLE": "セックスレスの記事一覧｜原因と解消法を型別に｜レスられ総研",
+            "DESCRIPTION": "セックスレスの原因と解消法に関する記事・体験記・論文を、妻拒否型・夫拒否型などの悩みの型や、視点・年代で絞り込んで探せる一覧です。",
+            "CANONICAL": SITE_URL + "article/",
+            "STATIC_LIST": static_list(arts),
+            "STATS_HIDDEN": " hidden",
         },
         "data": {
             "path": ROOT / "data" / "index.html",
@@ -232,10 +244,11 @@ def main():
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f"  <url><loc>{SITE_URL}</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
+        f"  <url><loc>{SITE_URL}article/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
         f"  <url><loc>{SITE_URL}data/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
         "</urlset>\n", encoding="utf-8")
 
-    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html と data/index.html を生成しました")
+    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html・article/index.html・data/index.html を生成しました")
 
 
 if __name__ == "__main__":

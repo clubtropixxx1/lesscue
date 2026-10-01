@@ -75,6 +75,7 @@ nav.site-nav a:hover{color:var(--ink)}
 .type:hover{border-color:var(--accent)}
 .type:focus-visible,.chip:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .type[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+a.type{text-decoration:none}
 .type b{font-weight:700;font-size:15px}
 .type small{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
 
@@ -99,6 +100,17 @@ nav.site-nav a:hover{color:var(--ink)}
 .hint:hover{border-color:var(--navy);background:var(--accent-soft)}
 .hint[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
 .hint[aria-pressed="true"] small{color:var(--on-accent)}
+@media (max-width:600px){
+  .cloud{gap:6px 8px;margin-top:10px}
+  .hint{padding:4px 11px;font-size:13px}
+  .hint small{font-size:10px}
+  .hint.s2{font-size:14px}
+  .hint.s3{font-size:15px}
+  .cloud-h{margin-top:14px;font-size:13px}
+}
+.top-head{margin-top:36px}
+.top-head h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
+.more-arts{margin:20px 0 0}
 .picks-h{margin:14px 0 0;font-size:13px;font-weight:700}
 .hint-on{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:var(--ink-2)}
 .hint-on button{appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
@@ -149,7 +161,7 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .pick a:hover{text-decoration:underline}
 .pick small{color:var(--muted);font-size:12px}
 .quiz-actions{display:flex;flex-wrap:wrap;gap:16px}
-.link-btn{appearance:none;border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;color:var(--accent);cursor:pointer}
+.link-btn{text-decoration:none;appearance:none;border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;color:var(--accent);cursor:pointer}
 .link-btn:hover{text-decoration:underline}
 .stats{margin-top:36px}
 .stats-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
@@ -159,7 +171,7 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .more{margin:18px 0 0;text-align:center}
 .more a{display:inline-block;color:var(--navy);font-weight:700;font-size:14px;text-decoration:none;border:1.5px solid var(--navy);border-radius:999px;padding:10px 24px}
 .more a:hover{background:var(--navy);color:var(--on-accent)}
-body[data-page="data"] [data-only="top"],body[data-page="top"] [data-only="data"]{display:none!important}
+body[data-page="top"] [data-only]:not([data-only~="top"]),body[data-page="data"] [data-only]:not([data-only~="data"]),body[data-page="article"] [data-only]:not([data-only~="article"]){display:none!important}
 body[data-page="data"] .stats{margin-top:24px}
 .stat-filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
@@ -228,25 +240,21 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     </div>
     <button class="menu-btn" id="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     <nav class="site-nav" id="site-nav" aria-label="サイト内">
-      <a href="/data/">数字で見る</a><a href="/#list">記事一覧</a><a href="#about">このサイトについて</a>
+      <a href="/article/">記事一覧</a><a href="/data/">数字で見る</a><a href="#about">このサイトについて</a>
     </nav>
   </header>
 
   <section data-only="top" class="quiz" id="quiz" aria-live="polite"></section>
 
-  <section data-only="top" class="intro">
-    <h2>あなたの状況に近い型から探す</h2>
-    <p>型を選ぶと、その型の悩み、解決策、データ、論文の順に、それぞれおすすめ度の高い記事から並びます。</p>
+  <section data-only="top article" class="intro">
+    <h2 data-only="top">あなたの状況に近い型から探す</h2>
+    <p data-only="top">型を選ぶと、その型の記事を、悩み・解決策・体験記などの種別ごとにおすすめ度の高い順で一覧にします。</p>
+    <h2 data-only="article">記事一覧</h2>
+    <p data-only="article">型を選ぶと、その型の記事を種別ごとにおすすめ度の高い順で並べます。視点・年代・タグでも絞り込めます。</p>
     <div class="types" id="types"></div>
   </section>
 
-  <section data-only="top" class="hints" id="hints">
-    <h2>解決のヒントから探す</h2>
-    <p>記事の中で語られている具体的な行動です。押すと、そのヒントが書かれた記事が一覧に出ます。</p>
-    <div id="cloud"></div>
-  </section>
-
-  <section class="stats" id="data"{{STATS_HIDDEN}}>
+  <section class="stats" id="data" data-only="top data"{{STATS_HIDDEN}}>
     <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
     <p class="stats-note" data-only="data">調査ごとにセックスレスの定義や対象者が違うため、数字同士を単純に比べることはできません。各カードの対象と出典をあわせて確認してください。</p>
     <div class="stat-filters" id="stat-filters"></div>
@@ -254,16 +262,25 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <p class="more" data-only="top"><a href="/data/" id="more-link">すべてのデータを見る →</a></p>
   </section>
 
-  <nav class="next" data-only="data" aria-label="次に読む">
+  <div data-only="article" class="filters" id="filters"></div>
+
+  <div data-only="top" class="top-head"><h2>おすすめの記事</h2></div>
+  <div data-only="article" class="typehead" id="typehead"></div>
+  <p data-only="top article" class="list-guide">記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★★★</span> は運営が記事を読んで付けたおすすめ度（3段階）です。「運営より」は運営からのコメント、「AI要約を読む」はAIがまとめた要約です。<span class="own">所長の考察</span> は、当サイトの運営者（所長）が書いた記事です。</p>
+  <main id="list" data-only="top article">{{STATIC_LIST}}</main>
+  <p class="more more-arts" data-only="top"><a href="/article/" id="more-arts">記事一覧を見る →</a></p>
+
+  <section data-only="top" class="hints" id="hints">
+    <h2>解決のヒントから探す</h2>
+    <p>記事の中で語られている具体的な行動です。押すと、そのヒントが書かれた記事が一覧で表示されます。</p>
+    <div id="cloud"></div>
+  </section>
+
+  <nav class="next" data-only="data article" aria-label="次に読む">
     <a class="go" href="/#quiz"><small>3つの二択で30秒</small><span>あなたはどの型？診断する</span></a>
-    <a href="/#list"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
+    <a href="/article/" data-only="data"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
+    <a href="/data/" data-only="article"><small>割合・調査データを出典つきで</small><span>数字で見るセックスレス</span></a>
   </nav>
-
-  <div data-only="top" class="filters" id="filters"></div>
-
-  <div data-only="top" class="typehead" id="typehead"></div>
-  <p data-only="top" class="list-guide">記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★★★</span> は運営が記事を読んで付けたおすすめ度（3段階）です。「運営より」は運営からのコメント、「AI要約を読む」はAIがまとめた要約です。<span class="own">所長の考察</span> は、当サイトの運営者（所長）が書いた記事です。</p>
-  <main id="list" data-only="top">{{STATIC_LIST}}</main>
 
   <footer id="about">
     <h2 class="about-h">このサイトについて</h2>
@@ -308,13 +325,17 @@ const HWHO=[["c","夫婦でできること"],["w","妻ができること"],["m",
 FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
 FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
 DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
+const PAGE="{{PAGE_MODE}}";
 const $=s=>document.querySelector(s);
+const artURL=(k,v)=>"/article/"+(v?`?${k}=${encodeURIComponent(v)}`:"");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function renderTypes(){
   const all=["すべて",...TYPES];
   $("#types").innerHTML=all.map(t=>{
     const n=t==="すべて"?DATA.length:DATA.filter(d=>d.ty.includes(t)).length;
+    // TOPでは記事一覧ページへのリンク、記事一覧ページではその場で絞り込むボタン
+    if(PAGE==="top")return `<a class="type" href="${artURL("type",t==="すべて"?"":t)}"><b>${t}</b><small>${n}件</small></a>`;
     return `<button class="type" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
   }).join("");
   $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
@@ -326,6 +347,7 @@ function hintButtons(list,cnt){
 }
 function bindHints(root){
   root.querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
+    if(PAGE!=="article"){location.href=artURL("h",b.dataset.h);return;}
     st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; render();
     if(st.h)$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});
   });
@@ -345,6 +367,25 @@ function renderFilters(){
   }</div>`).join("");
   $("#filters").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{const f=b.dataset.f,v=b.dataset.v;st[f]=st[f]===v?null:v;render();});
 }
+const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
+const card=d=>`
+      <article class="entry" style="--c:var(${kc(d.k)})">
+        <div class="meta"><span class="kind">${d.k}</span>${d.o?`<span class="own" title="運営者（所長）自身が書いた記事">所長の考察</span>`:d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span>${d.l&&d.l!=="日本語"?`<span>${d.l}（日本語要約あり）</span>`:""}</div>
+        <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
+        ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
+        ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
+        <div class="tags">${[d.v,...d.ty,...d.tg,...d.a.filter(x=>x!=="不明")].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+        <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
+      </article>`;
+function renderTop(){
+  $("#list").innerHTML=`<div class="list">${DATA.slice(0,5).map(card).join("")}</div>`;
+  $("#more-arts").textContent=`記事一覧を見る（全${DATA.length}件）→`;
+}
+function syncURL(){
+  const p=new URLSearchParams(); if(st.type!=="すべて")p.set("type",st.type);
+  ["h","v","a","l","tg"].forEach(k=>st[k]&&p.set(k,st[k]));
+  const q=p.toString(); history.replaceState(null,"",location.pathname+(q?"?"+q:""));
+}
 function renderList(){
   const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
     &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg))&&(!st.h||d.ha.includes(st.h)));
@@ -354,16 +395,6 @@ function renderList(){
     +(st.h?`<div class="hint-on">解決のヒント「${esc(st.h)}」の記事だけを表示中<button id="hint-clear">解除</button></div>`:"");
   if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();};
   if(!rows.length){$("#list").innerHTML=`<p class="empty">この条件の記事はまだありません。条件を外すと他の記事が表示されます。</p>`;return;}
-  const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
-  const card=d=>`
-      <article class="entry" style="--c:var(${kc(d.k)})">
-        <div class="meta"><span class="kind">${d.k}</span>${d.o?`<span class="own" title="運営者（所長）自身が書いた記事">所長の考察</span>`:d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span>${d.l&&d.l!=="日本語"?`<span>${d.l}（日本語要約あり）</span>`:""}</div>
-        <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
-        ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
-        ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
-        <div class="tags">${[d.v,...d.ty,...d.tg,...d.a.filter(x=>x!=="不明")].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
-        <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
-      </article>`;
   if(st.type==="すべて"){
     $("#list").innerHTML=`<section class="group"><h4>おすすめ順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
     return;
@@ -425,13 +456,11 @@ function renderQuiz(){
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     ${quizHints(hits,qs.ans.role)}
-    <div class="quiz-actions"><button class="link-btn" id="quiz-open">${t}の記事一覧を見る ↓</button><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
+    <div class="quiz-actions"><a class="link-btn" href="${artURL("type",t)}">${t}の記事一覧を見る →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
   bindHints(el);
-  $("#quiz-open").onclick=()=>{st.type=t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});};
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }
 /* ---- 数字で見る ---- */
-const PAGE="{{PAGE_MODE}}";
 const ALL_NUMS={{STATS_JSON}};
 const NUMS=PAGE==="top"?ALL_NUMS.filter(n=>n.top):ALL_NUMS;
 {const m=$("#more-link"); if(m) m.textContent=`すべてのデータを見る（${ALL_NUMS.length}件）→`;}
@@ -483,7 +512,7 @@ function renderStats(){
   }).join("");
   watchStats();
 }
-function render(){renderTypes();renderCloud();renderFilters();renderList();}
+function render(){renderTypes();renderFilters();renderList();syncURL();}
 /* ---- スマホ用メニュー ---- */
 (function(){
   const btn=$("#menu-btn"),nav=$("#site-nav");
@@ -495,7 +524,14 @@ function render(){renderTypes();renderCloud();renderFilters();renderList();}
 })();
 if(/[?&]sent=1/.test(location.search))$("#sent").hidden=false;
 renderStats();
-if(PAGE==="top"){renderQuiz();render();}
+if(PAGE==="top"){renderQuiz();renderTypes();renderTop();renderCloud();}
+if(PAGE==="article"){
+  const q=new URLSearchParams(location.search);
+  if(TYPES.includes(q.get("type")))st.type=q.get("type");
+  if(q.get("h")&&DATA.some(d=>d.ha.includes(q.get("h"))))st.h=q.get("h");
+  ["v","a","l","tg"].forEach(k=>{const v=q.get(k); if(v&&FACETS[k]&&FACETS[k].includes(v))st[k]=v;});
+  render();
+}
 </script>
 </body>
 </html>

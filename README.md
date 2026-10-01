@@ -7,7 +7,8 @@
 - 記事と数値の元データは Notion の「レス記事DB」「レス数値DB」で管理する
 - ステータスが「公開」の行だけがサイトに載る（未確認・見送り・博士メモは載らない）
 - 記事DBの「数値出典」は調査リリースなど数値DBの出典専用。記事一覧・診断には出さないが、数値カードの出典名には使う
-- `tools/build.py` が Notion の書き出しから `index.html` と `data/*.json`、`sitemap.xml` を生成する
+- `tools/build.py` が Notion の書き出しから `index.html`（TOP）・`article/index.html`（記事一覧）・`data/index.html`（数字で見る）と `data/*.json`、`sitemap.xml` を生成する
+- TOP は診断・型・数字・おすすめ上位5記事・解決のヒントの順。型やヒントを押すと `/article/?type=…` `/article/?h=…` に飛んで絞り込む（視点・年代・タグの絞り込みも記事一覧ページ側）
 - Notion の生データは `_notion/` に置き、Git には入れない（`.gitignore`）
 
 ## 更新手順
