@@ -11,7 +11,11 @@
 <meta property="og:title" content="このサイトについて・所長あいさつ｜レスられ総研">
 <meta property="og:description" content="―私はレス山さんを救いたい― セックスレスのお悩みと解消法のデータベース。">
 <meta property="og:url" content="https://lesscue.com/about/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://lesscue.com/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="レスられ総研 ―私はレス山さんを救いたい― セックスレスのお悩みと解消法のデータベース">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234F5D8C'/%3E%3Cpath d='M6 24 13 11l5 8 3-4 5 9z' fill='%23F2F3EF'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,6 +81,7 @@ nav.site-nav a:hover{background:var(--accent-soft)}
 .type:focus-visible,.chip:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .type[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
 a.type{text-decoration:none}
+.type.zero{opacity:.45}
 .type b{font-weight:700;font-size:15px}
 .type small{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
 
@@ -155,7 +160,7 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .ans:focus-visible,.link-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .trail{display:flex;flex-wrap:wrap;gap:6px;font-size:12px;color:var(--muted)}
 .trail i{font-style:normal;padding:1px 8px;border-radius:4px;background:var(--bg);border:1px solid var(--line)}
-.result-type{font-family:var(--display);font-weight:800;font-size:26px;margin:0;color:var(--accent)}
+.result .result-type{font-family:var(--display);font-weight:800;font-size:26px;margin:0;color:var(--accent)}
 .result p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
 .picks{display:flex;flex-direction:column;gap:8px;margin-top:6px}
 .pick{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-left:3px solid var(--c);background:var(--bg);border-radius:0 6px 6px 0}
@@ -163,6 +168,9 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .pick a:hover{text-decoration:underline}
 .pick small{color:var(--muted);font-size:12px}
 .quiz-actions{display:flex;flex-wrap:wrap;gap:16px}
+.share-x{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:13.5px;font-weight:700;text-decoration:none}
+.share-x::before{content:"𝕏";font-size:15px}
+.share-x:hover{opacity:.85}
 .link-btn{text-decoration:none;appearance:none;border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;color:var(--accent);cursor:pointer}
 .link-btn:hover{text-decoration:underline}
 .stats{margin-top:36px}
@@ -294,7 +302,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 
   <div data-only="top" class="top-head"><h2>おすすめの記事</h2></div>
   <div data-only="article" class="typehead" id="typehead"></div>
-  <p data-only="top article" class="list-guide">記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★★★</span> は運営が記事を読んで付けたおすすめ度（3段階）です。「運営より」は運営からのコメント、「AI要約を読む」はAIがまとめた要約です。<span class="own">所長の考察</span> は、当サイトの運営者（所長）が書いた記事です。</p>
+  <p data-only="top article" class="list-guide">記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★★★</span> は運営が記事を読んで付けたおすすめ度（3段階）です。「運営より」は運営からのコメント<span data-only="top">です。</span><span data-only="article">、「AI要約を読む」はAIがまとめた要約です。</span><span class="own">所長の考察</span> は、当サイトの運営者（所長）が書いた記事です。</p>
   <main id="list" data-only="top article"></main>
   <p class="more more-arts" data-only="top"><a href="/article/" id="more-arts">記事一覧を見る →</a></p>
 
@@ -395,7 +403,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <footer>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。各記事の要約はAIが作成しています。</p>
     <p class="foot-links"><a href="/about/">このサイトについて</a><a href="/about/#greet">所長あいさつ</a><a href="/about/#policy">掲載の基準</a><a href="/about/#disclaimer">免責事項</a><a href="/about/#contact">お問い合わせ</a></p>
-    <p class="updated">最終更新：2026.10.01</p>
+    <p class="updated">最終更新：2026.10.02</p>
   </footer>
 </div>
 
@@ -421,8 +429,9 @@ function renderTypes(){
   $("#types").innerHTML=all.map(t=>{
     const n=t==="すべて"?DATA.length:DATA.filter(d=>d.ty.includes(t)).length;
     // TOPでは記事一覧ページへのリンク、記事一覧ページではその場で絞り込むボタン
-    if(PAGE==="top")return `<a class="type" href="${artURL("type",t==="すべて"?"":t)}"><b>${t}</b><small>${n}件</small></a>`;
-    return `<button class="type" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
+    const z=n?"":" zero";
+    if(PAGE==="top")return `<a class="type${z}" href="${artURL("type",t==="すべて"?"":t)}"><b>${t}</b><small>${n}件</small></a>`;
+    return `<button class="type${z}" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
   }).join("");
   $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
 }
@@ -454,17 +463,17 @@ function renderFilters(){
   $("#filters").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{const f=b.dataset.f,v=b.dataset.v;st[f]=st[f]===v?null:v;render();});
 }
 const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
-const card=d=>`
+const card=(d,lite)=>`
       <article class="entry" style="--c:var(${kc(d.k)})">
         <div class="meta"><span class="kind">${d.k}</span>${d.o?`<span class="own" title="運営者（所長）自身が書いた記事">所長の考察</span>`:d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span>${d.l&&d.l!=="日本語"?`<span>${d.l}（日本語要約あり）</span>`:""}</div>
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
-        ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
-        <div class="tags">${[d.v,...d.ty,...d.tg,...d.a.filter(x=>x!=="不明")].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+        ${d.s&&!lite?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
+        ${lite?"":`<div class="tags">${[d.v,...d.ty,...d.tg,...d.a.filter(x=>x!=="不明")].filter(Boolean).map(x=>`<span class="tag">${x}</span>`).join("")}</div>`}
         <a class="read" href="${esc(d.u)}" target="_blank" rel="noopener">元の記事を読む ↗</a>
       </article>`;
 function renderTop(){
-  $("#list").innerHTML=`<div class="list">${DATA.slice(0,5).map(card).join("")}</div>`;
+  $("#list").innerHTML=`<div class="list">${DATA.slice(0,5).map(d=>card(d,true)).join("")}</div>`;
   $("#more-arts").textContent=`記事一覧を見る（全${DATA.length}件）→`;
 }
 function syncURL(){
@@ -483,13 +492,13 @@ function renderList(){
   if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();window.scrollTo({top:0});};
   if(!rows.length){$("#list").innerHTML=`<p class="empty">この条件の記事はまだありません。条件を外すと他の記事が表示されます。</p>`;return;}
   if(st.type==="すべて"){
-    $("#list").innerHTML=`<section class="group"><h4>おすすめ順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
+    $("#list").innerHTML=`<section class="group"><h4>おすすめ順</h4><div class="list">${rows.map(d=>card(d)).join("")}</div></section>`;
     return;
   }
   $("#list").innerHTML=KINDS.map(([k,c])=>{
     const known=KINDS.map(x=>x[0]);
     const g=rows.filter(d=>d.k===k||(k==="未分類"&&!known.includes(d.k))); if(!g.length)return "";
-    return `<section class="group" style="--c:var(${c})"><h4><i class="dot"></i>${k}（${g.length}）</h4><div class="list">${g.map(card).join("")}</div></section>`;
+    return `<section class="group" style="--c:var(${c})"><h4><i class="dot"></i>${k}（${g.length}）</h4><div class="list">${g.map(d=>card(d)).join("")}</div></section>`;
   }).join("");
 }
 /* ---- 二択診断 ---- */
@@ -519,6 +528,10 @@ function quizHints(arts,role){
     +(mine.length?`<div class="cloud">${hintButtons(mine,cnt)}</div>`:"")
     +(both.length?`<p class="picks-h" style="font-weight:500;color:var(--muted)">夫婦でできること</p><div class="cloud">${hintButtons(both,cnt)}</div>`:"")+`</div>`;
 }
+function shareURL(t){
+  const text=`レスられ総研の「セックスレス簡単診断」で、私は「${t}」でした。あなたはどの型？`;
+  return "https://x.com/intent/post?text="+encodeURIComponent(text)+"&url="+encodeURIComponent("https://lesscue.com/");
+}
 function kindColor(k){return (KINDS.find(x=>x[0]===k)||KINDS[5])[1];}
 function renderQuiz(){
   const el=$("#quiz");
@@ -538,12 +551,13 @@ function renderQuiz(){
   const t=judge(qs.ans);
   const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
-  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
+  const list=(hits.length?hits.slice(0,5):fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
   el.innerHTML=`<div class="quiz-top"><span>セックスレス簡単診断の結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
+    <a class="share-x" href="${shareURL(t)}" target="_blank" rel="noopener">結果をXでシェアする</a>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     ${quizHints(hits,qs.ans.role)}
-    <div class="quiz-actions"><a class="link-btn" href="${artURL("type",t)}">${t}の記事一覧を見る →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
+    <div class="quiz-actions"><a class="link-btn" href="${artURL("type",t)}">${t}の記事一覧を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
   bindHints(el);
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }

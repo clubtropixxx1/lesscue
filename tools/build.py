@@ -158,7 +158,7 @@ def build_stats(rows, article_rows):
     return cards
 
 
-def static_list(arts, heading="おすすめ順"):
+def static_list(arts, heading="おすすめ順", lite=False):
     """JS が動かない環境や検索エンジン向けに、記事一覧を最初から HTML で書いておく。"""
     if not arts:
         return '<p class="empty">公開中の記事はまだありません。</p>'
@@ -172,7 +172,7 @@ def static_list(arts, heading="おすすめ順"):
             f'<div class="meta"><span class="kind">{e(d["k"])}</span>{badge_html(d)}<span>{e(d["m"])}</span>{lang}</div>'
             f'<h5><a href="{e(d["u"])}" target="_blank" rel="noopener">{e(d["t"])}</a></h5>'
             + (f'<p class="comment">{e(d["c"])}</p>' if d["c"] else "")
-            + (f'<details><summary>AI要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
+            + (f'<details><summary>AI要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] and not lite else "")
             + f'<a class="read" href="{e(d["u"])}" target="_blank" rel="noopener">元の記事を読む ↗</a></article>'
         )
     if not heading:
@@ -205,7 +205,7 @@ def main():
             "DESCRIPTION": "セックスレスに悩む人のためのデータベース。二択の診断で妻拒否型・夫拒否型などの悩みの型を判定し、原因と解消法の記事・論文・調査データを型別にまとめています。",
             "CANONICAL": SITE_URL,
             # TOPはおすすめ上位5件だけ。全件は /article/
-            "STATIC_LIST": static_list(arts[:5], heading=None),
+            "STATIC_LIST": static_list(arts[:5], heading=None, lite=True),
             "STATS_HIDDEN": "" if any(c["top"] for c in stats) else " hidden",
         },
         "article": {
