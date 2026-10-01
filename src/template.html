@@ -286,8 +286,8 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <h2 class="about-h">このサイトについて</h2>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のために、原因と解消法に関する記事・論文・調査データを悩みの型ごとに集めたデータベースです。</p>
     <p>掲載しているのは外部の記事・論文へのリンクと、要約・一言コメントです。記事本文の転載は行っていません。各記事の要約はAIが作成したもので、「運営より」は運営からのコメントです。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
-    <h3 class="contact-h" id="contact">削除依頼・お問い合わせ</h3>
-    <p>掲載記事の削除依頼、掲載してほしい記事の情報、その他のお問い合わせは、{{CONTACT_LEAD}}メール（<span class="mail">{{CONTACT_EMAIL}}</span>）でお送りください。</p>
+    <h3 class="contact-h" id="contact">お問い合わせ</h3>
+    <p>お問い合わせは、{{CONTACT_LEAD}}メール（<span class="mail">{{CONTACT_EMAIL}}</span>）でお送りください。</p>
     <p class="sent" id="sent" hidden>送信しました。内容を確認のうえ、必要に応じてご返信します。</p>
     <form class="contact" id="contact-form" action="https://api.web3forms.com/submit" method="POST"{{FORM_HIDDEN}}>
       <input type="hidden" name="access_key" value="{{FORM_KEY}}">
@@ -297,9 +297,9 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
       <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label for="cf-kind">種別</label>
       <select id="cf-kind" name="種別" required>
-        <option value="掲載記事の削除依頼">掲載記事の削除依頼</option>
+        <option value="お問い合わせ">お問い合わせ</option>
         <option value="掲載してほしい記事の情報">掲載してほしい記事の情報</option>
-        <option value="その他">その他</option>
+        <option value="掲載記事の削除依頼">掲載記事の削除依頼</option>
       </select>
       <label for="cf-email">返信用メールアドレス</label>
       <input id="cf-email" type="email" name="email" required autocomplete="email">
