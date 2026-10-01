@@ -116,6 +116,7 @@ article.entry{background:var(--surface);border:1px solid var(--line);border-radi
 .meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .kind{color:var(--c);font-weight:700}
 .rate{color:var(--star);letter-spacing:.08em;font-size:12.5px}
+.own{display:inline-block;padding:1px 7px;border:1px solid var(--navy);border-radius:3px;color:var(--navy);font-size:11px;letter-spacing:.06em;line-height:1.5}
 .rate i{font-style:normal;color:var(--line)}
 .entry h5{margin:0;font-size:16px;line-height:1.55;font-weight:700;text-wrap:pretty}
 .entry h5 a{color:inherit;text-decoration:none}
@@ -261,7 +262,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <div data-only="top" class="filters" id="filters"></div>
 
   <div data-only="top" class="typehead" id="typehead"></div>
-  <p data-only="top" class="list-guide">記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★★★</span> は運営が記事を読んで付けたおすすめ度（3段階）です。「運営より」は運営からのコメント、「AI要約を読む」はAIがまとめた要約です。</p>
+  <p data-only="top" class="list-guide">記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★★★</span> は運営が記事を読んで付けたおすすめ度（3段階）です。「運営より」は運営からのコメント、「AI要約を読む」はAIがまとめた要約です。<span class="own">所長の考察</span> は、当サイトの運営者（所長）が書いた記事です。</p>
   <main id="list" data-only="top">{{STATIC_LIST}}</main>
 
   <footer id="about">
@@ -306,7 +307,7 @@ DATA.forEach(d=>{d.tg=d.tg||[];d.h=d.h||{};["c","w","m"].forEach(k=>d.h[k]=d.h[k
 const HWHO=[["c","夫婦でできること"],["w","妻ができること"],["m","夫ができること"]];
 FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
 FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
-DATA.sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
+DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -356,7 +357,7 @@ function renderList(){
   const kc=k=>(KINDS.find(x=>x[0]===k)||KINDS[KINDS.length-1])[1];
   const card=d=>`
       <article class="entry" style="--c:var(${kc(d.k)})">
-        <div class="meta"><span class="kind">${d.k}</span>${d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span>${d.l&&d.l!=="日本語"?`<span>${d.l}（日本語要約あり）</span>`:""}</div>
+        <div class="meta"><span class="kind">${d.k}</span>${d.o?`<span class="own" title="運営者（所長）自身が書いた記事">所長の考察</span>`:d.r?`<span class="rate" title="おすすめ度 ${d.r}/3" aria-label="おすすめ度 3段階中${d.r}">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>`:""}<span>${esc(d.m)}</span>${d.l&&d.l!=="日本語"?`<span>${d.l}（日本語要約あり）</span>`:""}</div>
         <h5><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a></h5>
         ${d.c?`<p class="comment">${esc(d.c)}</p>`:""}
         ${d.s?`<details><summary>AI要約を読む</summary><p>${esc(d.s)}</p></details>`:""}
@@ -417,9 +418,9 @@ function renderQuiz(){
     return;
   }
   const t=judge(qs.ans);
-  const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.r||0)-(x.r||0)||(y.d||"").localeCompare(x.d||""));
+  const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
-  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
+  const list=(hits.length?hits:fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
   el.innerHTML=`<div class="quiz-top"><span>セックスレス簡単診断の結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>

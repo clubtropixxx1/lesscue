@@ -57,6 +57,12 @@ def rate_html(n):
             + "★" * n + f'<i>{"★" * (3 - n)}</i></span>')
 
 
+def badge_html(d):
+    if d.get("o"):
+        return '<span class="own" title="運営者（所長）自身が書いた記事">所長の考察</span>'
+    return rate_html(d["r"])
+
+
 def clean_title(t):
     # 共有時に付くマークダウンの太字記号などを落とす
     return re.sub(r"^\*+|\*+$", "", (t or "").strip())
@@ -96,9 +102,14 @@ def build_articles(rows):
             "s": r.get("要約") or "",
             "c": r.get("論評") or "",
             "r": stars(r.get("おすすめ度")),
+            # 所長（運営者）自身の記事：☆は付けず「所長の考察」ラベルを出す
+            "o": 1 if r.get("所長記事") in (True, "__YES__") else 0,
         })
-    # おすすめ度の高い順、同じ☆なら新しい順
-    out.sort(key=lambda x: (x["r"], x["d"]), reverse=True)
+        a = out[-1]
+        # 並び順の重み。所長記事は☆☆と☆の間（外部の☆☆より下、☆より上）
+        a["w"] = 1.5 if a["o"] else a["r"]
+    # おすすめ度の高い順、同じ重みなら新しい順
+    out.sort(key=lambda x: (x["w"], x["d"]), reverse=True)
     return out
 
 
@@ -158,7 +169,7 @@ def static_list(arts):
         lang = "" if d["l"] == "日本語" else f'<span>{e(d["l"])}（日本語要約あり）</span>'
         items.append(
             f'<article class="entry" style="--c:var({color})">'
-            f'<div class="meta"><span class="kind">{e(d["k"])}</span>{rate_html(d["r"])}<span>{e(d["m"])}</span>{lang}</div>'
+            f'<div class="meta"><span class="kind">{e(d["k"])}</span>{badge_html(d)}<span>{e(d["m"])}</span>{lang}</div>'
             f'<h5><a href="{e(d["u"])}" target="_blank" rel="noopener">{e(d["t"])}</a></h5>'
             + (f'<p class="comment">{e(d["c"])}</p>' if d["c"] else "")
             + (f'<details><summary>AI要約を読む</summary><p>{e(d["s"])}</p></details>' if d["s"] else "")
