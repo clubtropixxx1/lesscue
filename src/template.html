@@ -113,7 +113,7 @@ a.type{text-decoration:none}
 .more-arts{margin:20px 0 0}
 .picks-h{margin:14px 0 0;font-size:13px;font-weight:700}
 .hint-on{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:var(--ink-2)}
-.hint-on button{appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
+.hint-on button{white-space:nowrap;flex-shrink:0;appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
 .list-guide{margin:12px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink-2);font-size:13px;line-height:1.7}
 .list-guide .rate{font-size:12px}
 .placeholder{border:1px dashed var(--line);border-radius:6px;padding:6px 10px;display:inline-block}
@@ -174,6 +174,9 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .more a:hover{background:var(--navy);color:var(--on-accent)}
 body[data-page="top"] [data-only]:not([data-only~="top"]),body[data-page="data"] [data-only]:not([data-only~="data"]),body[data-page="article"] [data-only]:not([data-only~="article"]),body[data-page="about"] [data-only]:not([data-only~="about"]){display:none!important}
 body[data-page="data"] .stats{margin-top:24px}
+body.hint-mode .intro,body.hint-mode #filters{display:none!important}
+body[data-page="article"]:not(.hint-mode) #hints{display:none!important}
+body.hint-mode .typehead{margin-top:28px}
 .stat-filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
 .stat{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--hot);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
@@ -294,7 +297,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <main id="list" data-only="top article">{{STATIC_LIST}}</main>
   <p class="more more-arts" data-only="top"><a href="/article/" id="more-arts">記事一覧を見る →</a></p>
 
-  <section data-only="top" class="hints" id="hints">
+  <section data-only="top article" class="hints" id="hints">
     <h2>解決のヒントから探す</h2>
     <p>記事の中で語られている具体的な行動です。押すと、そのヒントが書かれた記事が一覧で表示されます。</p>
     <div id="cloud"></div>
@@ -428,8 +431,8 @@ function hintButtons(list,cnt){
 function bindHints(root){
   root.querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
     if(PAGE!=="article"){location.href=artURL("h",b.dataset.h);return;}
-    st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; render();
-    if(st.h)$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});
+    st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; st.v=st.a=st.l=st.tg=null; render();
+    window.scrollTo({top:0,behavior:"smooth"});
   });
 }
 function renderCloud(){
@@ -469,11 +472,12 @@ function syncURL(){
 function renderList(){
   const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
     &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg))&&(!st.h||d.ha.includes(st.h)));
+  const narrowed=st.h||st.v||st.a||st.l||st.tg;
   $("#typehead").innerHTML=(st.type==="すべて"
-    ?`<h3>すべての記事</h3><p>${rows.length}件</p>`
+    ?`<h3>${narrowed?"該当記事":"すべての記事"}</h3><p>${rows.length}件</p>`
     :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`)
     +(st.h?`<div class="hint-on">解決のヒント「${esc(st.h)}」の記事だけを表示中<button id="hint-clear">解除</button></div>`:"");
-  if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();};
+  if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();window.scrollTo({top:0});};
   if(!rows.length){$("#list").innerHTML=`<p class="empty">この条件の記事はまだありません。条件を外すと他の記事が表示されます。</p>`;return;}
   if(st.type==="すべて"){
     $("#list").innerHTML=`<section class="group"><h4>おすすめ順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
@@ -592,7 +596,7 @@ function renderStats(){
   }).join("");
   watchStats();
 }
-function render(){renderTypes();renderFilters();renderList();syncURL();}
+function render(){document.body.classList.toggle("hint-mode",!!st.h);renderTypes();renderFilters();renderList();if(st.h)renderCloud();syncURL();}
 /* ---- スマホ用メニュー ---- */
 (function(){
   const btn=$("#menu-btn"),nav=$("#site-nav");

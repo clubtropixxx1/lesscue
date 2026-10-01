@@ -113,7 +113,7 @@ a.type{text-decoration:none}
 .more-arts{margin:20px 0 0}
 .picks-h{margin:14px 0 0;font-size:13px;font-weight:700}
 .hint-on{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;color:var(--ink-2)}
-.hint-on button{appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
+.hint-on button{white-space:nowrap;flex-shrink:0;appearance:none;font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:2px 10px;cursor:pointer}
 .list-guide{margin:12px 0 0;padding:10px 12px;border-radius:6px;background:var(--accent-soft);color:var(--ink-2);font-size:13px;line-height:1.7}
 .list-guide .rate{font-size:12px}
 .placeholder{border:1px dashed var(--line);border-radius:6px;padding:6px 10px;display:inline-block}
@@ -174,6 +174,9 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .more a:hover{background:var(--navy);color:var(--on-accent)}
 body[data-page="top"] [data-only]:not([data-only~="top"]),body[data-page="data"] [data-only]:not([data-only~="data"]),body[data-page="article"] [data-only]:not([data-only~="article"]),body[data-page="about"] [data-only]:not([data-only~="about"]){display:none!important}
 body[data-page="data"] .stats{margin-top:24px}
+body.hint-mode .intro,body.hint-mode #filters{display:none!important}
+body[data-page="article"]:not(.hint-mode) #hints{display:none!important}
+body.hint-mode .typehead{margin-top:28px}
 .stat-filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:14px}
 .stat{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--hot);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px}
@@ -294,7 +297,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <main id="list" data-only="top article"><div class="list"><article class="entry" style="--c:var(--t-answer)"><div class="meta"><span class="kind">解決策</span><span class="rate" title="おすすめ度 3/3" aria-label="おすすめ度 3段階中3">★★★<i></i></span><span>美ST ONLINE（心理学者・杉山崇）</span></div><h5><a href="https://be-story.jp/femtech/256991/" target="_blank" rel="noopener">【35歳からの2人目、3人目妊活】心理学者に聞く「妻がセックスレス夫に上手に切り出す方法」とは？</a></h5><p class="comment">生物学的観点から、オスは「新奇性の高いメスに興奮しやすい」ため妻にイメチェンを勧めるのは説得力がある。レス解消には新鮮さが1つのキーワードかと。</p><details><summary>AI要約を読む</summary><p>子ども2人を育てながら約2年レスの35歳の妻が、3人目を望む一方で、疲労やお金の不安から乗り気でない夫との距離をどう縮めるかを、心理学者の杉山崇さん（神奈川大学教授）に聞いた記事。子育て中は脳が「恋愛モード」から「安全・使命モード」に切り替わるとし、髪型やメイクを変える、子どもを預けて泊まりのデートをするなど、新鮮さを演出することを勧めている。子どもが欲しいだけと感じさせない誘い方や、疲れた夫への感謝の言葉、必要に応じた夫婦カウンセリングにも触れている。</p></details><a class="read" href="https://be-story.jp/femtech/256991/" target="_blank" rel="noopener">元の記事を読む ↗</a></article><article class="entry" style="--c:var(--t-story)"><div class="meta"><span class="kind">体験記</span><span class="rate" title="おすすめ度 3/3" aria-label="おすすめ度 3段階中3">★★★<i></i></span><span>HuffPost</span></div><h5><a href="https://www.huffingtonpost.jp/entry/story_jp_69e9bfb2e4b0cc34aae46c85" target="_blank" rel="noopener">1日おきのセックスが、突然8カ月に1回に。交際8年のカップルが、セックスレスに陥った理由</a></h5><p class="comment">あくまで偶発的ではあるが、隣人のセックス音によって、女性がセックスを意識したという大変興味深い事例。また、話し合いが行われて関係が改善されつつあるも、レスは解消していない部分にはリアリティがある。</p><details><summary>AI要約を読む</summary><p>ハフポストUS版の翻訳記事で、交際8年の27歳男性マークさんが、1日おきだったセックスが8カ月に1回にまで減った経緯を語る。背景にはパートナーの性交痛や避妊ピルの影響、学業のストレスがあり、拒まれ続けた彼は自信を失って彼女を性的に見られなくなっていった。上の階の住人の声をきっかけに彼女が本音を打ち明け、別れも浮気もしないと伝えて話し合った結果、セックスは再開していないものの関係は改善に向かっている。</p></details><a class="read" href="https://www.huffingtonpost.jp/entry/story_jp_69e9bfb2e4b0cc34aae46c85" target="_blank" rel="noopener">元の記事を読む ↗</a></article><article class="entry" style="--c:var(--t-story)"><div class="meta"><span class="kind">体験記</span><span class="rate" title="おすすめ度 3/3" aria-label="おすすめ度 3段階中3">★★★<i></i></span><span>美ST ONLINE（星子）</span></div><h5><a href="https://be-story.jp/femtech/87248/" target="_blank" rel="noopener">40代妻がレス解消できた「社長の一言」とは</a></h5><p class="comment">社会復帰・旅行・飲み会と、セックスレス解消には外部刺激が効くという事例。家事育児はマンネリになりやすい。各家庭によって事情は異なるが、妻が外部と触れ合える機会を作る努力を。</p><details><summary>AI要約を読む</summary><p>結婚15年の43歳女性が、レスと復活を繰り返してきた夫婦生活を振り返る体験記。第1子の出産後や夫の浮気疑惑があった時期にはほぼレスになったが、仕事を再開して外に出る機会が増えたことや旅行など、日常から離れた場面をきっかけに関係が戻ってきた。夫婦で参加する飲み会で互いに外向きの顔を見せ合うことが新鮮な刺激になったと語っている。</p></details><a class="read" href="https://be-story.jp/femtech/87248/" target="_blank" rel="noopener">元の記事を読む ↗</a></article><article class="entry" style="--c:var(--t-story)"><div class="meta"><span class="kind">体験記</span><span class="rate" title="おすすめ度 2/3" aria-label="おすすめ度 3段階中2">★★<i>★</i></span><span>TOKYOメンターカフェ（東京都）</span></div><h5><a href="https://www.mentor-cafe.metro.tokyo.lg.jp/topic/41384" target="_blank" rel="noopener">セックスレスについて夫と話し合いができません</a></h5><p class="comment">妻がかなり夫に配慮しているので、夫側の甲斐性ひとつで解決しそうな気がする。セックスレスのかなり大きい要因は夫の甲斐性。妻に拒否されてる方は「妻側の景色」を知るのに役立つかも。</p><details><summary>AI要約を読む</summary><p>東京都の相談サイトに寄せられた、結婚7年・3歳の子どもがいる30代女性の相談。夫は結婚以来ずっと我慢してきたと頻度の少なさに不満をぶつけるが、本人は性欲が落ちていて、まず気持ちの通い合いがほしいと感じている。回答した50代女性のメンターは、夫のいら立ちは回数だけの問題ではないとし、産後の体の変化を夫に伝えることや、どちらか一方が合わせるだけで収めないことを勧めている。</p></details><a class="read" href="https://www.mentor-cafe.metro.tokyo.lg.jp/topic/41384" target="_blank" rel="noopener">元の記事を読む ↗</a></article><article class="entry" style="--c:var(--t-story)"><div class="meta"><span class="kind">体験記</span><span class="rate" title="おすすめ度 2/3" aria-label="おすすめ度 3段階中2">★★<i>★</i></span><span>All About（三松真由美）</span></div><h5><a href="https://allabout.co.jp/gm/gc/509829/" target="_blank" rel="noopener">もう妻とはできません……セックスレス夫婦「夫が拒否する理由」【40代男性編】</a></h5><p class="comment">夫の序列が低下していると起こりそうな2つの事例。妻から誘いがある分、救いはあるが、やはり夫は引くべき一線は引くこと。全てに寛容であることと、優しさは別物。</p><details><summary>AI要約を読む</summary><p>夫婦仲コメンテーターの三松真由美さんが、妻を拒むようになった40代の夫2人の話を紹介するコラム。1人は妻に薄毛をからかわれ続けて気持ちが冷め、もう1人は妊活のための義務的なセックスで疲れ切ってしまった。筆者は、横柄な言動や強要が夫の気持ちを遠ざけるとして、女性としての魅力より人としての接し方を見直すよう促している。</p></details><a class="read" href="https://allabout.co.jp/gm/gc/509829/" target="_blank" rel="noopener">元の記事を読む ↗</a></article></div></main>
   <p class="more more-arts" data-only="top"><a href="/article/" id="more-arts">記事一覧を見る →</a></p>
 
-  <section data-only="top" class="hints" id="hints">
+  <section data-only="top article" class="hints" id="hints">
     <h2>解決のヒントから探す</h2>
     <p>記事の中で語られている具体的な行動です。押すと、そのヒントが書かれた記事が一覧で表示されます。</p>
     <div id="cloud"></div>
@@ -428,8 +431,8 @@ function hintButtons(list,cnt){
 function bindHints(root){
   root.querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
     if(PAGE!=="article"){location.href=artURL("h",b.dataset.h);return;}
-    st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; render();
-    if(st.h)$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});
+    st.h=st.h===b.dataset.h?null:b.dataset.h; st.type="すべて"; st.v=st.a=st.l=st.tg=null; render();
+    window.scrollTo({top:0,behavior:"smooth"});
   });
 }
 function renderCloud(){
@@ -469,11 +472,12 @@ function syncURL(){
 function renderList(){
   const rows=DATA.filter(d=>(st.type==="すべて"||d.ty.includes(st.type))
     &&(!st.v||d.v===st.v)&&(!st.a||d.a.includes(st.a))&&(!st.l||d.l===st.l)&&(!st.tg||d.tg.includes(st.tg))&&(!st.h||d.ha.includes(st.h)));
+  const narrowed=st.h||st.v||st.a||st.l||st.tg;
   $("#typehead").innerHTML=(st.type==="すべて"
-    ?`<h3>すべての記事</h3><p>${rows.length}件</p>`
+    ?`<h3>${narrowed?"該当記事":"すべての記事"}</h3><p>${rows.length}件</p>`
     :`<h3>${st.type}</h3><p>${DESC[st.type]}</p>`)
     +(st.h?`<div class="hint-on">解決のヒント「${esc(st.h)}」の記事だけを表示中<button id="hint-clear">解除</button></div>`:"");
-  if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();};
+  if(st.h)$("#hint-clear").onclick=()=>{st.h=null;render();window.scrollTo({top:0});};
   if(!rows.length){$("#list").innerHTML=`<p class="empty">この条件の記事はまだありません。条件を外すと他の記事が表示されます。</p>`;return;}
   if(st.type==="すべて"){
     $("#list").innerHTML=`<section class="group"><h4>おすすめ順</h4><div class="list">${rows.map(card).join("")}</div></section>`;
@@ -592,7 +596,7 @@ function renderStats(){
   }).join("");
   watchStats();
 }
-function render(){renderTypes();renderFilters();renderList();syncURL();}
+function render(){document.body.classList.toggle("hint-mode",!!st.h);renderTypes();renderFilters();renderList();if(st.h)renderCloud();syncURL();}
 /* ---- スマホ用メニュー ---- */
 (function(){
   const btn=$("#menu-btn"),nav=$("#site-nav");
