@@ -193,6 +193,7 @@ def main():
 
     (ROOT / "data").mkdir(exist_ok=True)
     (ROOT / "article").mkdir(exist_ok=True)
+    (ROOT / "about").mkdir(exist_ok=True)
     (ROOT / "data" / "articles.json").write_text(json.dumps(arts, ensure_ascii=False, indent=1), encoding="utf-8")
     (ROOT / "data" / "stats.json").write_text(json.dumps(stats, ensure_ascii=False, indent=1), encoding="utf-8")
 
@@ -213,6 +214,14 @@ def main():
             "DESCRIPTION": "セックスレスの原因と解消法に関する記事・体験記・論文を、妻拒否型・夫拒否型などの悩みの型や、視点・年代で絞り込んで探せる一覧です。",
             "CANONICAL": SITE_URL + "article/",
             "STATIC_LIST": static_list(arts),
+            "STATS_HIDDEN": " hidden",
+        },
+        "about": {
+            "path": ROOT / "about" / "index.html",
+            "TITLE": "このサイトについて・所長あいさつ｜レスられ総研",
+            "DESCRIPTION": "セックスレスに悩む「レス山さん」のためのデータベース、レスられ総研について。所長あいさつ、4つの型の定義、掲載の基準、免責事項、お問い合わせ。",
+            "CANONICAL": SITE_URL + "about/",
+            "STATIC_LIST": "",
             "STATS_HIDDEN": " hidden",
         },
         "data": {
@@ -245,10 +254,11 @@ def main():
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f"  <url><loc>{SITE_URL}</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
         f"  <url><loc>{SITE_URL}article/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
+        f"  <url><loc>{SITE_URL}about/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
         f"  <url><loc>{SITE_URL}data/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
         "</urlset>\n", encoding="utf-8")
 
-    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html・article/index.html・data/index.html を生成しました")
+    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html・article/・about/・data/ の各ページ を生成しました")
 
 
 if __name__ == "__main__":
