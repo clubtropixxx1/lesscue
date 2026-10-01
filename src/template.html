@@ -50,27 +50,31 @@ img{max-width:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75}
 .wrap{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
 .note{margin-top:16px;padding:8px 12px;border-radius:6px;background:var(--warn-soft);color:var(--warn);font-size:12.5px}
-header.site{position:relative;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;padding-block:28px 20px;border-bottom:1px solid var(--line)}
-.logo{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:.02em;margin:0}
+/* ヘッダー：シェア画像（ogp.png）と同じ構成。上端にネイビー＋赤の帯、白いカードにキャッチ→ロゴ→説明 */
+.topbar{position:relative;height:6px;background:var(--navy)}
+.topbar i{position:absolute;left:0;top:0;width:min(180px,18vw);height:6px;background:var(--hot)}
+header.site{position:relative;margin-top:20px;padding:26px 30px 24px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.catch{margin:0;color:var(--accent);font-size:14px;font-weight:500;letter-spacing:.06em}
+.logo{font-family:var(--display);font-weight:800;font-size:46px;line-height:1.2;letter-spacing:.02em;margin:2px 0 6px}
+.tagline{margin:0;color:var(--ink);font-size:17px;font-weight:700;letter-spacing:.02em}
+@media (max-width:600px){
+  header.site{margin-top:14px;padding:18px 18px 16px;border-radius:12px}
+  .catch{font-size:12.5px}
+  .logo{font-size:34px;margin:0 0 4px}
+  .tagline{font-size:min(15px,calc((100vw - 72px) / 22.5));letter-spacing:0}
+}
 .logo a{color:inherit;text-decoration:none}
 .logo span{color:var(--accent)}
-.tagline{color:var(--ink-2);font-size:13px;font-weight:500;margin:4px 0 0}
 /* メニューはPC・スマホともハンバーガー */
-header.site > div:first-child{width:100%}
-header.site .logo{padding-right:52px}
-.menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;position:absolute;top:26px;right:0;width:40px;height:40px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer}
+.menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;position:absolute;top:14px;right:14px;width:40px;height:40px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer}
 .menu-btn span{display:block;height:2px;border-radius:1px;background:var(--ink)}
 .menu-btn:hover{border-color:var(--navy)}
 .menu-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-nav.site-nav{display:none;position:absolute;top:72px;right:0;z-index:10;flex-direction:column;gap:0;min-width:200px;padding-block:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);font-size:14px}
+nav.site-nav{display:none;position:absolute;top:60px;right:14px;z-index:10;flex-direction:column;gap:0;min-width:200px;padding-block:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);font-size:14px}
 nav.site-nav.open{display:flex}
 nav.site-nav a{padding:11px 16px;color:var(--ink);text-decoration:none}
 nav.site-nav a:hover{background:var(--accent-soft)}
 
-.tagline span:first-child{color:var(--accent)}
-.tagline span + span{font-size:16px;font-weight:700;color:var(--ink)}
-.tagline span + span::before{content:"　"}
-@media (max-width:600px){.tagline span{display:block}.tagline span + span{font-size:15px;margin-top:2px}.tagline span + span::before{content:none}}
 .intro{padding-block:28px 8px}
 .intro h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px;text-wrap:balance}
 .intro p{margin:0;color:var(--muted);max-width:60ch}
@@ -268,12 +272,12 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 </head>
 <body data-page="{{PAGE_MODE}}">
 
+<div class="topbar" aria-hidden="true"><i></i></div>
 <div class="wrap">
   <header class="site">
-    <div>
-      <h1 class="logo"><a href="/">レスられ<span>総研</span></a></h1>
-      <p class="tagline"><span>―私はレス山さんを救いたい―</span><span>セックスレスのお悩みと解消法のデータベース</span></p>
-    </div>
+    <p class="catch">―私はレス山さんを救いたい―</p>
+    <h1 class="logo"><a href="/">レスられ<span>総研</span></a></h1>
+    <p class="tagline">セックスレスのお悩みと解消法のデータベース</p>
     <button class="menu-btn" id="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     <nav class="site-nav" id="site-nav" aria-label="サイト内">
       <a href="/article/">記事一覧</a><a href="/data/">数字で見る</a><a href="/about/">このサイトについて</a><a href="/about/#contact">お問い合わせ</a>
