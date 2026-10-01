@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="レスられ総研">
 <meta property="og:title" content="{{TITLE}}">
-<meta property="og:description" content="―私はレス山さんを救いたい― セックスレスの原因と解消法を、お悩み別に集めたデータベース。">
+<meta property="og:description" content="―私はレス山さんを救いたい― セックスレスのお悩みと解消法のデータベース。">
 <meta property="og:url" content="{{CANONICAL}}">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%234F5D8C'/%3E%3Cpath d='M6 24 13 11l5 8 3-4 5 9z' fill='%23F2F3EF'/%3E%3C/svg%3E">
@@ -66,6 +66,8 @@ nav.site-nav a:hover{color:var(--ink)}
   nav.site-nav a:hover{background:var(--accent-soft)}
 }
 
+.tagline span + span::before{content:"　"}
+@media (max-width:600px){.tagline span{display:block}.tagline span + span::before{content:none}}
 .intro{padding-block:28px 8px}
 .intro h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px;text-wrap:balance}
 .intro p{margin:0;color:var(--muted);max-width:60ch}
@@ -263,7 +265,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <header class="site">
     <div>
       <h1 class="logo"><a href="/">レスられ<span>総研</span></a></h1>
-      <p class="tagline">―私はレス山さんを救いたい―　セックスレスの原因と解消法を、お悩み別に集めたデータベース</p>
+      <p class="tagline"><span>―私はレス山さんを救いたい―</span><span>セックスレスのお悩みと解消法のデータベース</span></p>
     </div>
     <button class="menu-btn" id="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     <nav class="site-nav" id="site-nav" aria-label="サイト内">
