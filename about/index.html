@@ -53,24 +53,24 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15p
 /* ヘッダー：シェア画像（ogp.png）と同じ構成。上端にネイビー＋赤の帯、白いカードにキャッチ→ロゴ→説明 */
 .topbar{position:relative;height:6px;background:var(--navy)}
 .topbar i{position:absolute;left:0;top:0;width:min(180px,18vw);height:6px;background:var(--hot)}
-header.site{position:relative;margin-top:20px;padding:26px 30px 24px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+header.site{position:relative;padding:26px 0 22px;border-bottom:1px solid var(--line)}
 .catch{margin:0;color:var(--accent);font-size:14px;font-weight:500;letter-spacing:.06em}
 .logo{font-family:var(--display);font-weight:800;font-size:46px;line-height:1.2;letter-spacing:.02em;margin:2px 0 6px}
 .tagline{margin:0;color:var(--ink);font-size:17px;font-weight:700;letter-spacing:.02em}
 @media (max-width:600px){
-  header.site{margin-top:14px;padding:18px 18px 16px;border-radius:12px}
+  header.site{padding:20px 0 18px}
   .catch{font-size:12.5px}
   .logo{font-size:34px;margin:0 0 4px}
-  .tagline{font-size:min(15px,calc((100vw - 72px) / 22.5));letter-spacing:0}
+  .tagline{font-size:min(15px,calc((100vw - 36px) / 22.5));letter-spacing:0}
 }
 .logo a{color:inherit;text-decoration:none}
 .logo span{color:var(--accent)}
 /* メニューはPC・スマホともハンバーガー */
-.menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;position:absolute;top:14px;right:14px;width:40px;height:40px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer}
+.menu-btn{display:flex;flex-direction:column;justify-content:center;gap:5px;position:absolute;top:22px;right:0;width:40px;height:40px;padding:0 9px;border:1px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer}
 .menu-btn span{display:block;height:2px;border-radius:1px;background:var(--ink)}
 .menu-btn:hover{border-color:var(--navy)}
 .menu-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-nav.site-nav{display:none;position:absolute;top:60px;right:14px;z-index:10;flex-direction:column;gap:0;min-width:200px;padding-block:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);font-size:14px}
+nav.site-nav{display:none;position:absolute;top:68px;right:0;z-index:10;flex-direction:column;gap:0;min-width:200px;padding-block:6px;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.12);font-size:14px}
 nav.site-nav.open{display:flex}
 nav.site-nav a{padding:11px 16px;color:var(--ink);text-decoration:none}
 nav.site-nav a:hover{background:var(--accent-soft)}
