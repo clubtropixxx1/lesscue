@@ -184,6 +184,40 @@ def static_list(arts, heading="おすすめ順", lite=False):
 HWHO = [("c", "夫婦でできること"), ("w", "妻ができること"), ("m", "夫ができること")]
 
 
+def _pair(h_want, w_want):
+    """夫と妻のアイコン。ハートが塗りつぶし＝したい、白抜き＝したくない。"""
+    person = ('<svg class="pp {c}" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/>'
+              '<path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg>')
+    heart = ('<svg class="hh{on}" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg>')
+    one = lambda c, lab, on: f'<span class="pw">{heart.format(on=" on" if on else "")}{person.format(c=c)}<small>{lab}</small></span>'
+    return f'<span class="pair">{one("h", "夫", h_want)}{one("w", "妻", w_want)}</span>'
+
+
+def quad_html(types, active=None, caption=True):
+    """4つの型の図。縦軸＝夫がしたいか、横軸＝妻がしたいか。active の型のマスを強調する。"""
+    slug = {t["name"]: t["slug"] for t in types}
+    def cell(name, sub, hw, ww, cls=""):
+        on = " on" if name == active else ""
+        inner = f'{_pair(hw, ww)}<b>{name}</b><span>{sub}</span>'
+        if name in slug:
+            return f'<a class="qc{cls}{on}" href="/type/{slug[name]}/">{inner}</a>'
+        return f'<div class="qc{cls}">{inner}</div>'
+    flow_on = " on" if active == "流動的不仲型" else ""
+    cap = ('<figcaption>縦軸は「夫がしたいか」、横軸は「妻がしたいか」。ハートが塗りつぶしの人が「したい」側です。'
+           'マスを押すと、その型のページが開きます。</figcaption>') if caption else ""
+    return ('<figure class="quad"><div class="qwrap">'
+            '<span class="qax qt">▲ 夫はしたい</span>'
+            '<div class="qgrid">'
+            + cell("レスではない", "2人とも求めている", True, True, " ok")
+            + cell("妻拒否型", "夫は求めているが、妻が応じない", True, False)
+            + cell("夫拒否型", "妻は求めているが、夫が応じない", False, True, " lo")
+            + cell("完全不仲型", "2人とも求めず、関係全体が冷えている", False, False, " lo")
+            + f'<a class="qflow{flow_on}" href="/type/{slug.get("流動的不仲型", "")}/"><b>流動的不仲型</b><span>どちらとも言い切れず、仲に波がある</span></a>'
+            + '</div><span class="qax qb">▼ 夫はしたくない</span>'
+            '<div class="qhx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div>'
+            f'</div>{cap}</figure>')
+
+
 def type_body(t, arts, types):
     """型ページの本文（静的HTML）。検索エンジンが読めるよう、記事一覧もヒントもHTMLで書き出す。"""
     e = html.escape
@@ -191,6 +225,7 @@ def type_body(t, arts, types):
     out = [f'<nav class="crumb" aria-label="現在地"><a href="/">TOP</a> › <a href="/about/#types-def">4つの型</a> › <span>{e(t["name"])}</span></nav>',
            f'<section class="tp-head"><p class="tp-kicker">セックスレスの型</p><h2>{e(t["name"])}</h2>'
            f'<p class="tp-def">{e(t["def"])}</p><p class="tp-count">この型の記事 {len(hits)}件</p></section>']
+    out.append(quad_html(types, active=t["name"], caption=False))
     essay = t.get("essay") or []
     body = "".join(f"<p>{e(x)}</p>" for x in essay) if essay else '<p class="soon">所長の解説は準備中です。</p>'
     out.append(f'<section class="tp-sec" id="essay"><h3>所長の解説</h3><div class="greet">{body}'
@@ -295,6 +330,7 @@ def main():
                   .replace("{{TYPE_SLUGS}}", js_json(slugs))
                   .replace("{{TYPE_BODY}}", pg.get("TYPE_BODY", ""))
                   .replace("{{ROBOTS}}", pg.get("ROBOTS", ""))
+                  .replace("{{QUAD_ABOUT}}", quad_html(types) if mode == "about" else "")
                   .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
                   .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL))
                   .replace("{{FORM_KEY}}", html.escape(FORM_KEY))
