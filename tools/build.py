@@ -236,9 +236,17 @@ def type_body(t, arts, types):
         for k in ("c", "w", "m"):
             for h in d["h"][k]:
                 cnt[h] = cnt.get(h, 0) + 1
+    # 同じヒントが複数の列にあれば「夫婦で」にまとめる（サイトのJSと同じ規則）
+    sets = {k: {h for d in arts for h in d["h"][k]} for k in ("c", "w", "m")}
+    hg = {}
+    for k in ("w", "m"):
+        for h in sets[k]:
+            hg[h] = "c" if (h in sets["c"] or (h in sets["w"] and h in sets["m"])) else k
+    for h in sets["c"]:
+        hg[h] = "c"
     groups = []
     for k, label in HWHO:
-        hs = sorted({h for d in hits for h in d["h"][k]}, key=lambda h: (-cnt[h], h))
+        hs = sorted({h for d in hits for kk in ("c", "w", "m") for h in d["h"][kk] if hg.get(h) == k}, key=lambda h: (-cnt[h], h))
         if hs:
             chips = "".join(f'<a class="hint" href="/article/?h={quote(h)}">{e(h)}<small>{cnt[h]}</small></a>' for h in hs)
             groups.append(f'<h4 class="cloud-h">{label}</h4><div class="cloud">{chips}</div>')
