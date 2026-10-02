@@ -687,7 +687,8 @@ function renderStats(){
     let nums,bars="";
     if(n.parts){
       nums=`<div class="big-sub main"><span>${n.lb}</span>${bigNum(n.v)}</div>`;
-      bars=n.parts.map(([l,v],i)=>barRow(l,v,i?"prev":""," wide")).join("");
+      // 主の数字は上に大きく出しているので、横棒は残りの内訳だけ
+      bars=n.parts.slice(1).map(([l,v])=>barRow(l,v,"prev"," wide")).join("");
     }else if(n.v!=null){
       nums=bigNum(n.v);
       if(n.br)bars=n.br.map(([l,v])=>barRow(l,v)).join("");
