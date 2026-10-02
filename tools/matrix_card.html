@@ -1,0 +1,65 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:"Shippori Mincho";src:url(fonts/shippori-mincho-japanese-800-normal.woff2);font-weight:800}
+@font-face{font-family:"Zen Kaku Gothic New";src:url(fonts/zen-kaku-gothic-new-japanese-700-normal.woff2);font-weight:700}
+@font-face{font-family:"Zen Kaku Gothic New";src:url(fonts/zen-kaku-gothic-new-japanese-500-normal.woff2);font-weight:500}
+:root{
+  --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --star:#B7791F; --muted:#5E6866; --line:#D9DDD6;
+  --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD; --hot:#C62F3E; --hot-soft:#FBE8EA; --navy:#364059;
+  --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
+  --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{width:1200px;height:675px;background:var(--bg);color:var(--ink);font-family:var(--body);position:relative;overflow:hidden}
+.top{position:absolute;left:0;top:0;right:0;height:10px;background:var(--navy)}.top i{position:absolute;left:0;top:0;width:180px;height:10px;background:var(--hot)}
+h1{position:absolute;left:60px;top:44px;margin:0;font-family:var(--display);font-weight:800;font-size:40px;line-height:1.3;color:var(--navy)}
+.sub{position:absolute;left:62px;top:160px;font-size:19px;color:var(--muted);font-weight:500}
+.brand{position:absolute;left:62px;bottom:34px;font-family:var(--display);font-weight:800;font-size:30px}.brand span{color:var(--accent)}
+.url{position:absolute;left:62px;bottom:14px;font-size:14px;color:var(--muted);letter-spacing:.04em}
+.box{position:absolute;right:50px;top:30px;width:660px}
+/* 4つの型の図 */
+.quad{margin:18px 0 6px}
+.qwrap{position:relative}
+.qgrid{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:6px}
+.qc{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:170px;padding:14px 16px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none}
+a.qc:hover{border-color:var(--navy)}
+.qc b{font-size:17px;line-height:1.3;margin-top:4px}
+.qc > span:last-child{font-size:12px;color:var(--muted);line-height:1.55}
+.qc.ok{background:var(--accent-soft);border-style:dashed}
+.qc.on{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
+.qc.on > span:last-child{color:var(--on-accent);opacity:.85}
+.qc.c1{grid-column:1;grid-row:1}.qc.c2{grid-column:2;grid-row:1}
+.qc.lo{justify-content:flex-end;grid-row:3}
+.qax{display:flex;justify-content:center;margin:0 0 6px}.qax.qb{margin:6px 0 0}
+.qax span,.qhx span{display:inline-block;padding:3px 12px;border-radius:999px;background:var(--accent-soft);color:var(--navy);font-size:12.5px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.qhx{grid-column:1/-1;grid-row:2;display:flex;justify-content:space-between;align-items:center}
+.qflow{grid-column:1/-1;grid-row:3;justify-self:center;align-self:start;margin-top:-4px;z-index:1;max-width:62%;background:var(--surface);border:2px dashed var(--hot);border-radius:999px;padding:8px 16px;text-align:center;font-size:11.5px;line-height:1.45;color:var(--ink);text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.qflow b{display:block;font-size:14px;color:var(--hot)}
+.qflow.on{background:var(--hot);color:#fff}.qflow.on b{color:#fff}
+.pair{display:flex;gap:10px}
+.pw{display:flex;flex-direction:column;align-items:center;gap:1px}
+.pw small{font-size:10px;color:var(--muted);line-height:1}
+.qc.on .pw small{color:var(--on-accent)}
+.pp{width:16px;height:26px}
+.pp.h{fill:var(--t-data)}.pp.w{fill:var(--t-worry)}
+.qc.on .pp{fill:var(--on-accent)}
+.hh{width:13px;height:12px;fill:none;stroke:var(--muted);stroke-width:2}
+.hh.on{fill:var(--hot);stroke:var(--hot)}
+.qc.on .hh{stroke:var(--on-accent)}.qc.on .hh.on{fill:#FF8A95;stroke:#FF8A95}
+.quad figcaption{margin-top:8px;font-size:12px;color:var(--muted)}
+.tp-cta{margin:4px 0 0;font-size:13px}
+.tp-cta a{color:var(--accent);font-weight:700;text-decoration:none}
+.tp-cta a:hover{text-decoration:underline}
+
+.qc{min-height:196px;padding:14px 18px}.qc b{font-size:24px}.qc > span:last-child{font-size:15px}
+.pp{width:22px;height:36px}.hh{width:17px;height:16px}.pw small{font-size:12px}
+.qax span,.qhx span{font-size:15px;padding:4px 14px}
+.qflow{font-size:14px;padding:8px 20px;margin-top:-16px}.qflow b{font-size:18px}
+.note{position:absolute;left:62px;top:220px;width:400px;font-size:20px;line-height:1.9;font-weight:700}
+.note small{display:block;font-size:17px;font-weight:500;color:var(--muted);margin-top:10px;line-height:1.7}
+</style></head><body><div class="top"><i></i></div>
+<h1>セックスレスの<br>4つの型</h1><div class="sub">夫がしたいか × 妻がしたいか</div>
+<div class="note"><small>ハートが塗りつぶしの人が「したい」側。<br>マスの位置で、誰が拒んでいるかが分かります。<br><br>30秒の簡単診断で、<br>自分の型がわかります。</small></div>
+<div class="brand">レスられ<span>総研</span></div><div class="url">lesscue.com</div>
+<div class="box"><figure class="quad"><div class="qwrap"><div class="qax"><span>▲ 夫はしたい</span></div><div class="qgrid"><div class="qc ok c1"><span class="pair"><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>レスではない</b><span>2人とも求めている</span></div><a class="qc c2" href="/type/tsuma-kyohi/"><span class="pair"><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>妻拒否型</b><span>夫は求めているが、妻が応じない</span></a><div class="qhx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div><a class="qc lo c1" href="/type/otto-kyohi/"><span class="pair"><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>夫拒否型</b><span>妻は求めているが、夫が応じない</span></a><a class="qc lo c2" href="/type/kanzen-funaka/"><span class="pair"><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>完全不仲型</b><span>2人とも求めず、関係全体が冷えている</span></a><a class="qflow" href="/type/ryudo-funaka/"><b>流動的不仲型</b><span>関係は悪くないがセックスレス</span></a></div><div class="qax qb"><span>▼ 夫はしたくない</span></div></div></figure></div></body></html>
