@@ -157,6 +157,9 @@ a.qc:hover{border-color:var(--navy)}
   .qflow span{display:none}
   .qflow b{font-size:13px}
 }
+.tp-cta{margin:4px 0 0;font-size:13px}
+.tp-cta a{color:var(--accent);font-weight:700;text-decoration:none}
+.tp-cta a:hover{text-decoration:underline}
 .crumb{margin-top:18px;font-size:12px;color:var(--muted)}
 .crumb a{color:var(--accent);text-decoration:none}
 .tp-head{margin-top:14px}
@@ -599,7 +602,7 @@ function quizHints(arts,role){
 }
 function shareURL(t){
   const text=`レスられ総研の「セックスレス簡単診断」で、私は「${t}」でした。あなたはどの型？`;
-  return "https://x.com/intent/post?text="+encodeURIComponent(text)+"&url="+encodeURIComponent("https://lesscue.com/");
+  return "https://x.com/intent/post?text="+encodeURIComponent(text)+"&url="+encodeURIComponent("https://lesscue.com"+typeURL(t));
 }
 function kindColor(k){return (KINDS.find(x=>x[0]===k)||KINDS[5])[1];}
 function renderQuiz(){

@@ -226,6 +226,7 @@ def type_body(t, arts, types):
            f'<section class="tp-head"><p class="tp-kicker">セックスレスの型</p><h2>{e(t["name"])}</h2>'
            f'<p class="tp-def">{e(t["def"])}</p><p class="tp-count">この型の記事 {len(hits)}件</p></section>']
     out.append(quad_html(types, active=t["name"], caption=False))
+    out.append('<p class="tp-cta">自分がどの型か分からない方は → <a href="/#quiz">30秒の簡単診断</a></p>')
     essay = t.get("essay") or []
     body = "".join(f"<p>{e(x)}</p>" for x in essay) if essay else '<p class="soon">所長の解説は準備中です。</p>'
     out.append(f'<section class="tp-sec" id="essay"><h3>所長の解説</h3><div class="greet">{body}'
