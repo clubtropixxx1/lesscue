@@ -270,10 +270,13 @@ body.hint-mode .typehead{margin-top:28px}
 .big{color:var(--navy);font-family:var(--display);font-weight:800;font-size:40px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .big small{font-size:18px;margin-left:2px;font-weight:600}
 .big-sub{display:flex;flex-direction:column;gap:2px}
-.big-sub span{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.big-sub > span{font-size:11.5px;color:var(--muted);letter-spacing:.06em}
+.big-sub.main > span{font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.big-sub.main .big{font-size:40px}
 .big-sub .big{font-size:30px}
 .bars{display:flex;flex-direction:column;gap:6px}
 .bar{display:grid;grid-template-columns:4.5em 1fr 3.4em;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar.wide{grid-template-columns:minmax(7.5em,auto) 1fr 3.4em}
 .bar-track{height:8px;border-radius:4px;background:var(--bg);overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;background:var(--navy)}
 .bar-fill.prev{background:var(--muted);opacity:.45}
@@ -674,7 +677,7 @@ function watchStats(){
   io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);e.target.classList.remove("wait");countUp(e.target);}}),{threshold:.35});
   cards.forEach(c=>{c.classList.add("wait");c.querySelectorAll(".num").forEach(n=>n.textContent="0");io.observe(c);});
 }
-const barRow=(label,v,cls="")=>`<div class="bar" title="${label} ${fmt(v)}%"><span>${label}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${v}%"></div></div><b>${fmt(v)}%</b></div>`;
+const barRow=(label,v,cls="",wide="")=>`<div class="bar${wide}" title="${label} ${fmt(v)}%"><span>${label}</span><div class="bar-track"><div class="bar-fill ${cls}" style="width:${v}%"></div></div><b>${fmt(v)}%</b></div>`;
 function renderStats(){
   if(!NUMS.length)return;
   const countries=[...new Set(NUMS.map(n=>n.c))];
@@ -682,7 +685,10 @@ function renderStats(){
   $("#stat-filters").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{sst.c=b.dataset.c==="すべて"?null:b.dataset.c;renderStats();});
   $("#stat-grid").innerHTML=NUMS.filter(n=>!sst.c||n.c===sst.c).map(n=>{
     let nums,bars="";
-    if(n.v!=null){
+    if(n.parts){
+      nums=`<div class="big-sub main"><span>${n.lb}</span>${bigNum(n.v)}</div>`;
+      bars=n.parts.map(([l,v],i)=>barRow(l,v,i?"prev":""," wide")).join("");
+    }else if(n.v!=null){
       nums=bigNum(n.v);
       if(n.br)bars=n.br.map(([l,v])=>barRow(l,v)).join("");
       else if(n.prev)bars=barRow(n.prev[1],n.prev[0],"prev")+barRow(n.t,n.v);

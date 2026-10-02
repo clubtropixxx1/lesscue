@@ -138,7 +138,14 @@ def build_stats(rows, article_rows):
         card = {"h": base, "c": first.get("国・地域") or "その他", "t": t or "",
                 "o": first.get("対象") or "", "su": su, "sm": sm}
         sexed = [r for r in rs if set(as_list(r.get("区分"))) & {"男性", "女性"}]
-        if len(rs) > 1 and len(sexed) == len(rs):
+        if any(r.get("内訳") for r in rs):
+            # 1つの質問の内訳（例：妻が拒否／夫が拒否／どちらでもない）。内訳順1を大きく表示し、全体を帯グラフにする
+            rs = sorted(rs, key=lambda r: (r.get("内訳順") is None, r.get("内訳順") or 0))
+            card["h"] = first.get("見出し") or base
+            card["parts"] = [[r.get("内訳") or "", r["数値"]] for r in rs]
+            card["v"] = rs[0]["数値"]
+            card["lb"] = rs[0].get("内訳") or ""
+        elif len(rs) > 1 and len(sexed) == len(rs):
             rs = sorted(rs, key=lambda r: 0 if "男性" in as_list(r.get("区分")) else 1)
             card["br"] = [[as_list(r.get("区分"))[0], r["数値"]] for r in rs]
             parts = [re.match(r"^(.*)の(男性|女性)(.*)$", r.get("対象") or "") for r in rs]
