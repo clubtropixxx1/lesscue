@@ -66,3 +66,4 @@
 
 - `ogp.png`（1200×630）。元データは `tools/ogp.html`（フォントは @fontsource の Shippori Mincho／Zen Kaku Gothic New を npm で取得して Playwright で撮影）
 - 型ページ用のシェア画像は `ogp/type-<slug>.png`。元データは `tools/ogp_type.html?t=型名`（フォントは `tools/fonts/`）。定義文を変えたらこの HTML の文言も直して撮り直す
+- 既読と「次に読むなら」：記事リンクを押すとURLをブラウザの localStorage（lr_read）に保存し、一覧に「既読」を表示。外部記事から戻ってきたら画面下に同じ型の未読記事を2件すすめる（ログイン不要・サーバーには送らない）

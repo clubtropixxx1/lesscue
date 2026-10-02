@@ -213,6 +213,15 @@ details summary{cursor:pointer;color:var(--muted);font-size:12.5px}
 details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{font-size:11.5px;padding:1px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent)}
+.readmark{display:inline-block;padding:0 7px;border-radius:3px;background:var(--line);color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.04em;margin-left:2px}
+.is-read h5 a,.pick.is-read > a{color:var(--muted)}
+.nextbox{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:20;width:min(560px,calc(100% - 24px));background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:12px 14px 12px}
+.nb-h{margin:0 28px 8px 0;font-size:13px;font-weight:700;color:var(--navy)}
+.nb-close{position:absolute;top:6px;right:8px;width:30px;height:30px;border:0;background:none;font-size:20px;color:var(--muted);cursor:pointer}
+.nb-item{display:flex;flex-direction:column;gap:1px;padding:8px 10px;border-radius:8px;background:var(--bg);color:var(--ink);text-decoration:none;margin-bottom:6px}
+.nb-item b{font-size:13.5px;line-height:1.5}.nb-item small{font-size:11.5px;color:var(--muted)}
+.nb-item:hover{background:var(--accent-soft)}
+.nb-more{display:inline-block;margin-top:2px;font-size:12.5px;font-weight:700;color:var(--accent);text-decoration:none}
 .read{align-self:flex-start;font-size:13px;color:var(--accent);font-weight:700;text-decoration:none}
 .read:hover{text-decoration:underline}
 .empty{color:var(--muted);padding:24px 0}
@@ -640,7 +649,7 @@ function renderQuiz(){
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     ${quizHints(hits,qs.ans.role)}
     <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
-  bindHints(el);
+  bindHints(el); if(typeof markRead==="function")markRead();
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }
 /* ---- 数字で見る ---- */
@@ -695,7 +704,7 @@ function renderStats(){
   }).join("");
   watchStats();
 }
-function render(){document.body.classList.toggle("hint-mode",!!st.h);renderTypes();renderFilters();renderList();if(st.h)renderCloud();syncURL();}
+function render(){document.body.classList.toggle("hint-mode",!!st.h);renderTypes();renderFilters();renderList();if(st.h)renderCloud();syncURL();if(typeof markRead==="function")markRead();}
 /* ---- スマホ用メニュー ---- */
 (function(){
   const btn=$("#menu-btn"),nav=$("#site-nav");
@@ -706,8 +715,50 @@ function render(){document.body.classList.toggle("hint-mode",!!st.h);renderTypes
   document.addEventListener("keydown",e=>{if(e.key==="Escape")set(false);});
 })();
 if(/[?&]sent=1/.test(location.search))$("#sent").hidden=false;
+/* ---- 既読と「次に読むなら」 ----
+   押した記事のURLをこのブラウザにだけ保存し、一覧で「既読」を表示する。
+   外部の記事から戻ってきたら、同じ型の未読記事を画面下にすすめる。 */
+const READ_KEY="lr_read";
+const readSet=(()=>{try{return new Set(JSON.parse(localStorage.getItem(READ_KEY)||"[]"));}catch(e){return new Set();}})();
+const saveRead=()=>{try{localStorage.setItem(READ_KEY,JSON.stringify([...readSet].slice(-300)));}catch(e){}};
+const byURL=new Map(DATA.map(d=>[d.u,d]));
+function markRead(){
+  document.querySelectorAll("article.entry, .pick").forEach(el=>{
+    const a=el.querySelector('a[target="_blank"]'); if(!a)return;
+    const on=readSet.has(a.getAttribute("href"));
+    el.classList.toggle("is-read",on);
+    const meta=el.querySelector(".meta, small");
+    if(on&&meta&&!meta.querySelector(".readmark"))meta.insertAdjacentHTML("beforeend",'<span class="readmark">既読</span>');
+  });
+}
+let lastOpened=null;
+document.addEventListener("click",e=>{
+  const a=e.target.closest('a[target="_blank"]'); if(!a)return;
+  const d=byURL.get(a.getAttribute("href")); if(!d)return;
+  readSet.add(d.u); saveRead(); lastOpened=d; setTimeout(markRead,50);
+});
+function showNext(){
+  if(!lastOpened)return; const from=lastOpened; lastOpened=null;
+  // すすめる型：型ページならその型、記事一覧で型を絞っていればその型、それ以外は押した記事の最初の型
+  const pageType=PAGE==="type"?(Object.keys(TSLUG).find(k=>location.pathname.includes(`/${TSLUG[k]}/`))||null):(st.type!=="すべて"?st.type:null);
+  const t=(pageType&&from.ty.includes(pageType))?pageType:(pageType||from.ty[0]);
+  const pool=DATA.filter(d=>d.u!==from.u&&!readSet.has(d.u));
+  const rank=d=>d.ty.includes(t)?0:from.ty.some(x=>d.ty.includes(x))?1:2;
+  const picks=pool.slice().sort((a,b)=>rank(a)-rank(b)).slice(0,2);
+  if(!picks.length)return;
+  let box=$("#nextbox"); if(!box){box=document.createElement("aside");box.id="nextbox";box.className="nextbox";box.setAttribute("aria-label","次に読むなら");document.body.appendChild(box);}
+  box.innerHTML=`<button class="nb-close" type="button" aria-label="閉じる">×</button><p class="nb-h">おかえりなさい。次に読むなら</p>`
+    +picks.map(d=>`<a class="nb-item" href="${esc(d.u)}" target="_blank" rel="noopener"><b>${esc(d.t)}</b><small>${d.o?"所長の考察":d.r?"★".repeat(d.r):""}　${esc(d.k)}・${esc(d.m)}</small></a>`).join("")
+    +(t?`<a class="nb-more" href="${typeURL(t)}">${t}の記事をもっと見る →</a>`:"");
+  box.hidden=false;
+  box.querySelector(".nb-close").onclick=()=>{box.hidden=true;};
+  box.querySelectorAll(".nb-item").forEach(a=>a.addEventListener("click",()=>{box.hidden=true;}));
+}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(showNext,300);});
+window.addEventListener("focus",()=>setTimeout(showNext,300));
 renderStats();
 if(PAGE==="top"){renderQuiz();renderTypes();renderTop();renderCloud();}
+markRead();
 if(PAGE==="article"){
   const q=new URLSearchParams(location.search);
   if(TYPES.includes(q.get("type")))st.type=q.get("type");
