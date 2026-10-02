@@ -212,7 +212,7 @@ def quad_html(types, active=None, caption=True):
             + cell("妻拒否型", "夫は求めているが、妻が応じない", True, False)
             + cell("夫拒否型", "妻は求めているが、夫が応じない", False, True, " lo")
             + cell("完全不仲型", "2人とも求めず、関係全体が冷えている", False, False, " lo")
-            + f'<a class="qflow{flow_on}" href="/type/{slug.get("流動的不仲型", "")}/"><b>流動的不仲型</b><span>どちらとも言い切れず、仲に波がある</span></a>'
+            + f'<a class="qflow{flow_on}" href="/type/{slug.get("流動的不仲型", "")}/"><b>流動的不仲型</b><span>関係は悪くないがセックスレス</span></a>'
             + '</div><span class="qax qb">▼ 夫はしたくない</span>'
             '<div class="qhx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div>'
             f'</div>{cap}</figure>')
