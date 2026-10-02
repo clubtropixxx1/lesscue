@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8">
+<!-- 型ページ用のシェア画像（1200×630）。?t=型名 で切り替え。フォントは @fontsource をローカルに置いて読み込む（tools/README 参照） -->
+<style>
+@font-face{font-family:SM;src:url(fonts/shippori-mincho-japanese-800-normal.woff2);font-weight:800}
+@font-face{font-family:ZK;src:url(fonts/zen-kaku-gothic-new-japanese-700-normal.woff2);font-weight:700}
+@font-face{font-family:ZK;src:url(fonts/zen-kaku-gothic-new-japanese-500-normal.woff2);font-weight:500}
+html,body{margin:0}
+body{width:1200px;height:630px;background:#F2F3EF;font-family:ZK;color:#1D2426;position:relative;overflow:hidden}
+.top{position:absolute;left:0;top:0;right:0;height:10px;background:#364059}.top i{position:absolute;left:0;top:0;width:180px;height:10px;background:#C62F3E}
+.l{position:absolute;left:72px;top:64px;width:520px;bottom:56px;display:flex;flex-direction:column}
+.catch{color:#4F5D8C;font-weight:500;font-size:22px;letter-spacing:.04em}
+.logo{font-family:SM;font-weight:800;font-size:56px;line-height:1.15;margin:2px 0 0}.logo span{color:#4F5D8C}
+.kick{margin-top:auto;font-size:22px;font-weight:700;color:#4F5D8C;letter-spacing:.1em}
+.name{font-family:SM;font-weight:800;font-size:104px;line-height:1.1;color:#364059;margin:4px 0 14px;letter-spacing:.02em;white-space:nowrap}
+.name.long{font-size:84px}
+.def{font-size:27px;font-weight:700;line-height:1.5;white-space:pre-line}
+.url{margin-top:22px;font-size:20px;color:#5E6866;font-weight:500;letter-spacing:.04em}
+.r{position:absolute;right:64px;top:70px;width:500px}
+.ax{display:block;text-align:center;font-size:18px;font-weight:700;color:#4F5D8C;margin:0 0 8px}.ax.b{margin:8px 0 0}
+.hx{display:flex;justify-content:space-between;font-size:18px;font-weight:700;color:#4F5D8C;margin-top:6px}
+.g{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.c{height:184px;border-radius:16px;background:#fff;border:2px solid #D9DDD6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;font-weight:700;font-size:28px}
+.c small{font-size:17px;color:#5E6866;font-weight:500}
+.c.ok{background:#E4E7F1;border-style:dashed}
+.c.on{background:#364059;border-color:#364059;color:#fff}.c.on small{color:#dfe3ef}
+.f{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);background:#fff;border:3px dashed #C62F3E;border-radius:999px;padding:10px 26px;font-size:22px;font-weight:700;color:#C62F3E;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.f.on{background:#C62F3E;color:#fff;border-style:solid}
+.you{position:absolute;font-size:18px;font-weight:700;color:#fff;background:#C62F3E;border-radius:999px;padding:4px 14px;transform:translate(-50%,-50%)}
+</style></head><body><div class="top"><i></i></div>
+<div class="l"><div class="catch">―私はレス山さんを救いたい―</div><div class="logo">レスられ<span>総研</span></div>
+<div class="kick">セックスレスの型</div><div class="name" id="name"></div><div class="def" id="def"></div><div class="url" id="url"></div></div>
+<div class="r"><span class="ax">▲ 夫はしたい</span><div class="g" id="g"></div><span class="ax b">▼ 夫はしたくない</span><div class="hx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div></div>
+<script>
+const T={"妻拒否型":["tsuma-kyohi","夫は求めているが、妻が応じない状態。"],"夫拒否型":["otto-kyohi","妻は求めているが、夫が応じない状態。"],
+"流動的不仲型":["ryudo-funaka","関係は悪くないが\nセックスレスである状態。"],"完全不仲型":["kanzen-funaka","どちらが拒否しているとも言い切れず、\n関係全体が冷え切っている状態。"]};
+const t=new URLSearchParams(location.search).get("t");
+document.getElementById("name").textContent=t; if(t.length>4)document.getElementById("name").classList.add("long");
+document.getElementById("def").textContent=T[t][1]; document.getElementById("url").textContent="lesscue.com/type/"+T[t][0]+"/";
+const c=(n,sub,cls="")=>`<div class="c${cls}${n===t?" on":""}">${n}<small>${sub}</small></div>`;
+document.getElementById("g").innerHTML=c("レスではない","2人とも求めている"," ok")+c("妻拒否型","妻が応じない")+c("夫拒否型","夫が応じない")+c("完全不仲型","関係が冷えている")
+ +`<div class="f${t==="流動的不仲型"?" on":""}">流動的不仲型</div>`;
+</script></body></html>

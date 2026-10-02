@@ -65,3 +65,4 @@
 ## シェア画像
 
 - `ogp.png`（1200×630）。元データは `tools/ogp.html`（フォントは @fontsource の Shippori Mincho／Zen Kaku Gothic New を npm で取得して Playwright で撮影）
+- 型ページ用のシェア画像は `ogp/type-<slug>.png`。元データは `tools/ogp_type.html?t=型名`（フォントは `tools/fonts/`）。定義文を変えたらこの HTML の文言も直して撮り直す

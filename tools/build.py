@@ -318,6 +318,8 @@ def main():
             "CANONICAL": SITE_URL + f"type/{t['slug']}/",
             "STATIC_LIST": "", "STATS_HIDDEN": " hidden",
             "TYPE_BODY": type_body(t, arts, types),
+            "OG_IMAGE": SITE_URL + f"ogp/type-{t['slug']}.png",
+            "OG_ALT": f"セックスレスの型：{t['name']}（{t['def']}）｜レスられ総研",
             # 記事も解説もない型ページは中身が薄いので検索エンジンに登録しない
             "ROBOTS": "" if (n or t.get("essay")) else '<meta name="robots" content="noindex">',
         }
@@ -331,6 +333,8 @@ def main():
                   .replace("{{TYPE_SLUGS}}", js_json(slugs))
                   .replace("{{TYPE_BODY}}", pg.get("TYPE_BODY", ""))
                   .replace("{{ROBOTS}}", pg.get("ROBOTS", ""))
+                  .replace("{{OG_IMAGE}}", pg.get("OG_IMAGE", SITE_URL + "ogp.png"))
+                  .replace("{{OG_ALT}}", html.escape(pg.get("OG_ALT", "レスられ総研 ―私はレス山さんを救いたい― セックスレスのお悩みと解消法のデータベース")))
                   .replace("{{QUAD_ABOUT}}", quad_html(types) if mode == "about" else "")
                   .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
                   .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL))
