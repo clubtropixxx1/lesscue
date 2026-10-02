@@ -12,6 +12,7 @@ _notion/ には未確認の記事や博士メモが含まれるため、Git に�
 import html
 import json
 import re
+from urllib.parse import quote
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -180,6 +181,44 @@ def static_list(arts, heading="おすすめ順", lite=False):
     return f'<section class="group"><h4>{heading}</h4><div class="list">' + "".join(items) + "</div></section>"
 
 
+HWHO = [("c", "夫婦でできること"), ("w", "妻ができること"), ("m", "夫ができること")]
+
+
+def type_body(t, arts, types):
+    """型ページの本文（静的HTML）。検索エンジンが読めるよう、記事一覧もヒントもHTMLで書き出す。"""
+    e = html.escape
+    hits = [d for d in arts if t["name"] in d["ty"]]
+    out = [f'<nav class="crumb" aria-label="現在地"><a href="/">TOP</a> › <a href="/about/#types-def">4つの型</a> › <span>{e(t["name"])}</span></nav>',
+           f'<section class="tp-head"><p class="tp-kicker">セックスレスの型</p><h2>{e(t["name"])}</h2>'
+           f'<p class="tp-def">{e(t["def"])}</p><p class="tp-count">この型の記事 {len(hits)}件</p></section>']
+    essay = t.get("essay") or []
+    body = "".join(f"<p>{e(x)}</p>" for x in essay) if essay else '<p class="soon">所長の解説は準備中です。</p>'
+    out.append(f'<section class="tp-sec" id="essay"><h3>所長の解説</h3><div class="greet">{body}'
+               '<p class="sign">レスられ総研 所長</p></div></section>')
+    cnt = {}
+    for d in arts:
+        for k in ("c", "w", "m"):
+            for h in d["h"][k]:
+                cnt[h] = cnt.get(h, 0) + 1
+    groups = []
+    for k, label in HWHO:
+        hs = sorted({h for d in hits for h in d["h"][k]}, key=lambda h: (-cnt[h], h))
+        if hs:
+            chips = "".join(f'<a class="hint" href="/article/?h={quote(h)}">{e(h)}<small>{cnt[h]}</small></a>' for h in hs)
+            groups.append(f'<h4 class="cloud-h">{label}</h4><div class="cloud">{chips}</div>')
+    if groups:
+        out.append('<section class="tp-sec"><h3>この型の解決のヒント</h3>'
+                   '<p class="tp-note">この型の記事で紹介されている具体的な行動です。押すと、そのヒントが書かれた記事を一覧で表示します。</p>'
+                   + "".join(groups) + "</section>")
+    lst = static_list(hits, heading=None) if hits else '<p class="empty">この型の記事は準備中です。</p>'
+    out.append(f'<section class="tp-sec"><h3>この型の記事（おすすめ順）</h3>'
+               '<p class="tp-note">記事タイトルを押すと、元の記事（外部サイト）が開きます。★は運営が付けたおすすめ度、「AI要約を読む」はAIがまとめた要約です。</p>'
+               f'{lst}</section>')
+    others = "".join(f'<a href="/type/{o["slug"]}/">{e(o["name"])}</a>' for o in types if o["slug"] != t["slug"])
+    out.append(f'<nav class="tp-others" aria-label="ほかの型"><span>ほかの型</span>{others}</nav>')
+    return "\n".join(out)
+
+
 def js_json(obj):
     return json.dumps(obj, ensure_ascii=False).replace("</", "<\\/")
 
@@ -233,10 +272,29 @@ def main():
             "STATS_HIDDEN": "",
         },
     }
+    types = json.loads((ROOT / "src" / "types.json").read_text(encoding="utf-8"))["types"]
+    for t in types:
+        n = sum(1 for d in arts if t["name"] in d["ty"])
+        pages["type-" + t["slug"]] = {
+            "mode": "type",
+            "path": ROOT / "type" / t["slug"] / "index.html",
+            "TITLE": t["title"], "DESCRIPTION": t["description"],
+            "CANONICAL": SITE_URL + f"type/{t['slug']}/",
+            "STATIC_LIST": "", "STATS_HIDDEN": " hidden",
+            "TYPE_BODY": type_body(t, arts, types),
+            # 記事も解説もない型ページは中身が薄いので検索エンジンに登録しない
+            "ROBOTS": "" if (n or t.get("essay")) else '<meta name="robots" content="noindex">',
+        }
+        (ROOT / "type" / t["slug"]).mkdir(parents=True, exist_ok=True)
+    slugs = {t["name"]: t["slug"] for t in types}
     for mode, pg in pages.items():
+        mode = pg.get("mode", mode)
         out = (tpl.replace("{{ARTICLES_JSON}}", js_json(arts))
                   .replace("{{STATS_JSON}}", js_json(stats))
                   .replace("{{PAGE_MODE}}", mode)
+                  .replace("{{TYPE_SLUGS}}", js_json(slugs))
+                  .replace("{{TYPE_BODY}}", pg.get("TYPE_BODY", ""))
+                  .replace("{{ROBOTS}}", pg.get("ROBOTS", ""))
                   .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
                   .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL))
                   .replace("{{FORM_KEY}}", html.escape(FORM_KEY))
@@ -249,16 +307,16 @@ def main():
             raise SystemExit(f"未置換のプレースホルダ: {leftover}")
         pg["path"].write_text(out, encoding="utf-8")
 
+    day = now.strftime("%Y-%m-%d")
+    locs = ["", "article/", "about/", "data/"] + [
+        p["CANONICAL"][len(SITE_URL):] for p in pages.values() if p.get("mode") == "type" and not p["ROBOTS"]]
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f"  <url><loc>{SITE_URL}</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
-        f"  <url><loc>{SITE_URL}article/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
-        f"  <url><loc>{SITE_URL}about/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
-        f"  <url><loc>{SITE_URL}data/</loc><lastmod>{now.strftime('%Y-%m-%d')}</lastmod></url>\n"
-        "</urlset>\n", encoding="utf-8")
+        + "".join(f"  <url><loc>{SITE_URL}{l}</loc><lastmod>{day}</lastmod></url>\n" for l in locs)
+        + "</urlset>\n", encoding="utf-8")
 
-    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で index.html・article/・about/・data/ の各ページ を生成しました")
+    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で TOP・article/・about/・data/・type/（4型）の各ページを生成しました")
 
 
 if __name__ == "__main__":

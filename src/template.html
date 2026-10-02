@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESCRIPTION}}">
+{{ROBOTS}}
 <link rel="canonical" href="{{CANONICAL}}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="レスられ総研">
@@ -118,6 +119,23 @@ a.type{text-decoration:none}
   .hint.s3{font-size:15px}
   .cloud-h{margin-top:14px;font-size:13px}
 }
+.crumb{margin-top:18px;font-size:12px;color:var(--muted)}
+.crumb a{color:var(--accent);text-decoration:none}
+.tp-head{margin-top:14px}
+.tp-kicker{margin:0;font-size:12px;letter-spacing:.1em;color:var(--accent);font-weight:700}
+.tp-head h2{font-family:var(--display);font-weight:800;font-size:34px;margin:2px 0 6px;color:var(--navy)}
+.tp-def{margin:0;font-size:15.5px;font-weight:700}
+.tp-count{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.tp-sec{margin-top:36px}
+.tp-sec > h3{font-family:var(--display);font-weight:600;font-size:21px;margin:0 0 10px}
+.tp-note{margin:0;font-size:13px;color:var(--muted)}
+.tp-sec .greet p{line-height:1.9;color:var(--ink-2);font-size:14.5px;margin:0 0 12px}
+a.hint{text-decoration:none;display:inline-block}
+.tp-others{margin-top:36px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;font-size:13.5px}
+.tp-others span{font-size:12px;color:var(--muted);margin-right:4px}
+.tp-others a{color:var(--navy);font-weight:700;text-decoration:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 14px}
+.tp-others a:hover{border-color:var(--navy)}
+@media (max-width:600px){.tp-head h2{font-size:28px}}
 .top-head{margin-top:36px}
 .top-head h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0}
 .more-arts{margin:20px 0 0}
@@ -185,7 +203,7 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .more{margin:18px 0 0;text-align:center}
 .more a{display:inline-block;color:var(--navy);font-weight:700;font-size:14px;text-decoration:none;border:1.5px solid var(--navy);border-radius:999px;padding:10px 24px}
 .more a:hover{background:var(--navy);color:var(--on-accent)}
-body[data-page="top"] [data-only]:not([data-only~="top"]),body[data-page="data"] [data-only]:not([data-only~="data"]),body[data-page="article"] [data-only]:not([data-only~="article"]),body[data-page="about"] [data-only]:not([data-only~="about"]){display:none!important}
+body[data-page="top"] [data-only]:not([data-only~="top"]),body[data-page="data"] [data-only]:not([data-only~="data"]),body[data-page="article"] [data-only]:not([data-only~="article"]),body[data-page="about"] [data-only]:not([data-only~="about"]),body[data-page="type"] [data-only]:not([data-only~="type"]){display:none!important}
 body[data-page="data"] .stats{margin-top:24px}
 body.hint-mode .intro,body.hint-mode #filters{display:none!important}
 body[data-page="article"]:not(.hint-mode) #hints{display:none!important}
@@ -285,11 +303,15 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     </nav>
   </header>
 
+  <div class="typepage" data-only="type">
+{{TYPE_BODY}}
+  </div>
+
   <section data-only="top" class="quiz" id="quiz" aria-live="polite"></section>
 
   <section data-only="top article" class="intro">
     <h2 data-only="top">あなたの状況に近い型から探す</h2>
-    <p data-only="top">型を選ぶと、その型の記事を、悩み・解決策・体験記などの種別ごとにおすすめ度の高い順で一覧にします。</p>
+    <p data-only="top">型を選ぶと、その型についての所長の解説と、その型の記事・解決のヒントをまとめたページが開きます。</p>
     <h2 data-only="article">記事一覧</h2>
     <p data-only="article">型を選ぶと、その型の記事を種別ごとにおすすめ度の高い順で並べます。視点・年代・タグでも絞り込めます。</p>
     <div class="types" id="types"></div>
@@ -347,10 +369,10 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
       <h2>4つの型について</h2>
       <p>レスられ総研では、セックスレスを「誰が避けているか」と「ふだんの夫婦仲」から、次の4つの型に分けています。トップページの簡単診断も、この分け方で型を判定しています。</p>
       <div class="tdefs">
-        <div class="tdef"><h3>妻拒否型</h3><p>夫は求めているが、妻が応じない状態。</p><a href="/article/?type=妻拒否型">この型の記事を見る →</a></div>
-        <div class="tdef"><h3>夫拒否型</h3><p>妻は求めているが、夫が応じない状態。</p><a href="/article/?type=夫拒否型">この型の記事を見る →</a></div>
-        <div class="tdef"><h3>流動的不仲型</h3><p>どちらが拒否しているとも言い切れず、仲の良し悪しに波がある状態。</p><a href="/article/?type=流動的不仲型">この型の記事を見る →</a></div>
-        <div class="tdef"><h3>完全不仲型</h3><p>どちらが拒否しているとも言い切れず、関係全体が冷え切っている状態。</p><a href="/article/?type=完全不仲型">この型の記事を見る →</a></div>
+        <div class="tdef"><h3>妻拒否型</h3><p>夫は求めているが、妻が応じない状態。</p><a href="/type/tsuma-kyohi/">この型の解説と記事を見る →</a></div>
+        <div class="tdef"><h3>夫拒否型</h3><p>妻は求めているが、夫が応じない状態。</p><a href="/type/otto-kyohi/">この型の解説と記事を見る →</a></div>
+        <div class="tdef"><h3>流動的不仲型</h3><p>どちらが拒否しているとも言い切れず、仲の良し悪しに波がある状態。</p><a href="/type/ryudo-funaka/">この型の解説と記事を見る →</a></div>
+        <div class="tdef"><h3>完全不仲型</h3><p>どちらが拒否しているとも言い切れず、関係全体が冷え切っている状態。</p><a href="/type/kanzen-funaka/">この型の解説と記事を見る →</a></div>
       </div>
     </section>
 
@@ -400,7 +422,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     </section>
   </div>
 
-  <nav class="next" data-only="about" aria-label="次に読む">
+  <nav class="next" data-only="about type" aria-label="次に読む">
     <a class="go" href="/#quiz"><small>3つの二択で30秒</small><span>あなたはどの型？診断する</span></a>
     <a href="/article/"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
   </nav>
@@ -426,6 +448,8 @@ FACETS.tg=[...new Set(DATA.flatMap(d=>d.tg))];
 FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
 DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="{{PAGE_MODE}}";
+const TSLUG={{TYPE_SLUGS}};
+const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
 const $=s=>document.querySelector(s);
 const artURL=(k,v)=>"/article/"+(v?`?${k}=${encodeURIComponent(v)}`:"");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -436,7 +460,7 @@ function renderTypes(){
     const n=t==="すべて"?DATA.length:DATA.filter(d=>d.ty.includes(t)).length;
     // TOPでは記事一覧ページへのリンク、記事一覧ページではその場で絞り込むボタン
     const z=n?"":" zero";
-    if(PAGE==="top")return `<a class="type${z}" href="${artURL("type",t==="すべて"?"":t)}"><b>${t}</b><small>${n}件</small></a>`;
+    if(PAGE==="top")return `<a class="type${z}" href="${t==="すべて"?"/article/":typeURL(t)}"><b>${t}</b><small>${n}件</small></a>`;
     return `<button class="type${z}" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
   }).join("");
   $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
@@ -563,7 +587,7 @@ function renderQuiz(){
     <a class="share-x" href="${shareURL(t)}" target="_blank" rel="noopener">結果をXでシェアする</a>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     ${quizHints(hits,qs.ans.role)}
-    <div class="quiz-actions"><a class="link-btn" href="${artURL("type",t)}">${t}の記事一覧を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
+    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
   bindHints(el);
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }
