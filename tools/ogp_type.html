@@ -15,28 +15,30 @@ body{width:1200px;height:630px;background:#F2F3EF;font-family:ZK;color:#1D2426;p
 .name.long{font-size:84px}
 .def{font-size:27px;font-weight:700;line-height:1.5;white-space:pre-line}
 .url{margin-top:22px;font-size:20px;color:#5E6866;font-weight:500;letter-spacing:.04em}
-.r{position:absolute;right:64px;top:70px;width:500px}
-.ax{display:block;text-align:center;font-size:18px;font-weight:700;color:#4F5D8C;margin:0 0 8px}.ax.b{margin:8px 0 0}
-.hx{display:flex;justify-content:space-between;font-size:18px;font-weight:700;color:#4F5D8C;margin-top:6px}
-.g{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.c{height:184px;border-radius:16px;background:#fff;border:2px solid #D9DDD6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;font-weight:700;font-size:28px}
+.r{position:absolute;right:64px;top:56px;width:500px}
+.c1{grid-column:1;grid-row:1}.c2{grid-column:2;grid-row:1}.c3{grid-column:1;grid-row:3}.c4{grid-column:2;grid-row:3}
+.ax{display:flex;justify-content:center;margin:0 0 8px}.ax.b{margin:8px 0 0}
+.ax span,.hx span{display:inline-block;padding:4px 16px;border-radius:999px;background:#E4E7F1;color:#364059;font-size:18px;font-weight:700;white-space:nowrap}
+.hx{grid-column:1/-1;grid-row:2;display:flex;justify-content:space-between;align-items:center}
+.g{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:8px}
+.c{height:168px;border-radius:16px;background:#fff;border:2px solid #D9DDD6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;font-weight:700;font-size:28px}
 .c small{font-size:17px;color:#5E6866;font-weight:500}
 .c.ok{background:#E4E7F1;border-style:dashed}
 .c.on{background:#364059;border-color:#364059;color:#fff}.c.on small{color:#dfe3ef}
-.f{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);background:#fff;border:3px dashed #C62F3E;border-radius:999px;padding:10px 26px;font-size:22px;font-weight:700;color:#C62F3E;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.f{grid-column:1/-1;grid-row:3;justify-self:center;align-self:start;margin-top:-6px;z-index:1;background:#fff;border:3px dashed #C62F3E;border-radius:999px;padding:10px 26px;font-size:22px;font-weight:700;color:#C62F3E;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.1)}
 .f.on{background:#C62F3E;color:#fff;border-style:solid}
 .you{position:absolute;font-size:18px;font-weight:700;color:#fff;background:#C62F3E;border-radius:999px;padding:4px 14px;transform:translate(-50%,-50%)}
 </style></head><body><div class="top"><i></i></div>
 <div class="l"><div class="catch">―私はレス山さんを救いたい―</div><div class="logo">レスられ<span>総研</span></div>
 <div class="kick">セックスレスの型</div><div class="name" id="name"></div><div class="def" id="def"></div><div class="url" id="url"></div></div>
-<div class="r"><span class="ax">▲ 夫はしたい</span><div class="g" id="g"></div><span class="ax b">▼ 夫はしたくない</span><div class="hx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div></div>
+<div class="r"><div class="ax"><span>▲ 夫はしたい</span></div><div class="g" id="g"></div><div class="ax b"><span>▼ 夫はしたくない</span></div></div>
 <script>
 const T={"妻拒否型":["tsuma-kyohi","夫は求めているが、妻が応じない状態。"],"夫拒否型":["otto-kyohi","妻は求めているが、夫が応じない状態。"],
 "流動的不仲型":["ryudo-funaka","関係は悪くないが\nセックスレスである状態。"],"完全不仲型":["kanzen-funaka","どちらが拒否しているとも言い切れず、\n関係全体が冷え切っている状態。"]};
 const t=new URLSearchParams(location.search).get("t");
 document.getElementById("name").textContent=t; if(t.length>4)document.getElementById("name").classList.add("long");
 document.getElementById("def").textContent=T[t][1]; document.getElementById("url").textContent="lesscue.com/type/"+T[t][0]+"/";
-const c=(n,sub,cls="")=>`<div class="c${cls}${n===t?" on":""}">${n}<small>${sub}</small></div>`;
-document.getElementById("g").innerHTML=c("レスではない","2人とも求めている"," ok")+c("妻拒否型","妻が応じない")+c("夫拒否型","夫が応じない")+c("完全不仲型","関係が冷えている")
+const c=(n,sub,cls="")=>`<div class="c ${cls}${n===t?" on":""}">${n}<small>${sub}</small></div>`;
+document.getElementById("g").innerHTML=c("レスではない","2人とも求めている","ok c1")+c("妻拒否型","妻が応じない","c2")+`<div class="hx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div>`+c("夫拒否型","夫が応じない","c3")+c("完全不仲型","関係が冷えている","c4")
  +`<div class="f${t==="流動的不仲型"?" on":""}">流動的不仲型</div>`;
 </script></body></html>

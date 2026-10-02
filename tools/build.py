@@ -206,15 +206,15 @@ def quad_html(types, active=None, caption=True):
     cap = ('<figcaption>縦軸は「夫がしたいか」、横軸は「妻がしたいか」。ハートが塗りつぶしの人が「したい」側です。'
            'マスを押すと、その型のページが開きます。</figcaption>') if caption else ""
     return ('<figure class="quad"><div class="qwrap">'
-            '<span class="qax qt">▲ 夫はしたい</span>'
+            '<div class="qax"><span>▲ 夫はしたい</span></div>'
             '<div class="qgrid">'
-            + cell("レスではない", "2人とも求めている", True, True, " ok")
-            + cell("妻拒否型", "夫は求めているが、妻が応じない", True, False)
-            + cell("夫拒否型", "妻は求めているが、夫が応じない", False, True, " lo")
-            + cell("完全不仲型", "2人とも求めず、関係全体が冷えている", False, False, " lo")
+            + cell("レスではない", "2人とも求めている", True, True, " ok c1")
+            + cell("妻拒否型", "夫は求めているが、妻が応じない", True, False, " c2")
+            + '<div class="qhx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div>'
+            + cell("夫拒否型", "妻は求めているが、夫が応じない", False, True, " lo c1")
+            + cell("完全不仲型", "2人とも求めず、関係全体が冷えている", False, False, " lo c2")
             + f'<a class="qflow{flow_on}" href="/type/{slug.get("流動的不仲型", "")}/"><b>流動的不仲型</b><span>関係は悪くないがセックスレス</span></a>'
-            + '</div><span class="qax qb">▼ 夫はしたくない</span>'
-            '<div class="qhx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div>'
+            + '</div><div class="qax qb"><span>▼ 夫はしたくない</span></div>'
             f'</div>{cap}</figure>')
 
 
