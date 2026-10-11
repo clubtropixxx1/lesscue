@@ -1,44 +1,62 @@
 <!doctype html><html><head><meta charset="utf-8">
-<!-- 型ページ用のシェア画像（1200×630）。?t=型名 で切り替え。フォントは @fontsource をローカルに置いて読み込む（tools/README 参照） -->
+<!-- 型ページ用のシェア画像（1200×630）。?t=型名 で切り替え。Xで診断結果をシェアしたときのカード画像になる。
+     フォントは tools/fonts/、イラスト（いらすとや）は tools/illust/<slug>.png（再配布にならないよう git には入れない） -->
 <style>
 @font-face{font-family:SM;src:url(fonts/shippori-mincho-japanese-800-normal.woff2);font-weight:800}
 @font-face{font-family:ZK;src:url(fonts/zen-kaku-gothic-new-japanese-700-normal.woff2);font-weight:700}
 @font-face{font-family:ZK;src:url(fonts/zen-kaku-gothic-new-japanese-500-normal.woff2);font-weight:500}
 html,body{margin:0}
-body{width:1200px;height:630px;background:#F2F3EF;font-family:ZK;color:#1D2426;position:relative;overflow:hidden}
-.top{position:absolute;left:0;top:0;right:0;height:10px;background:#364059}.top i{position:absolute;left:0;top:0;width:180px;height:10px;background:#C62F3E}
-.l{position:absolute;left:72px;top:64px;width:520px;bottom:56px;display:flex;flex-direction:column}
-.catch{color:#4F5D8C;font-weight:500;font-size:22px;letter-spacing:.04em}
-.logo{font-family:SM;font-weight:800;font-size:56px;line-height:1.15;margin:2px 0 0}.logo span{color:#4F5D8C}
-.kick{margin-top:auto;font-size:22px;font-weight:700;color:#4F5D8C;letter-spacing:.1em}
-.name{font-family:SM;font-weight:800;font-size:104px;line-height:1.1;color:#364059;margin:4px 0 14px;letter-spacing:.02em;white-space:nowrap}
-.name.long{font-size:84px}
-.def{font-size:27px;font-weight:700;line-height:1.5;white-space:pre-line}
-.url{margin-top:22px;font-size:20px;color:#5E6866;font-weight:500;letter-spacing:.04em}
-.r{position:absolute;right:64px;top:56px;width:500px}
-.c1{grid-column:1;grid-row:1}.c2{grid-column:2;grid-row:1}.c3{grid-column:1;grid-row:3}.c4{grid-column:2;grid-row:3}
-.ax{display:flex;justify-content:center;margin:0 0 8px}.ax.b{margin:8px 0 0}
-.ax span,.hx span{display:inline-block;padding:4px 16px;border-radius:999px;background:#E4E7F1;color:#364059;font-size:18px;font-weight:700;white-space:nowrap}
-.hx{grid-column:1/-1;grid-row:2;display:flex;justify-content:space-between;align-items:center}
-.g{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:8px}
-.c{height:168px;border-radius:16px;background:#fff;border:2px solid #D9DDD6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;font-weight:700;font-size:28px}
-.c small{font-size:17px;color:#5E6866;font-weight:500}
-.c.ok{background:#E4E7F1;border-style:dashed}
-.c.on{background:#364059;border-color:#364059;color:#fff}.c.on small{color:#dfe3ef}
-.f{grid-column:1/-1;grid-row:3;justify-self:center;align-self:start;margin-top:-6px;z-index:1;background:#fff;border:3px dashed #C62F3E;border-radius:999px;padding:10px 26px;font-size:22px;font-weight:700;color:#C62F3E;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.1)}
-.f.on{background:#C62F3E;color:#fff;border-style:solid}
-.you{position:absolute;font-size:18px;font-weight:700;color:#fff;background:#C62F3E;border-radius:999px;padding:4px 14px;transform:translate(-50%,-50%)}
-</style></head><body><div class="top"><i></i></div>
-<div class="l"><div class="catch">―私はレス山さんを救いたい―</div><div class="logo">レスられ<span>総研</span></div>
-<div class="kick">セックスレスの型</div><div class="name" id="name"></div><div class="def" id="def"></div><div class="url" id="url"></div></div>
-<div class="r"><div class="ax"><span>▲ 夫はしたい</span></div><div class="g" id="g"></div><div class="ax b"><span>▼ 夫はしたくない</span></div></div>
+body{width:1200px;height:630px;overflow:hidden;position:relative;font-family:ZK;color:#fff;
+ background:radial-gradient(circle at 78% 52%,var(--b1) 0,var(--b2) 46%,var(--b3) 100%)}
+.bar{position:absolute;left:0;right:0;top:0;height:10px;background:#C62F3E}
+.logo{position:absolute;left:72px;top:44px;display:flex;align-items:baseline;gap:16px}
+.logo b{font-family:SM;font-weight:800;font-size:38px;letter-spacing:.02em}
+.logo b span{color:var(--soft)}
+.logo small{font-size:18px;font-weight:500;color:var(--mute);letter-spacing:.04em}
+.kick{position:absolute;left:72px;top:150px;font-size:26px;font-weight:700;letter-spacing:.12em;color:#F3C9CF;padding-bottom:6px;border-bottom:3px solid #C62F3E}
+.name{position:absolute;left:62px;top:196px;font-family:SM;font-weight:800;font-size:156px;line-height:1.1;letter-spacing:.01em;white-space:nowrap;text-shadow:0 6px 24px rgba(0,0,0,.35)}
+.name.long{font-size:124px;top:214px}
+.def{position:absolute;left:74px;top:398px;font-size:31px;font-weight:700;color:#E6E9F2;white-space:pre-line;line-height:1.4}
+.def.two{font-size:27px;top:388px}
+.q{position:absolute;left:72px;top:462px;background:#fff;color:var(--b2);font-size:34px;font-weight:700;border-radius:999px;padding:10px 30px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.def.two~.q{top:478px}
+.q em{font-style:normal;color:#C62F3E}
+.circle{position:absolute;right:36px;top:110px;width:420px;height:420px;border-radius:50%;background:#F2F3EF}
+.ill{position:absolute;right:76px;top:126px;height:420px}
+.ill.wide{height:auto;width:400px;right:46px;top:140px}
+.stamp{position:absolute;left:var(--sx,560px);top:118px;width:180px;height:180px;transform:rotate(-14deg);filter:url(#rough);z-index:3}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
+<feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.55" result="m"/>
+<feComposite in="SourceGraphic" in2="m" operator="in"/></filter></svg>
+<div class="bar"></div>
+<div class="logo"><b>レスられ<span>総研</span></b><small>―私はレス山さんを救いたい―</small></div>
+<div class="kick">セックスレス簡単診断　診断結果</div>
+<div class="name" id="name"></div>
+<div class="def" id="def"></div>
+<div class="q">あなたは<em>どの型</em>？</div>
+<div class="circle"></div>
+<img class="ill" id="ill" alt="">
+<svg class="stamp" viewBox="0 0 210 210"><g fill="none" stroke="#FF3D52">
+<circle cx="105" cy="105" r="98" stroke-width="9"/><circle cx="105" cy="105" r="84" stroke-width="3"/></g>
+<text x="105" y="132" text-anchor="middle" font-family="SM" font-weight="800" font-size="78" fill="#FF3D52">認定</text>
+<text x="105" y="62" text-anchor="middle" font-family="ZK" font-weight="700" font-size="18" fill="#FF3D52" letter-spacing="2">レスられ総研</text>
+<text id="st" x="105" y="166" text-anchor="middle" font-family="ZK" font-weight="700" font-size="17" fill="#FF3D52" letter-spacing="2"></text>
+</svg>
 <script>
-const T={"妻拒否型":["tsuma-kyohi","夫は求めているが、妻が応じない状態。"],"夫拒否型":["otto-kyohi","妻は求めているが、夫が応じない状態。"],
-"流動的不仲型":["ryudo-funaka","関係は悪くないが\nセックスレスである状態。"],"完全不仲型":["kanzen-funaka","どちらが拒否しているとも言い切れず、\n関係全体が冷え切っている状態。"]};
-const t=new URLSearchParams(location.search).get("t");
-document.getElementById("name").textContent=t; if(t.length>4)document.getElementById("name").classList.add("long");
-document.getElementById("def").textContent=T[t][1]; document.getElementById("url").textContent="lesscue.com/type/"+T[t][0]+"/";
-const c=(n,sub,cls="")=>`<div class="c ${cls}${n===t?" on":""}">${n}<small>${sub}</small></div>`;
-document.getElementById("g").innerHTML=c("レスではない","2人とも求めている","ok c1")+c("妻拒否型","妻が応じない","c2")+`<div class="hx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div>`+c("夫拒否型","夫が応じない","c3")+c("完全不仲型","関係が冷えている","c4")
- +`<div class="f${t==="流動的不仲型"?" on":""}">流動的不仲型</div>`;
-</script></body></html>
+// [slug, 定義（短く）, 背景3色, ロゴ「総研」の色, 補助文字色]
+const T={
+ "夫拒否型":["otto-kyohi","妻は求めているが、夫が応じない。",["#3B4670","#2A3150","#1E2440"],"#A3B1E3","#B9C1DA"],
+ "妻拒否型":["tsuma-kyohi","夫は求めているが、妻が応じない。",["#6A3550","#4A2238","#33172A"],"#F2A0C0","#D9B8C6"],
+ "流動的不仲型":["ryudo-funaka","関係は悪くないが、セックスレス。",["#2F5A4E","#21423A","#162E28"],"#9FD3BF","#B8D2C8"],
+ "完全不仲型":["kanzen-funaka","どちらが拒否しているとも言い切れず、\n関係全体が冷え切っている。",["#454B50","#30353A","#212528"],"#C9CFD4","#B5BCC2"]};
+const t=new URLSearchParams(location.search).get("t"), d=T[t], r=document.documentElement.style;
+["--b1","--b2","--b3"].forEach((k,i)=>r.setProperty(k,d[2][i])); r.setProperty("--soft",d[3]); r.setProperty("--mute",d[4]);
+const n=document.getElementById("name"); n.textContent=t;
+if(t.length>4){n.classList.add("long"); r.setProperty("--sx",(62+t.length*124-60)+"px");}
+const df=document.getElementById("def"); df.textContent=d[1]; if(d[1].includes("\n"))df.classList.add("two");
+document.getElementById("st").textContent=t;
+const im=document.getElementById("ill"); im.src="illust/"+d[0]+".png";
+im.onload=()=>{if(im.naturalWidth>im.naturalHeight*0.9)im.classList.add("wide");};
+</script>
+</body></html>

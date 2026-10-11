@@ -2,3 +2,5 @@
 _notion/
 __pycache__/
 .DS_Store
+# いらすとやの素材そのものは再配布にならないよう公開しない（合成したシェア画像だけ ogp/ に置く）
+tools/illust/
