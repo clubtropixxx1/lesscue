@@ -24,6 +24,8 @@ body{width:1200px;height:630px;overflow:hidden;position:relative;font-family:ZK;
 .circle{position:absolute;right:36px;top:110px;width:420px;height:420px;border-radius:50%;background:#F2F3EF}
 .ill{position:absolute;right:76px;top:126px;height:420px}
 .ill.wide{height:auto;width:400px;right:46px;top:140px}
+.ill.sq{height:370px;right:66px;top:140px}
+.name.xlong{font-size:106px;top:226px}
 .stamp{position:absolute;left:var(--sx,560px);top:118px;width:180px;height:180px;transform:rotate(-14deg);filter:url(#rough);z-index:3}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
@@ -53,10 +55,10 @@ const T={
 const t=new URLSearchParams(location.search).get("t"), d=T[t], r=document.documentElement.style;
 ["--b1","--b2","--b3"].forEach((k,i)=>r.setProperty(k,d[2][i])); r.setProperty("--soft",d[3]); r.setProperty("--mute",d[4]);
 const n=document.getElementById("name"); n.textContent=t;
-if(t.length>4){n.classList.add("long"); r.setProperty("--sx",(62+t.length*124-60)+"px");}
+if(t.length>4){const fs=t.length>5?106:124; n.classList.add(t.length>5?"xlong":"long"); r.setProperty("--sx",(62+t.length*fs-(t.length>5?150:60))+"px");}
 const df=document.getElementById("def"); df.textContent=d[1]; if(d[1].includes("\n"))df.classList.add("two");
 document.getElementById("st").textContent=t;
 const im=document.getElementById("ill"); im.src="illust/"+d[0]+".png";
-im.onload=()=>{if(im.naturalWidth>im.naturalHeight*0.9)im.classList.add("wide");};
+im.onload=()=>{const k=im.naturalWidth/im.naturalHeight; if(k>=0.97&&k<=1.03)im.classList.add("sq"); else if(k>0.9)im.classList.add("wide");};
 </script>
 </body></html>
