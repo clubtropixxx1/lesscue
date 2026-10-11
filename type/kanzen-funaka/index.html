@@ -777,7 +777,7 @@ window.addEventListener("focus",()=>setTimeout(showNext,300));
 /* ---- 「参考になった」ボタン ----
    カウントは Google Apps Script（LIKE_URL）に保存する。押したかどうかはこのブラウザにだけ記録（lr_like）。
    LIKE_URL が空ならボタン自体を出さない。厳密な重複防止はしていない。 */
-const LIKE_URL="";
+const LIKE_URL="https://script.google.com/macros/s/AKfycbwlf0ledpkpsi2Zi45NlHIVcqTRl9Tk25K8h2BtNoE3sie2-caQu1vX2MmxbUmC9H2t/exec";
 const LIKE_KEY="lr_like";
 const likeKey=u=>((u||"").replace(/-/g,"").match(/[0-9a-f]{32}/)||[""])[0];
 const liked=(()=>{try{return new Set(JSON.parse(localStorage.getItem(LIKE_KEY)||"[]"));}catch(e){return new Set();}})();

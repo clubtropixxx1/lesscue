@@ -25,7 +25,7 @@ FORM_KEY = "91bd222b-3929-41ba-959a-b86b94a19c1a"
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # 記事の「参考になった」ボタンのカウント保存先（Google Apps Script のウェブアプリURL。tools/like_counter.gs）。
 # 空欄のあいだはボタンを出さない
-LIKE_URL = ""
+LIKE_URL = "https://script.google.com/macros/s/AKfycbwlf0ledpkpsi2Zi45NlHIVcqTRl9Tk25K8h2BtNoE3sie2-caQu1vX2MmxbUmC9H2t/exec"
 # 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
 SHOW_HINTS = True
 JST = timezone(timedelta(hours=9))
