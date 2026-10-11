@@ -258,8 +258,9 @@ def type_body(t, arts, types):
     for k, label in HWHO:
         hs = sorted({h for d in hits for kk in ("c", "w", "m") for h in d["h"][kk] if hg.get(h) == k}, key=lambda h: (-cnt[h], h))
         if hs:
-            chips = "".join(f'<a class="hint" href="/article/?h={quote(h)}">{e(h)}<small>{cnt[h]}</small></a>' for h in hs)
-            groups.append(f'<h4 class="cloud-h">{label}</h4><div class="cloud">{chips}</div>')
+            g = "" if k == "c" else f" g-{k}"
+            chips = "".join(f'<a class="hint{g}" href="/article/?h={quote(h)}">{e(h)}<small>{cnt[h]}</small></a>' for h in hs)
+            groups.append(f'<h4 class="cloud-h{g}">{label}</h4><div class="cloud">{chips}</div>')
     if groups:
         out.append('<section class="tp-sec"><h3>この型の解決のヒント</h3>'
                    '<p class="tp-note">この型の記事で紹介されている具体的な行動です。押すと、そのヒントが書かれた記事を一覧で表示します。</p>'

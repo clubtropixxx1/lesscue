@@ -29,6 +29,7 @@ img{max-width:100%}
 :root{
   --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --star:#B7791F; --muted:#5E6866; --line:#D9DDD6;
   --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD; --hot:#C62F3E; --hot-soft:#FBE8EA; --navy:#364059;
+  --wife:#A63A62; --wife-soft:#FBE7EF; --husband:#2A6491; --husband-soft:#E3EFF8;
   --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
@@ -38,6 +39,7 @@ img{max-width:100%}
     color-scheme:dark;
     --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
     --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E; --hot:#FF7D88; --hot-soft:#3A2327; --navy:#C4CDE5;
+    --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
     --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
   }
 }
@@ -45,6 +47,7 @@ img{max-width:100%}
   color-scheme:dark;
   --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
   --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E; --hot:#FF7D88; --hot-soft:#3A2327; --navy:#C4CDE5;
+    --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
   --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
 }
 *{box-sizing:border-box}
@@ -111,6 +114,14 @@ a.type{text-decoration:none}
 .hint:hover{border-color:var(--navy);background:var(--accent-soft)}
 .hint[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:var(--on-accent)}
 .hint[aria-pressed="true"] small{color:var(--on-accent)}
+.hint.g-w{background:var(--wife-soft);border-color:transparent;color:var(--wife)}
+.hint.g-m{background:var(--husband-soft);border-color:transparent;color:var(--husband)}
+.hint.g-w small,.hint.g-m small{color:inherit;opacity:.75}
+.hint.g-w:hover,.hint.g-w.s3{border-color:var(--wife)}
+.hint.g-m:hover,.hint.g-m.s3{border-color:var(--husband)}
+.hint.g-w[aria-pressed="true"]{background:var(--wife);border-color:var(--wife);color:var(--surface)}
+.hint.g-m[aria-pressed="true"]{background:var(--husband);border-color:var(--husband);color:var(--surface)}
+.cloud-h.g-w{color:var(--wife)}.cloud-h.g-m{color:var(--husband)}
 @media (max-width:600px){
   .cloud{gap:6px 8px;margin-top:10px}
   .hint{padding:4px 11px;font-size:13px}
@@ -536,7 +547,7 @@ function renderTypes(){
 function hintButtons(list,cnt){
   const max=Math.max(1,...Object.values(cnt));
   const size=n=>max<2?"":n>=max?"s3":n>=2?"s2":"";
-  return list.map(h=>`<button class="hint ${size(cnt[h])}" aria-pressed="${st.h===h}" data-h="${esc(h)}">${esc(h)}<small>${cnt[h]}</small></button>`).join("");
+  return list.map(h=>`<button class="hint ${size(cnt[h])}${HG[h]&&HG[h]!=="c"?" g-"+HG[h]:""}" aria-pressed="${st.h===h}" data-h="${esc(h)}">${esc(h)}<small>${cnt[h]}</small></button>`).join("");
 }
 function bindHints(root){
   root.querySelectorAll(".hint").forEach(b=>b.onclick=()=>{
@@ -549,7 +560,7 @@ function renderCloud(){
   const cnt={}; DATA.forEach(d=>d.ha.forEach(h=>cnt[h]=(cnt[h]||0)+1));
   const html=HWHO.map(([k,label])=>{
     const hs=[...new Set(DATA.flatMap(d=>d.ha))].filter(h=>HG[h]===k).sort((a,b)=>cnt[b]-cnt[a]||a.localeCompare(b,"ja"));
-    return hs.length?`<h3 class="cloud-h">${label}</h3><div class="cloud">${hintButtons(hs,cnt)}</div>`:"";
+    return hs.length?`<h3 class="cloud-h${k!=="c"?" g-"+k:""}">${label}</h3><div class="cloud">${hintButtons(hs,cnt)}</div>`:"";
   }).join("");
   if(!html){$("#hints").hidden=true;return;}
   $("#cloud").innerHTML=html; bindHints($("#cloud"));
