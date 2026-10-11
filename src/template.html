@@ -224,6 +224,13 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .nb-more{display:inline-block;margin-top:2px;font-size:12.5px;font-weight:700;color:var(--accent);text-decoration:none}
 .read{align-self:flex-start;font-size:13px;color:var(--accent);font-weight:700;text-decoration:none}
 .read:hover{text-decoration:underline}
+.acts{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.like{display:inline-flex;align-items:center;gap:5px;font:inherit;font-size:12px;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:4px 11px;cursor:pointer}
+.like i{font-style:normal;color:var(--line);font-size:13px;line-height:1}
+.like b{font-weight:700;color:var(--ink-2)}
+.like:hover{border-color:var(--hot)}
+.like[aria-pressed="true"]{color:var(--hot);border-color:var(--hot);background:var(--hot-soft)}
+.like[aria-pressed="true"] i{color:var(--hot)}
 .empty{color:var(--muted);padding:24px 0}
 .quiz{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;display:flex;flex-direction:column;gap:14px}
 .quiz-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -727,6 +734,7 @@ const readSet=(()=>{try{return new Set(JSON.parse(localStorage.getItem(READ_KEY)
 const saveRead=()=>{try{localStorage.setItem(READ_KEY,JSON.stringify([...readSet].slice(-300)));}catch(e){}};
 const byURL=new Map(DATA.map(d=>[d.u,d]));
 function markRead(){
+  if(typeof injectLikes==="function")injectLikes();
   document.querySelectorAll("article.entry, .pick").forEach(el=>{
     const a=el.querySelector('a[target="_blank"]'); if(!a)return;
     const on=readSet.has(a.getAttribute("href"));
@@ -760,6 +768,46 @@ function showNext(){
 }
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")setTimeout(showNext,300);});
 window.addEventListener("focus",()=>setTimeout(showNext,300));
+/* ---- 「参考になった」ボタン ----
+   カウントは Google Apps Script（LIKE_URL）に保存する。押したかどうかはこのブラウザにだけ記録（lr_like）。
+   LIKE_URL が空ならボタン自体を出さない。厳密な重複防止はしていない。 */
+const LIKE_URL="{{LIKE_URL}}";
+const LIKE_KEY="lr_like";
+const likeKey=u=>((u||"").replace(/-/g,"").match(/[0-9a-f]{32}/)||[""])[0];
+const liked=(()=>{try{return new Set(JSON.parse(localStorage.getItem(LIKE_KEY)||"[]"));}catch(e){return new Set();}})();
+const saveLiked=()=>{try{localStorage.setItem(LIKE_KEY,JSON.stringify([...liked]));}catch(e){}};
+const likeCount={};
+function paintLikes(){
+  document.querySelectorAll(".like[data-k]").forEach(b=>{
+    const k=b.dataset.k,on=liked.has(k),n=likeCount[k]||0;
+    b.setAttribute("aria-pressed",on);
+    b.querySelector("b").textContent=n?n:"";
+  });
+}
+function injectLikes(){
+  if(!LIKE_URL)return;
+  document.querySelectorAll("article.entry").forEach(el=>{
+    if(el.querySelector(".like"))return;
+    const a=el.querySelector('a[target="_blank"]'); if(!a)return;
+    const d=byURL.get(a.getAttribute("href")); if(!d)return;
+    const k=likeKey(d.id); if(!k)return;
+    const read=el.querySelector(".read");
+    const row=document.createElement("div"); row.className="acts";
+    if(read){read.replaceWith(row);row.appendChild(read);}else el.appendChild(row);
+    row.insertAdjacentHTML("beforeend",`<button class="like" type="button" data-k="${k}" aria-pressed="false" title="この記事が参考になったら押してください"><i aria-hidden="true">♥</i>参考になった<b></b></button>`);
+  });
+  paintLikes();
+}
+if(LIKE_URL){
+  fetch(LIKE_URL+"?a=get").then(r=>r.json()).then(j=>{Object.assign(likeCount,j.counts||{});paintLikes();}).catch(()=>{});
+  document.addEventListener("click",e=>{
+    const b=e.target.closest(".like[data-k]"); if(!b)return;
+    const k=b.dataset.k,on=!liked.has(k);
+    on?liked.add(k):liked.delete(k); saveLiked();
+    likeCount[k]=Math.max(0,(likeCount[k]||0)+(on?1:-1)); paintLikes();
+    fetch(`${LIKE_URL}?a=${on?"like":"unlike"}&k=${k}`).then(r=>r.json()).then(j=>{if(typeof j.n==="number"){likeCount[k]=j.n;paintLikes();}}).catch(()=>{});
+  });
+}
 renderStats();
 if(PAGE==="top"){renderQuiz();renderTypes();renderTop();renderCloud();}
 markRead();

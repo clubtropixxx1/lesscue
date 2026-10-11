@@ -23,6 +23,9 @@ SITE_URL = "https://lesscue.com/"
 # 公開前提のキーなので HTML に出てよい。空欄のあいだはフォームを隠し、メールアドレスだけ案内する。
 FORM_KEY = "91bd222b-3929-41ba-959a-b86b94a19c1a"
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
+# 記事の「参考になった」ボタンのカウント保存先（Google Apps Script のウェブアプリURL。tools/like_counter.gs）。
+# 空欄のあいだはボタンを出さない
+LIKE_URL = ""
 # 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
 SHOW_HINTS = True
 JST = timezone(timedelta(hours=9))
@@ -354,6 +357,7 @@ def main():
                   .replace("{{BUILD_DATE}}", now.strftime("%Y.%m.%d"))
                   .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL))
                   .replace("{{FORM_KEY}}", html.escape(FORM_KEY))
+                  .replace("{{LIKE_URL}}", LIKE_URL.replace('"', ""))
                   .replace("{{FORM_HIDDEN}}", "" if FORM_KEY else " hidden")
                   .replace("{{CONTACT_LEAD}}", "下のフォームか" if FORM_KEY else ""))
         for k in ("TITLE", "DESCRIPTION", "CANONICAL", "STATIC_LIST", "STATS_HIDDEN"):
