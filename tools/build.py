@@ -355,8 +355,13 @@ def main():
         (ROOT / "type" / t["slug"]).mkdir(parents=True, exist_ok=True)
     (ROOT / "policy").mkdir(exist_ok=True)
     gid = re.sub(r"[^A-Z0-9-]", "", GA_ID.upper())
-    ga_tag = (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>'
-              f"<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{gid}');</script>\n") if gid else ""
+    # ?notrack を一度開いたブラウザでは計測しない（運営者の自分のアクセスを除外する用）。?track で解除
+    ga_tag = ("<script>(function(){var q=location.search,k='lr_notrack';"
+              "try{if(/[?&]notrack\\b/.test(q)){localStorage.setItem(k,'1');alert('このブラウザでは、今後アクセス解析をしません（解除は ?track を付けて開く）');}"
+              "if(/[?&]track\\b/.test(q)){localStorage.removeItem(k);alert('このブラウザのアクセス解析を再開しました');}"
+              "if(localStorage.getItem(k))return;}catch(e){}"
+              f"var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id={gid}';document.head.appendChild(s);"
+              f"window.dataLayer=window.dataLayer||[];window.gtag=function(){{dataLayer.push(arguments);}};gtag('js',new Date());gtag('config','{gid}');}})();</script>\n") if gid else ""
     ga_policy = ('\n        <li>Googleアナリティクス（Google LLC）：サイトの利用状況を把握して改善するため。Cookieを使い、閲覧したページなどの情報が送られます（個人を特定する情報は含みません）。'
                  '詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご覧ください。'
                  '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
