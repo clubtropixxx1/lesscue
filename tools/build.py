@@ -25,6 +25,8 @@ FORM_KEY = "91bd222b-3929-41ba-959a-b86b94a19c1a"
 CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # 記事の「参考になった」ボタンのカウント保存先（Google Apps Script のウェブアプリURL。tools/like_counter.gs）。
 # 空欄のあいだはボタンを出さない
+# Googleアナリティクスの測定ID（G-XXXXXXX）。空欄のあいだは計測タグも、プライバシー欄のGoogleアナリティクスの項目も出さない
+GA_ID = ""
 LIKE_URL = "https://script.google.com/macros/s/AKfycbwlf0ledpkpsi2Zi45NlHIVcqTRl9Tk25K8h2BtNoE3sie2-caQu1vX2MmxbUmC9H2t/exec"
 # 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
 SHOW_HINTS = True
@@ -313,8 +315,16 @@ def main():
         "about": {
             "path": ROOT / "about" / "index.html",
             "TITLE": "このサイトについて・所長あいさつ｜レスられ総研",
-            "DESCRIPTION": "セックスレスに悩む「レス山さん」のためのデータベース、レスられ総研について。所長あいさつ、4つの型の定義、掲載の基準、免責事項、お問い合わせ。",
+            "DESCRIPTION": "セックスレスに悩む「レス山さん」のためのデータベース、レスられ総研について。所長あいさつ、4つの型の定義、掲載の基準、お問い合わせ。",
             "CANONICAL": SITE_URL + "about/",
+            "STATIC_LIST": "",
+            "STATS_HIDDEN": " hidden",
+        },
+        "policy": {
+            "path": ROOT / "policy" / "index.html",
+            "TITLE": "免責事項・プライバシー｜レスられ総研",
+            "DESCRIPTION": "レスられ総研の免責事項と、アクセス解析・外部サービスへの情報送信についての説明です。",
+            "CANONICAL": SITE_URL + "policy/",
             "STATIC_LIST": "",
             "STATS_HIDDEN": " hidden",
         },
@@ -343,6 +353,13 @@ def main():
             "ROBOTS": "" if (n or t.get("essay")) else '<meta name="robots" content="noindex">',
         }
         (ROOT / "type" / t["slug"]).mkdir(parents=True, exist_ok=True)
+    (ROOT / "policy").mkdir(exist_ok=True)
+    gid = re.sub(r"[^A-Z0-9-]", "", GA_ID.upper())
+    ga_tag = (f'<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>'
+              f"<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{gid}');</script>\n") if gid else ""
+    ga_policy = ('\n        <li>Googleアナリティクス（Google LLC）：サイトの利用状況を把握して改善するため。Cookieを使い、閲覧したページなどの情報が送られます（個人を特定する情報は含みません）。'
+                 '詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご覧ください。'
+                 '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
     slugs = {t["name"]: t["slug"] for t in types}
     for mode, pg in pages.items():
         mode = pg.get("mode", mode)
@@ -359,6 +376,8 @@ def main():
                   .replace("{{CONTACT_EMAIL}}", html.escape(CONTACT_EMAIL))
                   .replace("{{FORM_KEY}}", html.escape(FORM_KEY))
                   .replace("{{LIKE_URL}}", LIKE_URL.replace('"', ""))
+                  .replace("{{GA_TAG}}", ga_tag)
+                  .replace("{{GA_POLICY}}", ga_policy)
                   .replace("{{FORM_HIDDEN}}", "" if FORM_KEY else " hidden")
                   .replace("{{CONTACT_LEAD}}", "下のフォームか" if FORM_KEY else ""))
         for k in ("TITLE", "DESCRIPTION", "CANONICAL", "STATIC_LIST", "STATS_HIDDEN"):
@@ -369,7 +388,7 @@ def main():
         pg["path"].write_text(out, encoding="utf-8")
 
     day = now.strftime("%Y-%m-%d")
-    locs = ["", "article/", "about/", "data/"] + [
+    locs = ["", "article/", "about/", "data/", "policy/"] + [
         p["CANONICAL"][len(SITE_URL):] for p in pages.values() if p.get("mode") == "type" and not p["ROBOTS"]]
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -377,7 +396,7 @@ def main():
         + "".join(f"  <url><loc>{SITE_URL}{l}</loc><lastmod>{day}</lastmod></url>\n" for l in locs)
         + "</urlset>\n", encoding="utf-8")
 
-    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で TOP・article/・about/・data/・type/（4型）の各ページを生成しました")
+    print(f"記事 {len(arts)} 件 / 数字カード {len(stats)} 枚 で TOP・article/・about/・data/・policy/・type/（4型）の各ページを生成しました")
 
 
 if __name__ == "__main__":
