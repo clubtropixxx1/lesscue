@@ -28,7 +28,7 @@ CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # Googleアナリティクスの測定ID（G-XXXXXXX）。空欄のあいだは計測タグも、プライバシー欄のGoogleアナリティクスの項目も出さない
 GA_ID = "G-V7E559CRKD"
 # 週報（Substack）の公開URL（例：https://lesscue.substack.com）。空欄のあいだは登録フォームを出さない
-SUBSTACK_URL = ""
+SUBSTACK_URL = "https://lesscue.substack.com"
 LIKE_URL = "https://script.google.com/macros/s/AKfycbwlf0ledpkpsi2Zi45NlHIVcqTRl9Tk25K8h2BtNoE3sie2-caQu1vX2MmxbUmC9H2t/exec"
 # 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
 SHOW_HINTS = True

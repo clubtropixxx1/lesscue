@@ -510,6 +510,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
       <p>当サイトは会員登録がなく、氏名などの個人情報は、お問い合わせで送られたもの以外はお預かりしていません。サイトの機能のため、次のサービスに閲覧中の情報が送られます。</p>
       <ul>
         <li>Googleアナリティクス（Google LLC）：サイトの利用状況を把握して改善するため。Cookieを使い、閲覧したページなどの情報が送られます（個人を特定する情報は含みません）。詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご覧ください。<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>
+        <li>Substack（Substack Inc.）：週報を配信するため。登録フォームに入力したメールアドレスが送られます。</li>
         <li>Google Fonts（Google LLC）：文字を表示するため。ブラウザの情報が送られます。</li>
         <li>Google Apps Script（Google LLC）：「参考になった」の件数を集計するため。押した記事の識別番号が送られます。</li>
         <li>Web3Forms：お問い合わせを送信するため。フォームの入力内容が送られます。</li>
@@ -527,7 +528,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <a href="/article/"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
   </nav>
 
-  
+  <div class="wrap-nl" data-only="article type data"><form class="nl" action="https://lesscue.substack.com/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:document.body.dataset.page})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div><small>メールは「豪商クラトロ」の名前で届きます（配信はSubstack）。うまく登録できない場合は<a href="https://lesscue.substack.com/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form></div>
   <footer>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のためのサイトです。10秒の診断であなたの「セックスレスの型」がわかり、その型に合った参考記事を、運営が1本ずつ読んで厳選したデータベースから探せます。</p>
     <p class="foot-links"><a href="/about/">このサイトについて</a><a href="/about/#greet">所長あいさつ</a><a href="/about/#policy">掲載の基準</a><a href="/policy/">免責事項・プライバシー</a><a href="/about/#contact">お問い合わせ</a></p>
@@ -553,7 +554,7 @@ FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
 DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="article";
 const track=(n,p)=>{try{if(window.gtag)gtag("event",n,p||{});}catch(e){}};
-const SUBSTACK="";
+const SUBSTACK="https://lesscue.substack.com";
 const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div><small>メールは「豪商クラトロ」の名前で届きます（配信はSubstack）。うまく登録できない場合は<a href="${SUBSTACK}/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form>`:"";
 const TSLUG={"妻拒否型": "tsuma-kyohi", "夫拒否型": "otto-kyohi", "流動的不仲型": "ryudo-funaka", "完全不仲型": "kanzen-funaka"};
 const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
