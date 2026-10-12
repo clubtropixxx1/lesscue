@@ -552,7 +552,7 @@ DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="{{PAGE_MODE}}";
 const track=(n,p)=>{try{if(window.gtag)gtag("event",n,p||{});}catch(e){}};
 const SUBSTACK="{{SUBSTACK_URL}}";
-const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div><small>配信にはSubstackを使っています。うまく登録できない場合は<a href="${SUBSTACK}/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form>`:"";
+const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div><small>メールは「豪商クラトロ」の名前で届きます（配信はSubstack）。うまく登録できない場合は<a href="${SUBSTACK}/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form>`:"";
 const TSLUG={{TYPE_SLUGS}};
 const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
 const $=s=>document.querySelector(s);
