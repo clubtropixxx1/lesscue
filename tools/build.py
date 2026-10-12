@@ -239,7 +239,7 @@ def type_body(t, arts, types):
     out.append('<p class="tp-cta">自分がどの型か分からない方は → <a href="/#quiz">30秒の簡単診断</a></p>')
     essay = t.get("essay") or []
     body = "".join(f"<p>{e(x)}</p>" for x in essay) if essay else '<p class="soon">所長の解説は準備中です。</p>'
-    out.append(f'<section class="tp-sec" id="essay"><h3>所長の解説</h3><div class="greet">{body}'
+    out.append(f'<section class="tp-sec" id="essay"><h3><span class="mk">所長の解説</span></h3><div class="greet">{body}'
                '<p class="sign">レスられ総研 所長</p></div></section>')
     cnt = {}
     for d in arts:
@@ -262,11 +262,11 @@ def type_body(t, arts, types):
             chips = "".join(f'<a class="hint{g}" href="/article/?h={quote(h)}">{e(h)}<small>{cnt[h]}</small></a>' for h in hs)
             groups.append(f'<h4 class="cloud-h{g}">{label}</h4><div class="cloud">{chips}</div>')
     if groups:
-        out.append('<section class="tp-sec"><h3>この型の解決のヒント</h3>'
+        out.append(f'<section class="tp-sec"><h3><span class="mk">{e(t["name"])}の解決のヒント</span></h3>'
                    '<p class="tp-note">この型の記事で紹介されている具体的な行動です。押すと、そのヒントが書かれた記事を一覧で表示します。</p>'
                    + "".join(groups) + "</section>")
     lst = static_list(hits, heading=None) if hits else '<p class="empty">この型の記事は準備中です。</p>'
-    out.append(f'<section class="tp-sec"><h3>この型の記事（おすすめ順）</h3>'
+    out.append(f'<section class="tp-sec"><h3><span class="mk">{e(t["name"])}の参考になる記事</span></h3>'
                '<p class="tp-note">記事タイトルを押すと、元の記事（外部サイト）が開きます。★は運営が付けたおすすめ度、「AI要約を読む」はAIがまとめた要約です。</p>'
                f'{lst}</section>')
     others = "".join(f'<a href="/type/{o["slug"]}/">{e(o["name"])}</a>' for o in types if o["slug"] != t["slug"])

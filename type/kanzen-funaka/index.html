@@ -29,7 +29,7 @@ img{max-width:100%}
 :root{
   --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --star:#B7791F; --muted:#5E6866; --line:#D9DDD6;
   --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD; --hot:#C62F3E; --hot-soft:#FBE8EA; --navy:#364059;
-  --wife:#A63A62; --wife-soft:#FBE7EF; --husband:#2A6491; --husband-soft:#E3EFF8;
+  --marker:#C9D2F0; --wife:#A63A62; --wife-soft:#FBE7EF; --husband:#2A6491; --husband-soft:#E3EFF8;
   --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
@@ -39,7 +39,7 @@ img{max-width:100%}
     color-scheme:dark;
     --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
     --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E; --hot:#FF7D88; --hot-soft:#3A2327; --navy:#C4CDE5;
-    --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
+    --marker:#36426A; --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
     --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
   }
 }
@@ -47,7 +47,7 @@ img{max-width:100%}
   color-scheme:dark;
   --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
   --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E; --hot:#FF7D88; --hot-soft:#3A2327; --navy:#C4CDE5;
-    --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
+    --marker:#36426A; --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
   --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
 }
 *{box-sizing:border-box}
@@ -184,6 +184,7 @@ a.qc:hover{border-color:var(--navy)}
 .tp-count{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
 .tp-sec{margin-top:36px}
 .tp-sec > h3{font-family:var(--display);font-weight:600;font-size:21px;margin:0 0 10px}
+.tp-sec > h3 .mk{color:var(--navy);padding:0 4px;background:linear-gradient(transparent 58%,var(--marker) 58%,var(--marker) 92%,transparent 92%)}
 .tp-note{margin:0;font-size:13px;color:var(--muted)}
 .tp-sec .greet p{line-height:1.9;color:var(--ink-2);font-size:14.5px;margin:0 0 12px}
 a.hint{text-decoration:none;display:inline-block}
@@ -383,8 +384,8 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
 <section class="tp-head"><p class="tp-kicker">セックスレスの型</p><h2>完全不仲型</h2><p class="tp-def">どちらが拒否しているとも言い切れず、関係全体が冷え切っている状態。</p><p class="tp-count">この型の記事 0件</p></section>
 <figure class="quad"><div class="qwrap"><div class="qax"><span>▲ 夫はしたい</span></div><div class="qgrid"><div class="qc ok c1"><span class="pair"><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>レスではない</b><span>2人とも求めている</span></div><a class="qc c2" href="/type/tsuma-kyohi/"><span class="pair"><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>妻拒否型</b><span>夫は求めているが、妻が応じない</span></a><div class="qhx"><span>◀ 妻はしたい</span><span>妻はしたくない ▶</span></div><a class="qc lo c1" href="/type/otto-kyohi/"><span class="pair"><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh on" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>夫拒否型</b><span>妻は求めているが、夫が応じない</span></a><a class="qc lo c2 on" href="/type/kanzen-funaka/"><span class="pair"><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp h" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>夫</small></span><span class="pw"><svg class="hh" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21s-9-5.6-9-12.2A5 5 0 0 1 12 6a5 5 0 0 1 9 2.8C21 15.4 12 21 12 21z"/></svg><svg class="pp w" viewBox="0 0 24 40" aria-hidden="true"><circle cx="12" cy="7" r="6"/><path d="M2 39v-15a10 10 0 0 1 20 0v15z"/></svg><small>妻</small></span></span><b>完全不仲型</b><span>2人とも求めず、関係全体が冷えている</span></a><a class="qflow" href="/type/ryudo-funaka/"><b>流動的不仲型</b><span>関係は悪くないがセックスレス</span></a></div><div class="qax qb"><span>▼ 夫はしたくない</span></div></div></figure>
 <p class="tp-cta">自分がどの型か分からない方は → <a href="/#quiz">30秒の簡単診断</a></p>
-<section class="tp-sec" id="essay"><h3>所長の解説</h3><div class="greet"><p class="soon">所長の解説は準備中です。</p><p class="sign">レスられ総研 所長</p></div></section>
-<section class="tp-sec"><h3>この型の記事（おすすめ順）</h3><p class="tp-note">記事タイトルを押すと、元の記事（外部サイト）が開きます。★は運営が付けたおすすめ度、「AI要約を読む」はAIがまとめた要約です。</p><p class="empty">この型の記事は準備中です。</p></section>
+<section class="tp-sec" id="essay"><h3><span class="mk">所長の解説</span></h3><div class="greet"><p class="soon">所長の解説は準備中です。</p><p class="sign">レスられ総研 所長</p></div></section>
+<section class="tp-sec"><h3><span class="mk">完全不仲型の参考になる記事</span></h3><p class="tp-note">記事タイトルを押すと、元の記事（外部サイト）が開きます。★は運営が付けたおすすめ度、「AI要約を読む」はAIがまとめた要約です。</p><p class="empty">この型の記事は準備中です。</p></section>
 <nav class="tp-others" aria-label="ほかの型"><span>ほかの型</span><a href="/type/tsuma-kyohi/">妻拒否型</a><a href="/type/otto-kyohi/">夫拒否型</a><a href="/type/ryudo-funaka/">流動的不仲型</a></nav>
   </div>
 

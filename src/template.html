@@ -29,7 +29,7 @@ img{max-width:100%}
 :root{
   --bg:#F2F3EF; --surface:#FFFFFF; --ink:#1D2426; --ink-2:#2E3638; --on-accent:#FFFFFF; --star:#B7791F; --muted:#5E6866; --line:#D9DDD6;
   --accent:#4F5D8C; --accent-soft:#E4E7F1; --warn:#8C5A2B; --warn-soft:#F3E9DD; --hot:#C62F3E; --hot-soft:#FBE8EA; --navy:#364059;
-  --wife:#A63A62; --wife-soft:#FBE7EF; --husband:#2A6491; --husband-soft:#E3EFF8;
+  --marker:#C9D2F0; --wife:#A63A62; --wife-soft:#FBE7EF; --husband:#2A6491; --husband-soft:#E3EFF8;
   --t-worry:#9A3D4A; --t-answer:#2F6B53; --t-data:#3F5C8A; --t-paper:#6A4E8C; --t-story:#8C5A2B; --t-news:#5E6866;
   --display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
   --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
@@ -39,7 +39,7 @@ img{max-width:100%}
     color-scheme:dark;
     --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
     --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E; --hot:#FF7D88; --hot-soft:#3A2327; --navy:#C4CDE5;
-    --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
+    --marker:#36426A; --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
     --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
   }
 }
@@ -47,7 +47,7 @@ img{max-width:100%}
   color-scheme:dark;
   --bg:#14181B; --surface:#1C2125; --ink:#E6EAE7; --ink-2:#CDD3D0; --on-accent:#14181B; --star:#E8B659; --muted:#9AA4A2; --line:#2C3338;
   --accent:#A3B1E3; --accent-soft:#252C40; --warn:#E0B07F; --warn-soft:#33291E; --hot:#FF7D88; --hot-soft:#3A2327; --navy:#C4CDE5;
-    --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
+    --marker:#36426A; --wife:#F2A0C0; --wife-soft:#3A2431; --husband:#93C3EA; --husband-soft:#1F2F3D;
   --t-worry:#E08A96; --t-answer:#7CC4A4; --t-data:#8FAEE0; --t-paper:#C0A3E6; --t-story:#E0B07F; --t-news:#9AA4A2;
 }
 *{box-sizing:border-box}
@@ -184,6 +184,7 @@ a.qc:hover{border-color:var(--navy)}
 .tp-count{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
 .tp-sec{margin-top:36px}
 .tp-sec > h3{font-family:var(--display);font-weight:600;font-size:21px;margin:0 0 10px}
+.tp-sec > h3 .mk{color:var(--navy);padding:0 4px;background:linear-gradient(transparent 58%,var(--marker) 58%,var(--marker) 92%,transparent 92%)}
 .tp-note{margin:0;font-size:13px;color:var(--muted)}
 .tp-sec .greet p{line-height:1.9;color:var(--ink-2);font-size:14.5px;margin:0 0 12px}
 a.hint{text-decoration:none;display:inline-block}
