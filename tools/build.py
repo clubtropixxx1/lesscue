@@ -368,10 +368,10 @@ def main():
                  '詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご覧ください。'
                  '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
     sub = SUBSTACK_URL.rstrip("/").replace('"', "")
-    nl_block = (f'<div class="wrap-nl" data-only="article type data"><form class="nl" action="{sub}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track(\'newsletter_submit\',{{where:document.body.dataset.page}})">'
+    nl_block = (f'<div class="wrap-nl" data-only="top article type data about policy"><form class="nl" action="{sub}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track(\'newsletter_submit\',{{where:document.body.dataset.page}})">'
                 '<p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p>'
                 '<div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div>'
-                f'<small>メールは「豪商クラトロ」の名前で届きます（配信はSubstack）。うまく登録できない場合は<a href="{sub}/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form></div>') if sub else ""
+                f'<small>メールは「豪商クラトロ」の名前で届きます（配信はSubstack）。</small></form></div>') if sub else ""
     if sub:
         ga_policy += '\n        <li>Substack（Substack Inc.）：週報を配信するため。登録フォームに入力したメールアドレスが送られます。</li>'
     slugs = {t["name"]: t["slug"] for t in types}

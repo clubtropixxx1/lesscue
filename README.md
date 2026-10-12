@@ -74,7 +74,7 @@
 
 ## 保留タスク
 
-- 週報：Substack（https://lesscue.substack.com、差出人名は豪商クラトロ）。登録フォームは診断結果の下と、記事一覧・データ・型ページのフッター上。`tools/build.py` の `SUBSTACK_URL`
+- 週報：Substack（https://lesscue.substack.com、差出人名は豪商クラトロ）。登録フォームは診断結果の下と、全ページのフッター上。`tools/build.py` の `SUBSTACK_URL`
 - アクセス解析：Googleアナリティクス導入済み（測定ID G-V7E559CRKD、2026-10-12）。運営者のアクセス除外：GA側で自宅IPを内部トラフィックとして除外済み。加えて https://lesscue.com/?notrack を一度開いたブラウザでは計測しない（?track で解除、ブラウザのデータを消すと戻る）。`tools/build.py` の `GA_ID` に入れると、全ページに計測タグが入り、/policy/ にGoogleアナリティクスの説明が出る。計測イベントは quiz_result（診断結果の型）／share_x（結果シェア）／open_article（外部記事を開いた）／like・unlike
 - 新着記事の NEW ラベル（追加日から2週間）
 - 解決のヒントのクラウドを各グループ上位8個＋「もっと見る」で畳む（10個を超えたら）
