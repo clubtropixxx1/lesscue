@@ -27,6 +27,8 @@ CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # 空欄のあいだはボタンを出さない
 # Googleアナリティクスの測定ID（G-XXXXXXX）。空欄のあいだは計測タグも、プライバシー欄のGoogleアナリティクスの項目も出さない
 GA_ID = "G-V7E559CRKD"
+# 週報（Substack）の公開URL（例：https://lesscue.substack.com）。空欄のあいだは登録フォームを出さない
+SUBSTACK_URL = ""
 LIKE_URL = "https://script.google.com/macros/s/AKfycbwlf0ledpkpsi2Zi45NlHIVcqTRl9Tk25K8h2BtNoE3sie2-caQu1vX2MmxbUmC9H2t/exec"
 # 解決のヒントは運営者が記事を読んで付ける。見直しが終わるまではサイトに出さない（True で表示）
 SHOW_HINTS = True
@@ -365,6 +367,13 @@ def main():
     ga_policy = ('\n        <li>Googleアナリティクス（Google LLC）：サイトの利用状況を把握して改善するため。Cookieを使い、閲覧したページなどの情報が送られます（個人を特定する情報は含みません）。'
                  '詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご覧ください。'
                  '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
+    sub = SUBSTACK_URL.rstrip("/").replace('"', "")
+    nl_block = (f'<div class="wrap-nl" data-only="article type data"><form class="nl" action="{sub}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track(\'newsletter_submit\',{{where:document.body.dataset.page}})">'
+                '<p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p>'
+                '<div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div>'
+                f'<small>配信にはSubstackを使っています。うまく登録できない場合は<a href="{sub}/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form></div>') if sub else ""
+    if sub:
+        ga_policy += '\n        <li>Substack（Substack Inc.）：週報を配信するため。登録フォームに入力したメールアドレスが送られます。</li>'
     slugs = {t["name"]: t["slug"] for t in types}
     for mode, pg in pages.items():
         mode = pg.get("mode", mode)
@@ -383,6 +392,8 @@ def main():
                   .replace("{{LIKE_URL}}", LIKE_URL.replace('"', ""))
                   .replace("{{GA_TAG}}", ga_tag)
                   .replace("{{GA_POLICY}}", ga_policy)
+                  .replace("{{SUBSTACK_URL}}", sub)
+                  .replace("{{NL_BLOCK}}", nl_block)
                   .replace("{{FORM_HIDDEN}}", "" if FORM_KEY else " hidden")
                   .replace("{{CONTACT_LEAD}}", "下のフォームか" if FORM_KEY else ""))
         for k in ("TITLE", "DESCRIPTION", "CANONICAL", "STATIC_LIST", "STATS_HIDDEN"):

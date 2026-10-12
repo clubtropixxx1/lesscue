@@ -266,6 +266,15 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .share-x{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:13.5px;font-weight:700;text-decoration:none}
 .share-x::before{content:"𝕏";font-size:15px}
 .share-x:hover{opacity:.85}
+.nl{margin-top:18px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.nl-h{margin:0 0 4px;font-weight:700;font-size:14.5px;color:var(--ink)}
+.nl-s{margin:0 0 10px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.nl-row{display:flex;gap:8px;flex-wrap:wrap}
+.nl-row input{flex:1 1 200px;min-width:0;font:inherit;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.nl-row button{font:inherit;font-size:14px;font-weight:700;padding:9px 18px;border:0;border-radius:10px;background:var(--navy);color:var(--on-accent);cursor:pointer}
+.nl small{display:block;margin-top:8px;font-size:11.5px;color:var(--muted)}
+.nl small a{color:var(--muted)}
+.wrap-nl{margin-top:32px}
 .link-btn{text-decoration:none;appearance:none;border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:700;color:var(--accent);cursor:pointer}
 .link-btn:hover{text-decoration:underline}
 .stats{margin-top:36px}
@@ -518,6 +527,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <a href="/article/"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
   </nav>
 
+  
   <footer>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のためのサイトです。10秒の診断であなたの「セックスレスの型」がわかり、その型に合った参考記事を、運営が1本ずつ読んで厳選したデータベースから探せます。</p>
     <p class="foot-links"><a href="/about/">このサイトについて</a><a href="/about/#greet">所長あいさつ</a><a href="/about/#policy">掲載の基準</a><a href="/policy/">免責事項・プライバシー</a><a href="/about/#contact">お問い合わせ</a></p>
@@ -543,6 +553,8 @@ FACETS.l=[...new Set(DATA.map(d=>d.l))]; if(FACETS.l.length<2) delete FACETS.l;
 DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="data";
 const track=(n,p)=>{try{if(window.gtag)gtag("event",n,p||{});}catch(e){}};
+const SUBSTACK="";
+const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div><small>配信にはSubstackを使っています。うまく登録できない場合は<a href="${SUBSTACK}/subscribe" target="_blank" rel="noopener">こちら</a>から。</small></form>`:"";
 const TSLUG={"妻拒否型": "tsuma-kyohi", "夫拒否型": "otto-kyohi", "流動的不仲型": "ryudo-funaka", "完全不仲型": "kanzen-funaka"};
 const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
 const $=s=>document.querySelector(s);
@@ -683,7 +695,7 @@ function renderQuiz(){
     <a class="share-x" href="${shareURL(t)}" target="_blank" rel="noopener">結果をXでシェアする</a>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     ${quizHints(hits,qs.ans.role)}
-    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>`;
+    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>${nlForm("quiz")}`;
   bindHints(el); if(typeof markRead==="function")markRead();
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];renderQuiz();};
 }
