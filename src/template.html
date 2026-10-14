@@ -733,10 +733,10 @@ async function sbShare(){
     try{
       if(SB.file)await navigator.share({files:[SB.file],text:text+"\n"+url});
       else await navigator.share({title:"セックスレス10秒診断",text,url});
-      track("share_native",{type:TSLUG[t]||"",img:SB.file?1:0}); return;
+      track("share_native",{type:t,img:SB.file?1:0}); return;
     }catch(e){if(e.name==="AbortError")return;}
   }
-  track("share_x",{type:TSLUG[t]||""}); open(shareURL(t),"_blank","noopener");
+  track("share_x",{type:t}); open(shareURL(t),"_blank","noopener");
 }
 /* ---- 数字で見る ---- */
 const ALL_NUMS={{STATS_JSON}};
@@ -825,7 +825,7 @@ function markRead(){
 let lastOpened=null;
 document.addEventListener("click",e=>{
   const a=e.target.closest('a[target="_blank"]'); if(!a)return;
-  if(a.classList.contains("share-x"))track("share_x",{type:(a.href.match(/type%2F([a-z-]+)/)||[])[1]||""});
+  if(a.classList.contains("share-x")){const g=(a.href.match(/type%2F([a-z-]+)/)||[])[1]; track("share_x",{type:Object.keys(TSLUG).find(k=>TSLUG[k]===g)||""});};
   const d=byURL.get(a.getAttribute("href")); if(!d)return;
   track("open_article",{title:d.t.slice(0,90),type:(d.ty||[]).join("・")});
   readSet.add(d.u); saveRead(); lastOpened=d; setTimeout(markRead,50);
