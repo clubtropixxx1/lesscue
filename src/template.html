@@ -400,7 +400,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <p class="tagline">セックスレスのお悩みと解消法のデータベース</p>
     <button class="menu-btn" id="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     <nav class="site-nav" id="site-nav" aria-label="サイト内">
-      <a href="/article/">記事一覧</a><a href="/data/">数字で見る</a><a href="/about/">このサイトについて</a><a href="/about/#contact">お問い合わせ</a>
+      <a href="/article/">記事一覧</a><a href="/data/">データで見る</a><a href="/about/">このサイトについて</a><a href="/about/#contact">お問い合わせ</a>
     </nav>
   </header>
 
@@ -419,7 +419,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   </section>
 
   <section class="stats" id="data" data-only="top data"{{STATS_HIDDEN}}>
-    <div class="stats-head"><h2>数字で見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
+    <div class="stats-head"><h2>データで見るセックスレス</h2><p>各データの出典記事へリンクしています</p></div>
     <p class="stats-note" data-only="data">調査ごとにセックスレスの定義や対象者が違うため、数字同士を単純に比べることはできません。各カードの対象と出典をあわせて確認してください。</p>
     <div class="stat-filters" id="stat-filters"></div>
     <div class="stat-grid" id="stat-grid"></div>
@@ -443,7 +443,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <nav class="next" data-only="data article" aria-label="次に読む">
     <a class="go" href="/#quiz"><small>10秒で簡単診断！</small><span>あなたはどの型？診断する</span></a>
     <a href="/article/" data-only="data"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
-    <a href="/data/" data-only="article"><small>割合・調査データを出典つきで</small><span>数字で見るセックスレス</span></a>
+    <a href="/data/" data-only="article"><small>割合・調査データを出典つきで</small><span>データで見るセックスレス</span></a>
   </nav>
 
   <div class="about" data-only="about">
@@ -517,7 +517,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
   <div class="about" data-only="policy">
     <section>
       <h2>免責事項</h2>
-      <p>掲載しているのは外部の記事・論文へのリンクと、要約・一言コメントです。記事本文の転載は行っていません。各記事の要約はAIが作成したもので、「運営より」は運営からのコメントです。「数字で見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
+      <p>掲載しているのは外部の記事・論文へのリンクと、要約・一言コメントです。記事本文の転載は行っていません。各記事の要約はAIが作成したもので、「運営より」は運営からのコメントです。「データで見る」の各データは出典元の調査によるもので、当サイトの独自調査ではありません。診断は記事を探すための目安で、医学的・心理学的な判定ではありません。</p>
       <p>リンク先の記事の内容は、それぞれの媒体・筆者の見解です。体や心の不調がある場合は、医療機関や専門家に相談してください。</p>
     </section>
     <section>
@@ -747,7 +747,7 @@ async function sbShare(){
   }
   track("share_x",{type:t}); open(shareURL(t),"_blank","noopener");
 }
-/* ---- 数字で見る ---- */
+/* ---- データで見る ---- */
 const ALL_NUMS={{STATS_JSON}};
 const NUMS=PAGE==="top"?ALL_NUMS.filter(n=>n.top):ALL_NUMS;
 {const m=$("#more-link"); if(m) m.textContent=`すべてのデータを見る（${ALL_NUMS.length}件）→`;}

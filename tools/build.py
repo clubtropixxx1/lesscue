@@ -332,7 +332,7 @@ def main():
         },
         "data": {
             "path": ROOT / "data" / "index.html",
-            "TITLE": "数字で見るセックスレス｜割合・調査データまとめ｜レスられ総研",
+            "TITLE": "データで見るセックスレス｜割合・調査まとめ｜レスられ総研",
             "DESCRIPTION": "夫婦のセックスレスの割合や、話し合い・相談の実態など、国内外の調査データを出典つきでまとめています。",
             "CANONICAL": SITE_URL + "data/",
             "STATIC_LIST": "",
