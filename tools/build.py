@@ -238,7 +238,7 @@ def type_body(t, arts, types):
     hits = [d for d in arts if t["name"] in d["ty"]]
     out = [f'<nav class="crumb" aria-label="現在地"><a href="/">TOP</a> › <a href="/about/#types-def">4つの型</a> › <span>{e(t["name"])}</span></nav>',
            f'<section class="tp-head"><p class="tp-kicker">セックスレスの型</p><h2>{e(t["name"])}</h2>'
-           f'<p class="tp-def">{e(t["def"])}</p><p class="tp-count">この型の記事 {len(hits)}件</p></section>']
+           f'<p class="tp-def">{e(t["def"])}</p></section>']
     out.append(quad_html(types, active=t["name"], caption=False))
     out.append('<p class="tp-cta">自分がどの型か分からない方は → <a href="/#quiz">10秒の簡単診断</a></p>')
     essay = t.get("essay") or []
