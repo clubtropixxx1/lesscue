@@ -368,13 +368,12 @@ def main():
                  '詳しくは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleのポリシー</a>をご覧ください。'
                  '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
     sub = SUBSTACK_URL.rstrip("/").replace('"', "")
-    nl_block = (f'<div class="wrap-nl" data-only="top article type data policy"><form class="nl" action="{sub}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track(\'newsletter_submit\',{{where:document.body.dataset.page}})">'
-                '<span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けするメルマガです'
-                f'（配信は<a href="{sub}/" target="_blank" rel="noopener">Substack</a>）。</p>'
-                '<div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div>'
-                f'</form></div>') if sub else ""
+    nl_block = (f'<div class="wrap-nl" data-only="top article type data policy"><div class="nl">'
+                '<span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けするメルマガです（配信はSubstack）。</p>'
+                f'<a class="nl-btn" href="{sub}/subscribe" target="_blank" rel="noopener" onclick="track(\'newsletter_click\',{{where:document.body.dataset.page}})">無料で登録する</a>'
+                '</div></div>') if sub else ""
     if sub:
-        ga_policy += '\n        <li>Substack（Substack Inc.）：週報を配信するため。登録フォームに入力したメールアドレスが送られます。</li>'
+        ga_policy += '\n        <li>Substack（Substack Inc.）：週報の配信に使っています。登録はSubstackのページで行い、当サイトはメールアドレスを受け取りません。</li>'
     slugs = {t["name"]: t["slug"] for t in types}
     for mode, pg in pages.items():
         mode = pg.get("mode", mode)
