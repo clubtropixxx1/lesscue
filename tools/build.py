@@ -271,7 +271,7 @@ def type_body(t, arts, types):
                    + "".join(groups) + "</section>")
     lst = static_list(hits, heading=None) if hits else '<p class="empty">この型の記事は準備中です。</p>'
     out.append(f'<section class="tp-sec"><h3><span class="mk">{e(t["name"])}の参考になる記事</span></h3>'
-               '<p class="tp-note">実際に読んで運営が厳選した記事です。記事タイトルを押すと、元の記事（外部サイト）が開きます。★の数はおすすめ度です。他の人におすすめしたいときは「参考になった」ボタンを押してください。</p>'
+               '<p class="tp-note">実際に読んで運営が厳選した記事です。記事タイトルを押すと、元の記事（外部サイト）が開きます。<span class="rate">★</span>の数はおすすめ度です。他の人におすすめしたいときは「参考になった」ボタンを押してください。</p>'
                f'{lst}</section>')
     others = "".join(f'<a href="/type/{o["slug"]}/">{e(o["name"])}</a>' for o in types if o["slug"] != t["slug"])
     out.append(f'<nav class="tp-others" aria-label="ほかの型"><span>ほかの型</span>{others}</nav>')
