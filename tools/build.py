@@ -369,11 +369,11 @@ def main():
                  '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
     sub = SUBSTACK_URL.rstrip("/").replace('"', "")
     nl_block = (f'<div class="wrap-nl" data-only="top article type data policy"><div class="nl">'
-                '<span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けするメルマガです（配信はSubstack）。</p>'
-                f'<a class="nl-btn" href="{sub}/subscribe" target="_blank" rel="noopener" onclick="track(\'newsletter_click\',{{where:document.body.dataset.page}})">無料で登録する</a>'
+                '<span class="nl-tag">無料・週1回</span><p class="nl-h">レスられ総研メルマガを受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けします。</p>'
+                f'<a class="nl-btn" href="{sub}/subscribe" target="_blank" rel="noopener" onclick="track(\'newsletter_click\',{{where:document.body.dataset.page}})">無料で登録する</a><small class="nl-note">登録はメール配信サービスSubstackで行います</small>'
                 '</div></div>') if sub else ""
     if sub:
-        ga_policy += '\n        <li>Substack（Substack Inc.）：週報の配信に使っています。登録はSubstackのページで行い、当サイトはメールアドレスを受け取りません。</li>'
+        ga_policy += '\n        <li>Substack（Substack Inc.）：メルマガの配信に使っています。登録はSubstackのページで行い、当サイトはメールアドレスを受け取りません。</li>'
     slugs = {t["name"]: t["slug"] for t in types}
     for mode, pg in pages.items():
         mode = pg.get("mode", mode)

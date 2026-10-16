@@ -287,6 +287,7 @@ body.sb-on{padding-bottom:84px}
 .nl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:10px;background:var(--navy);color:var(--on-accent);font-size:14.5px;font-weight:700;text-decoration:none}
 .nl-btn::after{content:"→";margin-left:6px}
 .nl-btn:hover{opacity:.9}
+.nl-note{display:block;margin-top:8px;font-size:11.5px;color:var(--muted)}
 .nl small{display:block;margin-top:8px;font-size:11.5px;color:var(--muted)}
 .nl small a{color:var(--muted)}
 .wrap-nl{margin-top:32px}
@@ -571,7 +572,7 @@ DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="{{PAGE_MODE}}";
 const track=(n,p)=>{try{if(window.gtag)gtag("event",n,p||{});}catch(e){}};
 const SUBSTACK="{{SUBSTACK_URL}}";
-const nlForm=where=>SUBSTACK?`<div class="nl"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けするメルマガです（配信はSubstack）。</p><a class="nl-btn" href="${SUBSTACK}/subscribe" target="_blank" rel="noopener" onclick="track('newsletter_click',{where:'${where}'})">無料で登録する</a></div>`:"";
+const nlForm=where=>SUBSTACK?`<div class="nl"><span class="nl-tag">無料・週1回</span><p class="nl-h">レスられ総研メルマガを受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けします。</p><a class="nl-btn" href="${SUBSTACK}/subscribe" target="_blank" rel="noopener" onclick="track('newsletter_click',{where:'${where}'})">無料で登録する</a><small class="nl-note">登録はメール配信サービスSubstackで行います</small></div>`:"";
 const TSLUG={{TYPE_SLUGS}};
 {const g=document.getElementById("nl-greet"); if(g&&typeof nlForm==="function")g.innerHTML=nlForm("about_greet");}
 const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
