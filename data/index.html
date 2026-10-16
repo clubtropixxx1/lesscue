@@ -715,9 +715,8 @@ function renderQuiz(){
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     ${TSLUG[t]?`<figure class="res-card"><img src="/ogp/type-${TSLUG[t]}.png" alt="${t}の診断結果カード" width="1200" height="630"></figure>`:""}
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
-    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>${nlForm("quiz")}`;
+    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る →</a></div>${nlForm("quiz")}`;
   bindHints(el); if(typeof markRead==="function")markRead();
-  $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];sbar(null);renderQuiz();};
   sbar(t);
 }
 /* ---- 診断結果の下部バー（スマホは共有シートで画像つきシェア、PCはXへ） ---- */
