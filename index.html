@@ -271,9 +271,8 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .sharebar{position:fixed;left:0;right:0;bottom:0;z-index:19;display:flex;gap:10px;align-items:center;padding:12px max(14px,calc(50% - 300px)) calc(12px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.12);transform:translateY(110%);visibility:hidden}
 .sharebar.on{transform:none;visibility:visible}
 .sharebar button,.sharebar a{flex:1;display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:10px;font:inherit;font-size:min(14.5px,3.7vw);font-weight:700;white-space:nowrap;text-decoration:none;cursor:pointer}
-.sb-share{flex:0 0 auto!important;padding:0 16px;background:var(--surface);color:var(--ink);border:1px solid var(--line)}
-.sb-post{flex:0 0 48px!important;padding:0!important;gap:0!important;background:var(--ink);color:var(--bg)}
-.sb-post::before{content:"𝕏";font-size:19px}
+.sb-post{padding:0 12px!important;background:var(--ink);color:var(--bg)}
+.sb-post::before{content:"𝕏";font-size:16px;margin-right:6px}
 .res-card{margin:0;max-width:480px}
 .res-card img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line)}
 .res-card figcaption{margin-top:6px;font-size:12px;color:var(--muted)}
@@ -723,36 +722,21 @@ function renderQuiz(){
   sbar(t);
 }
 /* ---- 診断結果の下部バー（スマホは共有シートで画像つきシェア、PCはXへ） ---- */
-const SB={t:null,file:null,closed:false,seen:false};
+const SB={t:null,closed:false,seen:false};
 function sbar(t){
   let b=$("#sharebar");
   if(!t){if(b)b.classList.remove("on");document.body.classList.remove("sb-on");SB.t=null;return;}
-  SB.t=t; SB.file=null; SB.closed=false;
+  SB.t=t; SB.closed=false;
   if(!b){b=document.createElement("div");b.id="sharebar";b.className="sharebar";document.body.appendChild(b);
     new IntersectionObserver(es=>{SB.seen=es[0].isIntersecting;sbShow();}).observe($("#quiz"));}
-  b.innerHTML=`<a class="sb-post share-x" href="${shareURL(t)}" target="_blank" rel="noopener" aria-label="Xでシェア"></a>${navigator.share?`<button class="sb-share" type="button">シェア</button>`:""}<a class="sb-go" href="${typeURL(t)}">${t}の解説 →</a><button class="sb-x" type="button" aria-label="閉じる">×</button>`;
+  b.innerHTML=`<a class="sb-post share-x" href="${shareURL(t)}" target="_blank" rel="noopener">結果をXでシェア</a><a class="sb-go" href="${typeURL(t)}">${t}の解説</a><button class="sb-x" type="button" aria-label="閉じる">×</button>`;
   b.querySelector(".sb-x").onclick=()=>{SB.closed=true;sbShow();};
-  const bs=b.querySelector(".sb-share"); if(bs)bs.onclick=sbShare;
-  if(navigator.canShare&&TSLUG[t])fetch(`/ogp/type-${TSLUG[t]}.png`).then(r=>r.ok?r.blob():null).then(bl=>{
-    if(bl&&SB.t===t){const f=new File([bl],`lesscue-${TSLUG[t]}.png`,{type:"image/png"}); if(navigator.canShare({files:[f]}))SB.file=f;}}).catch(()=>{});
   setTimeout(sbShow,600);
 }
 function sbShow(){
   const b=$("#sharebar"); if(!b)return;
   const on=!!SB.t&&SB.seen&&!SB.closed&&!$("#nextbox:not([hidden])");
   b.classList.toggle("on",on); document.body.classList.toggle("sb-on",on);
-}
-async function sbShare(){
-  const t=SB.t, url="https://lesscue.com"+typeURL(t);
-  const text=`レスられ総研の「セックスレス10秒診断」で、私は「${t}」でした。あなたはどの型？`;
-  if(navigator.share){
-    try{
-      if(SB.file)await navigator.share({files:[SB.file],text:text+"\n"+url});
-      else await navigator.share({title:"セックスレス10秒診断",text,url});
-      track("share_native",{type:t,img:SB.file?1:0}); return;
-    }catch(e){if(e.name==="AbortError")return;}
-  }
-  track("share_x",{type:t}); open(shareURL(t),"_blank","noopener");
 }
 /* ---- データで見る ---- */
 const ALL_NUMS=[{"h": "夫婦のセックスレス傾向", "c": "日本", "t": "2023年", "o": "20〜50代の既婚男女4,000人", "su": "https://prtimes.jp/main/html/rd/p/000000012.000104522.html", "sm": "PR TIMES（レゾンデートル株式会社）", "v": 68.2, "lb": "全体", "ord": 1, "top": true}, {"h": "完全なセックスレス状態", "c": "日本", "t": "2023年", "o": "20〜50代の既婚男女4,000人", "su": "https://prtimes.jp/main/html/rd/p/000000012.000104522.html", "sm": "PR TIMES（レゾンデートル株式会社）", "v": 43.9, "lb": "全体", "ord": 2, "top": true}, {"h": "レス当事者の妻に聞いた「拒否しているのはどちらか」（20〜30代）", "c": "日本", "t": "2023年", "o": "完全レスと答えた20〜30代の既婚女性155人（20代75人・30代80人の結果を当サイトで合算）", "su": "https://healmate.jp/survey/", "sm": "レゾンデートル株式会社", "parts": [["妻が拒否（妻拒否型）", 32.3], ["夫が拒否（夫拒否型）", 9.7], ["どちらでもない（何となく）", 58.1]], "v": 32.3, "lb": "妻が拒否（妻拒否型）", "ord": 2.5, "top": true}, {"h": "レスについて夫婦で話し合ったことがない（女性）", "c": "日本", "t": "2024年", "o": "20〜59歳のセックスレス当事者の女性303人", "su": "https://www.value-press.com/pressrelease/338350", "sm": "value press（レゾンデートル株式会社）", "v": 75.9, "lb": "女性", "ord": 3, "top": true}, {"h": "レスを誰にも相談したことがない", "c": "日本", "t": "2024年", "o": "20〜59歳のセックスレス当事者（男性320人・女性303人）", "su": "https://www.value-press.com/pressrelease/338350", "sm": "value press（レゾンデートル株式会社）", "br": [["男性", 74.1], ["女性", 82.2]], "ord": 3.5, "top": false}, {"h": "出産後にセックスの頻度が「減った」（レスではない子あり夫婦）", "c": "日本", "t": "2025年", "o": "月1回以上の性生活があり、子どもがいる20〜59歳の既婚男女466人", "su": "https://www.value-press.com/pressrelease/370105", "sm": "value press（レゾンデートル株式会社）", "parts": [["30代", 51.7], ["20代", 38.4], ["40代", 47.9], ["50代", 52.5]], "v": 51.7, "lb": "30代", "ord": 4, "top": false}, {"h": "既婚者で週1回以上セックスしている割合（アメリカ）", "c": "米国", "t": "2024年", "o": "米国の18〜64歳の既婚男女（総合社会調査GSS）", "su": "https://ifstudies.org/blog/the-sex-recession-the-share-of-americans-having-regular-sex-keeps-dropping", "sm": "Institute for Family Studies", "v": 46, "lb": "全体", "ord": 10, "top": true}];
