@@ -26,6 +26,8 @@ CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # 記事の「参考になった」ボタンのカウント保存先（Google Apps Script のウェブアプリURL。tools/like_counter.gs）。
 # 空欄のあいだはボタンを出さない
 # Googleアナリティクスの測定ID（G-XXXXXXX）。空欄のあいだは計測タグも、プライバシー欄のGoogleアナリティクスの項目も出さない
+# シェア画像を作り直したら数字を上げる（Xなどのカード画像のキャッシュを更新させるため）
+OGP_VER = 2
 GA_ID = "G-V7E559CRKD"
 # 週報（Substack）の公開URL（例：https://lesscue.substack.com）。空欄のあいだは登録フォームを出さない
 SUBSTACK_URL = "https://lesscue.substack.com"
@@ -349,7 +351,7 @@ def main():
             "CANONICAL": SITE_URL + f"type/{t['slug']}/",
             "STATIC_LIST": "", "STATS_HIDDEN": " hidden",
             "TYPE_BODY": type_body(t, arts, types),
-            "OG_IMAGE": SITE_URL + f"ogp/type-{t['slug']}.png",
+            "OG_IMAGE": SITE_URL + f"ogp/type-{t['slug']}.png?v={OGP_VER}",
             "OG_ALT": f"セックスレスの型：{t['name']}（{t['def']}）｜レスられ総研",
             # 記事も解説もない型ページは中身が薄いので検索エンジンに登録しない
             "ROBOTS": "" if (n or t.get("essay")) else '<meta name="robots" content="noindex">',
