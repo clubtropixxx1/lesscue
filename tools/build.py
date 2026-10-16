@@ -267,7 +267,7 @@ def type_body(t, arts, types):
             groups.append(f'<h4 class="cloud-h{g}">{label}</h4><div class="cloud">{chips}</div>')
     if groups:
         out.append(f'<section class="tp-sec"><h3><span class="mk">{e(t["name"])}の解決のヒント</span></h3>'
-                   '<p class="tp-note">この型の厳選記事で推奨されている解決策です。タグを押すと、そのヒントの記事が表示されます。</p>'
+                   '<p class="tp-note">この型の厳選記事で推奨されている解決のヒントです。タグを押すと、その記事が一覧表示されます。</p>'
                    + "".join(groups) + "</section>")
     lst = static_list(hits, heading=None) if hits else '<p class="empty">この型の記事は準備中です。</p>'
     out.append(f'<section class="tp-sec"><h3><span class="mk">{e(t["name"])}の参考になる記事</span></h3>'
