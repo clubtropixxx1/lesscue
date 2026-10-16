@@ -547,7 +547,7 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <a href="/article/"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
   </nav>
 
-  <div class="wrap-nl" data-only="top article type data policy"><form class="nl" action="https://lesscue.substack.com/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:document.body.dataset.page})"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます（配信は<a href="https://lesscue.substack.com/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form></div>
+  <div class="wrap-nl" data-only="top article type data policy"><form class="nl" action="https://lesscue.substack.com/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:document.body.dataset.page})"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けするメルマガです（配信は<a href="https://lesscue.substack.com/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form></div>
   <footer>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のためのサイトです。10秒の診断であなたの「セックスレスの型」がわかり、その型に合った参考記事を、運営が1本ずつ読んで厳選したデータベースから探せます。</p>
     <p class="foot-links"><a href="/about/">このサイトについて</a><a href="/about/#greet">所長あいさつ</a><a href="/about/#policy">掲載の基準</a><a href="/policy/">免責事項・プライバシー</a><a href="/about/#contact">お問い合わせ</a></p>
@@ -574,7 +574,7 @@ DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="top";
 const track=(n,p)=>{try{if(window.gtag)gtag("event",n,p||{});}catch(e){}};
 const SUBSTACK="https://lesscue.substack.com";
-const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます（配信は<a href="${SUBSTACK}/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form>`:"";
+const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事の解説と所長のエッセイを、週1回お届けするメルマガです（配信は<a href="${SUBSTACK}/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form>`:"";
 const TSLUG={"妻拒否型": "tsuma-kyohi", "夫拒否型": "otto-kyohi", "流動的不仲型": "ryudo-funaka", "完全不仲型": "kanzen-funaka"};
 {const g=document.getElementById("nl-greet"); if(g&&typeof nlForm==="function")g.innerHTML=nlForm("about_greet");}
 const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
@@ -711,7 +711,7 @@ function renderQuiz(){
   const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
   const list=(hits.length?hits.slice(0,3):fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
-  el.innerHTML=`<div class="quiz-top"><span>セックスレス10秒診断の結果</span></div>
+  el.innerHTML=`<div class="quiz-top"><span>診断結果</span></div>
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
     ${TSLUG[t]?`<figure class="res-card"><img src="/ogp/type-${TSLUG[t]}.png" alt="${t}の診断結果カード" width="1200" height="630"></figure>`:""}
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
