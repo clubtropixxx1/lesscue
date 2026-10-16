@@ -271,7 +271,12 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .sharebar{position:fixed;left:0;right:0;bottom:0;z-index:19;display:flex;gap:10px;align-items:center;padding:12px max(14px,calc(50% - 300px)) calc(12px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.12);transform:translateY(110%);visibility:hidden}
 .sharebar.on{transform:none;visibility:visible}
 .sharebar button,.sharebar a{flex:1;display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:10px;font:inherit;font-size:min(14.5px,3.7vw);font-weight:700;white-space:nowrap;text-decoration:none;cursor:pointer}
-.sb-share{flex:0 0 40%!important;background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.sb-share{flex:0 0 auto!important;padding:0 16px;background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.sb-post{flex:0 0 48px!important;padding:0!important;gap:0!important;background:var(--ink);color:var(--bg)}
+.sb-post::before{content:"𝕏";font-size:19px}
+.res-card{margin:0;max-width:480px}
+.res-card img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--line)}
+.res-card figcaption{margin-top:6px;font-size:12px;color:var(--muted)}
 .sb-go{background:var(--navy);color:#fff;border:0}
 .sb-x{flex:0 0 32px!important;min-height:32px!important;border:0;background:none;color:var(--muted);font-size:18px!important}
 @media (prefers-reduced-motion:no-preference){.sharebar{transition:transform .28s ease,visibility .28s}}
@@ -704,12 +709,11 @@ function renderQuiz(){
   track("quiz_result",{type:t});
   const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
-  const list=(hits.length?hits.slice(0,5):fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
+  const list=(hits.length?hits.slice(0,3):fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
   el.innerHTML=`<div class="quiz-top"><span>セックスレス10秒診断の結果</span></div>${trail}
     <div class="result"><p>あなたの状況に近いのは</p><p class="result-type">${t}</p><p>${DESC[t]}</p></div>
-    <a class="share-x" href="${shareURL(t)}" target="_blank" rel="noopener">結果をXでシェアする</a>
+    ${TSLUG[t]?`<figure class="res-card"><img src="/ogp/type-${TSLUG[t]}.png" alt="${t}の診断結果カード" width="1200" height="630"><figcaption>結果をシェアすると、このカードが表示されます</figcaption></figure>`:""}
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
-    ${quizHints(hits,qs.ans.role)}
     <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>${nlForm("quiz")}`;
   bindHints(el); if(typeof markRead==="function")markRead();
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];sbar(null);renderQuiz();};
@@ -723,9 +727,9 @@ function sbar(t){
   SB.t=t; SB.file=null; SB.closed=false;
   if(!b){b=document.createElement("div");b.id="sharebar";b.className="sharebar";document.body.appendChild(b);
     new IntersectionObserver(es=>{SB.seen=es[0].isIntersecting;sbShow();}).observe($("#quiz"));}
-  b.innerHTML=`<button class="sb-share" type="button">結果をシェア</button><a class="sb-go" href="${typeURL(t)}">${t}の解説を読む</a><button class="sb-x" type="button" aria-label="閉じる">×</button>`;
+  b.innerHTML=`<a class="sb-post share-x" href="${shareURL(t)}" target="_blank" rel="noopener" aria-label="Xでシェア"></a>${navigator.share?`<button class="sb-share" type="button">シェア</button>`:""}<a class="sb-go" href="${typeURL(t)}">${t}の解説 →</a><button class="sb-x" type="button" aria-label="閉じる">×</button>`;
   b.querySelector(".sb-x").onclick=()=>{SB.closed=true;sbShow();};
-  b.querySelector(".sb-share").onclick=sbShare;
+  const bs=b.querySelector(".sb-share"); if(bs)bs.onclick=sbShare;
   if(navigator.canShare&&TSLUG[t])fetch(`/ogp/type-${TSLUG[t]}.png`).then(r=>r.ok?r.blob():null).then(bl=>{
     if(bl&&SB.t===t){const f=new File([bl],`lesscue-${TSLUG[t]}.png`,{type:"image/png"}); if(navigator.canShare({files:[f]}))SB.file=f;}}).catch(()=>{});
   setTimeout(sbShow,600);
