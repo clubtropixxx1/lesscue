@@ -696,7 +696,7 @@ function quizHints(arts,role){
 }
 function shareURL(t){
   const text=`セックスレス10秒診断で、私は「${t}」でした。あなたはどの型？｜レスられ総研`;
-  return "https://x.com/intent/post?text="+encodeURIComponent(text+"\nhttps://lesscue.com"+typeURL(t));
+  return "https://x.com/intent/post?text="+encodeURIComponent(text+"\nhttps://lesscue.com"+typeURL(t)+"?ref=x");
 }
 function kindColor(k){return (KINDS.find(x=>x[0]===k)||KINDS[5])[1];}
 function renderQuiz(){
