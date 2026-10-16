@@ -27,7 +27,7 @@ CONTACT_EMAIL = "clubtropixxx1@gmail.com"
 # 空欄のあいだはボタンを出さない
 # Googleアナリティクスの測定ID（G-XXXXXXX）。空欄のあいだは計測タグも、プライバシー欄のGoogleアナリティクスの項目も出さない
 # シェア画像を作り直したら数字を上げる（Xなどのカード画像のキャッシュを更新させるため）
-OGP_VER = 2
+OGP_VER = 3
 GA_ID = "G-V7E559CRKD"
 # 週報（Substack）の公開URL（例：https://lesscue.substack.com）。空欄のあいだは登録フォームを出さない
 SUBSTACK_URL = "https://lesscue.substack.com"
