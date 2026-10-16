@@ -585,8 +585,8 @@ function renderTypes(){
     const n=t==="すべて"?DATA.length:DATA.filter(d=>d.ty.includes(t)).length;
     // TOPでは記事一覧ページへのリンク、記事一覧ページではその場で絞り込むボタン
     const z=n?"":" zero";
-    if(PAGE==="top")return `<a class="type${z}" href="${t==="すべて"?"/article/":typeURL(t)}"><b>${t}</b><small>${n}件</small></a>`;
-    return `<button class="type${z}" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b><small>${n}件</small></button>`;
+    if(PAGE==="top")return `<a class="type${z}" href="${t==="すべて"?"/article/":typeURL(t)}"><b>${t}</b></a>`;
+    return `<button class="type${z}" id="type-${t}" aria-pressed="${st.type===t}" data-t="${t}"><b>${t}</b></button>`;
   }).join("");
   $("#types").querySelectorAll(".type").forEach(b=>b.onclick=()=>{st.type=b.dataset.t;render();$("#typehead").scrollIntoView({behavior:"smooth",block:"start"});});
 }
@@ -629,7 +629,7 @@ const card=(d,lite)=>`
       </article>`;
 function renderTop(){
   $("#list").innerHTML=`<div class="list">${DATA.slice(0,5).map(d=>card(d,true)).join("")}</div>`;
-  $("#more-arts").textContent=`記事一覧を見る（全${DATA.length}件）→`;
+  $("#more-arts").textContent=`記事一覧を見る →`;
 }
 function syncURL(){
   const p=new URLSearchParams(); if(st.type!=="すべて")p.set("type",st.type);
@@ -694,7 +694,7 @@ function renderQuiz(){
   const trail=qs.trail.length?`<div class="trail">${qs.trail.map(t=>`<i>${t}</i>`).join("")}</div>`:"";
   if(qs.step){
     const s=Q[qs.step];
-    el.innerHTML=`<div class="quiz-top"><span>セックスレス10秒診断</span><small>質問 ${qs.trail.length+1}</small></div>
+    el.innerHTML=`<div class="quiz-top"><span>${qs.trail.length?"":"まずは"}セックスレス10秒診断</span><small>質問 ${qs.trail.length+1}</small></div>
       <p class="q">${s.q}</p>
       <div class="answers">${s.a.map(([l,v])=>`<button class="ans" id="ans-${qs.step}-${v}" data-v="${v}" data-l="${l}">${l}</button>`).join("")}</div>${trail}`;
     el.querySelectorAll(".ans").forEach(b=>b.onclick=()=>{
@@ -713,7 +713,7 @@ function renderQuiz(){
     <a class="share-x" href="${shareURL(t)}" target="_blank" rel="noopener">結果をXでシェアする</a>
     <div><p style="margin:0;font-size:13px;font-weight:700">${hits.length?"この型の人に読んでほしい記事":"この型の記事は準備中です。まずは新着の記事から"}</p><div class="picks">${list}</div></div>
     ${quizHints(hits,qs.ans.role)}
-    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る${hits.length?`（全${hits.length}件）`:""} →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>${nlForm("quiz")}`;
+    <div class="quiz-actions"><a class="link-btn" href="${typeURL(t)}">${t}の解説と記事を見る →</a><button class="link-btn" id="quiz-reset">もう一度診断する</button></div>${nlForm("quiz")}`;
   bindHints(el); if(typeof markRead==="function")markRead();
   $("#quiz-reset").onclick=()=>{qs.step="role";qs.ans={};qs.trail=[];sbar(null);renderQuiz();};
   sbar(t);
