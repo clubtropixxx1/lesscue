@@ -172,9 +172,11 @@ a.qc:hover{border-color:var(--navy)}
   .qflow{width:max-content;max-width:78%;padding:7px 14px;font-size:11.5px}
   .qflow b{font-size:14.5px}
 }
-.tp-cta{margin:4px 0 0;font-size:13px}
-.tp-cta a{color:var(--accent);font-weight:700;text-decoration:none}
-.tp-cta a:hover{text-decoration:underline}
+.tp-go{display:flex;flex-direction:column;gap:2px;margin:14px 0 0;max-width:340px;padding:11px 16px;border-radius:10px;background:var(--navy);color:var(--on-accent);text-decoration:none}
+.tp-go small{font-size:11.5px;opacity:.85}
+.tp-go span{font-weight:700;font-size:14.5px}
+.tp-go span::after{content:" →"}
+.tp-go:hover{opacity:.9}
 .crumb{margin-top:18px;font-size:12px;color:var(--muted)}
 .crumb a{color:var(--accent);text-decoration:none}
 .tp-head{margin-top:14px}
