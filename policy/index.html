@@ -274,8 +274,9 @@ details p{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .sb-x{flex:0 0 32px!important;min-height:32px!important;border:0;background:none;color:var(--muted);font-size:18px!important}
 @media (prefers-reduced-motion:no-preference){.sharebar{transition:transform .28s ease,visibility .28s}}
 body.sb-on{padding-bottom:84px}
-.nl{margin-top:18px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
-.nl-h{margin:0 0 4px;font-weight:700;font-size:14.5px;color:var(--ink)}
+.nl{margin-top:18px;padding:16px 18px;border:1px solid var(--line);border-top:3px solid var(--hot);border-radius:14px;background:var(--surface)}
+.nl-tag{display:inline-block;margin:0 0 6px;padding:1px 9px;border-radius:999px;background:var(--hot-soft);color:var(--hot);font-size:11.5px;font-weight:700;letter-spacing:.04em}
+.nl-h{margin:0 0 4px;font-weight:700;font-size:15.5px;color:var(--ink)}
 .nl-s{margin:0 0 10px;font-size:12.5px;color:var(--muted);line-height:1.6}
 .nl-s a{color:inherit;text-decoration:underline;text-underline-offset:2px}
 .nl-row{display:flex;gap:8px;flex-wrap:wrap}
@@ -537,11 +538,11 @@ form.contact button{align-self:flex-start;margin-top:10px;font:inherit;font-size
     <a href="/article/"><small>悩み・解決策・体験記を型別に</small><span>記事一覧を見る</span></a>
   </nav>
 
-  <div class="wrap-nl" data-only="top article type data about policy"><form class="nl" action="https://lesscue.substack.com/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:document.body.dataset.page})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます（配信は<a href="https://lesscue.substack.com/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form></div>
+  <div class="wrap-nl" data-only="top article type data about policy"><form class="nl" action="https://lesscue.substack.com/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:document.body.dataset.page})"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます（配信は<a href="https://lesscue.substack.com/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form></div>
   <footer>
     <p>レスられ総研は、セックスレスに悩む「レス山さん」（パートナーからレスられている人）のためのサイトです。10秒の診断であなたの「セックスレスの型」がわかり、その型に合った参考記事を、運営が1本ずつ読んで厳選したデータベースから探せます。</p>
     <p class="foot-links"><a href="/about/">このサイトについて</a><a href="/about/#greet">所長あいさつ</a><a href="/about/#policy">掲載の基準</a><a href="/policy/">免責事項・プライバシー</a><a href="/about/#contact">お問い合わせ</a></p>
-    <p class="updated">最終更新：2026.10.15</p>
+    <p class="updated">最終更新：2026.10.16</p>
     <p class="copy"><small>© 2026 レスられ総研</small></p>
   </footer>
 </div>
@@ -564,7 +565,7 @@ DATA.sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
 const PAGE="policy";
 const track=(n,p)=>{try{if(window.gtag)gtag("event",n,p||{});}catch(e){}};
 const SUBSTACK="https://lesscue.substack.com";
-const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます（配信は<a href="${SUBSTACK}/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form>`:"";
+const nlForm=where=>SUBSTACK?`<form class="nl" action="${SUBSTACK}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track('newsletter_submit',{where:'${where}'})"><span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます（配信は<a href="${SUBSTACK}/" target="_blank" rel="noopener">Substack</a>）。</p><div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div></form>`:"";
 const TSLUG={"妻拒否型": "tsuma-kyohi", "夫拒否型": "otto-kyohi", "流動的不仲型": "ryudo-funaka", "完全不仲型": "kanzen-funaka"};
 const typeURL=t=>TSLUG[t]?`/type/${TSLUG[t]}/`:"/article/";
 const $=s=>document.querySelector(s);

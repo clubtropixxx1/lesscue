@@ -369,7 +369,7 @@ def main():
                  '<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">オプトアウト アドオン</a>で収集を止められます。</li>') if gid else ""
     sub = SUBSTACK_URL.rstrip("/").replace('"', "")
     nl_block = (f'<div class="wrap-nl" data-only="top article type data about policy"><form class="nl" action="{sub}/api/v1/free?nojs=true" method="post" target="_blank" onsubmit="track(\'newsletter_submit\',{{where:document.body.dataset.page}})">'
-                '<p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます'
+                '<span class="nl-tag">無料・週1回</span><p class="nl-h">週報「今週のレスられ総研」をメールで受け取る</p><p class="nl-s">新着記事と所長のひとことを、週1回お届けします。無料・いつでも解除できます'
                 f'（配信は<a href="{sub}/" target="_blank" rel="noopener">Substack</a>）。</p>'
                 '<div class="nl-row"><input type="email" name="email" required placeholder="メールアドレス" autocomplete="email" aria-label="メールアドレス"><button type="submit">登録する</button></div>'
                 f'</form></div>') if sub else ""
