@@ -94,7 +94,7 @@
 ## シェア画像
 
 - `ogp.png`（1200×630。noteのカードは中央を正方形に切り取るので、文字はすべて中央の幅550px以内に収める。作り直したら `tools/build.py` の `OGP_VER` を上げてXのキャッシュを更新）。元データは `tools/ogp.html`（フォントは @fontsource の Shippori Mincho／Zen Kaku Gothic New を npm で取得して Playwright で撮影）
-- `/shindan/`：X用に診断を前面に出したカード（`ogp/shindan.png`、元は `tools/ogp_shindan_a.html`）を出すためのページ。中身はTOPと同じで、canonicalはTOP・noindex・sitemap対象外。GAではページパス `/shindan/` で区別できる
+- `/shindan/`：X用に診断を前面に出したカード（`ogp/shindan.png`、元は `tools/ogp_shindan_a.html`）を出すためのページ。中身はTOPと同じで、canonicalはTOP（noindexは付けない）・sitemap対象外。GAではページパス `/shindan/` で区別できる
 - 型ページ用のシェア画像は `ogp/type-<slug>.png`（診断結果をXでシェアしたときのカード）。元データは `tools/ogp_type.html?t=型名`。型ごとの濃い背景＋極太明朝の型名＋赤い「認定」判子＋いらすとやのイラスト。フォントは `tools/fonts/`、イラストは `tools/illust/<slug>.png`（素材の再配布にならないよう git に入れない。博士が手元に持っている）
 - 流動的不仲型のイラストは「スマホを見る妻と横で考え込む夫」で暫定。いい絵が見つかれば差し替える
 - 既読と「次に読むなら」：記事リンクを押すとURLをブラウザの localStorage（lr_read）に保存し、一覧に「既読」を表示。外部記事から戻ってきたら画面下に同じ型の未読記事を2件すすめる（ログイン不要・サーバーには送らない）

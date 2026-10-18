@@ -340,7 +340,7 @@ def main():
             "STATIC_LIST": "",
             "STATS_HIDDEN": "",
         },
-        # Xで診断を前面に出すための別カード用ページ。中身はTOPと同じで、検索エンジンにはTOPを正とする
+        # Xで診断を前面に出すための別カード用ページ。中身はTOPと同じで、canonicalでTOPを正とする（noindexを併用するとTOPまで巻き込む恐れがあるので付けない）
         "shindan": {
             "mode": "top",
             "path": ROOT / "shindan" / "index.html",
@@ -352,7 +352,6 @@ def main():
             "STATS_HIDDEN": "" if any(c["top"] for c in stats) else " hidden",
             "OG_IMAGE": SITE_URL + f"ogp/shindan.png?v={OGP_VER}",
             "OG_ALT": "あなたのセックスレスは、どの型？ セックスレス10秒診断｜レスられ総研",
-            "ROBOTS": '<meta name="robots" content="noindex">',
         },
     }
     types = json.loads((ROOT / "src" / "types.json").read_text(encoding="utf-8"))["types"]
