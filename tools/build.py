@@ -340,6 +340,20 @@ def main():
             "STATIC_LIST": "",
             "STATS_HIDDEN": "",
         },
+        # Xで診断を前面に出すための別カード用ページ。中身はTOPと同じで、検索エンジンにはTOPを正とする
+        "shindan": {
+            "mode": "top",
+            "path": ROOT / "shindan" / "index.html",
+            "TITLE": "セックスレス10秒診断｜あなたのセックスレスはどの型？｜レスられ総研",
+            "DESCRIPTION": "二択に答えるだけで、あなたのセックスレスが妻拒否型・夫拒否型・流動的不仲型・完全不仲型のどれかを判定。型に合った解説と厳選記事をおすすめします。",
+            "CANONICAL": SITE_URL,
+            "OG_URL": SITE_URL + "shindan/",
+            "STATIC_LIST": static_list(arts[:5], heading=None, lite=True),
+            "STATS_HIDDEN": "" if any(c["top"] for c in stats) else " hidden",
+            "OG_IMAGE": SITE_URL + f"ogp/shindan.png?v={OGP_VER}",
+            "OG_ALT": "あなたのセックスレスは、どの型？ セックスレス10秒診断｜レスられ総研",
+            "ROBOTS": '<meta name="robots" content="noindex">',
+        },
     }
     types = json.loads((ROOT / "src" / "types.json").read_text(encoding="utf-8"))["types"]
     for t in types:
@@ -358,6 +372,7 @@ def main():
         }
         (ROOT / "type" / t["slug"]).mkdir(parents=True, exist_ok=True)
     (ROOT / "policy").mkdir(exist_ok=True)
+    (ROOT / "shindan").mkdir(exist_ok=True)
     gid = re.sub(r"[^A-Z0-9-]", "", GA_ID.upper())
     # ?notrack を一度開いたブラウザでは計測しない（運営者の自分のアクセスを除外する用）。?track で解除
     ga_tag = ("<script>(function(){var q=location.search,k='lr_notrack';"
@@ -385,6 +400,7 @@ def main():
                   .replace("{{TYPE_SLUGS}}", js_json(slugs))
                   .replace("{{TYPE_BODY}}", pg.get("TYPE_BODY", ""))
                   .replace("{{ROBOTS}}", pg.get("ROBOTS", ""))
+                  .replace("{{OG_URL}}", html.escape(pg.get("OG_URL", pg["CANONICAL"])))
                   .replace("{{OG_IMAGE}}", pg.get("OG_IMAGE", SITE_URL + f"ogp.png?v={OGP_VER}"))
                   .replace("{{OG_ALT}}", html.escape(pg.get("OG_ALT", "レスられ総研 ―私はレス山さんを救いたい― 10秒診断・セックスレス解消のための厳選記事データベース")))
                   .replace("{{QUAD_ABOUT}}", quad_html(types) if mode == "about" else "")
