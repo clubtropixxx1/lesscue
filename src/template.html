@@ -710,6 +710,7 @@ function renderQuiz(){
   }
   const t=judge(qs.ans);
   track("quiz_result",{type:t});
+  try{localStorage.setItem("lr_quizdone","1");}catch(e){}
   const hits=DATA.filter(d=>d.ty.includes(t)).sort((x,y)=>(y.w??y.r??0)-(x.w??x.r??0)||(y.d||"").localeCompare(x.d||""));
   const fall=hits.length?[]:DATA.slice(0,2);
   const list=(hits.length?hits.slice(0,3):fall).map(d=>`<div class="pick" style="--c:var(${kindColor(d.k)})"><a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a><small>${d.o?`<span class="own">所長の考察</span>　`:d.r?`<span class="rate">${"★".repeat(d.r)}<i>${"★".repeat(3-d.r)}</i></span>　`:""}${d.k}・${esc(d.m)}</small></div>`).join("");
@@ -738,6 +739,19 @@ function sbShow(){
   const on=!!SB.t&&SB.seen&&!SB.closed&&!$("#nextbox:not([hidden])");
   b.classList.toggle("on",on); document.body.classList.toggle("sb-on",on);
 }
+/* ---- 型ページ（スマホ）：画面下に診断ボタンを固定。診断済みのブラウザでは出さない ---- */
+(function(){
+  if(PAGE!=="type"||!matchMedia("(max-width:600px)").matches)return;
+  let done=false; try{done=localStorage.getItem("lr_quizdone")==="1";}catch(e){}
+  if(done)return;
+  const b=document.createElement("div"); b.className="sharebar quizbar";
+  b.innerHTML='<a class="sb-go" href="/#quiz" onclick="track(\'quizbar_click\',{})">10秒で簡単診断！ あなたはどの型？</a><button class="sb-x" type="button" aria-label="閉じる">×</button>';
+  document.body.appendChild(b);
+  const show=on=>{b.classList.toggle("on",on);document.body.classList.toggle("sb-on",on);};
+  b.querySelector(".sb-x").onclick=()=>{b.remove();document.body.classList.remove("sb-on");};
+  setTimeout(()=>show(!document.querySelector("#nextbox:not([hidden])")),800);
+  new MutationObserver(()=>{if(b.isConnected)show(!document.querySelector("#nextbox:not([hidden])"));}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["hidden"]});
+})();
 /* ---- データで見る ---- */
 const ALL_NUMS={{STATS_JSON}};
 const NUMS=PAGE==="top"?ALL_NUMS.filter(n=>n.top):ALL_NUMS;
